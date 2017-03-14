@@ -1,5 +1,5 @@
 package boundaries;
 
-public class test {
+public class GUI {
 
 }
