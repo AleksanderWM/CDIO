@@ -1,48 +1,40 @@
 package entities;
 
-import controllers.Game;
-
-public abstract class Fee implements Field {
-	//ATTRIBUTES
-	
-	int fee;
-	String description;
-	String title;
-	int number;
+public class Go extends Fee {
 
 	@Override
 	public void landOnField() {
-		
+		super.landOnField();
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return super.getDescription();
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		description = desc;
+		super.setDescription(desc);
 	}
 
 	@Override
 	public String getTitle() {
-		return title;
+		return super.getTitle();
 	}
 
 	@Override
 	public void setTitle(String titl) {
-		title = titl;
+		super.setTitle(titl);
 	}
 
 	@Override
 	public int getNumber() {
-		return number;
+		return super.getNumber();
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		number = numb;
+		super.setNumber(numb);
 	}
 
 }

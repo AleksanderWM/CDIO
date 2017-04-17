@@ -1,28 +1,26 @@
 package entities;
 
-import controllers.Game;
+public class Miscellaneous implements Field {
 
-public abstract class Fee implements Field {
 	//ATTRIBUTES
 	
-	int fee;
 	String description;
 	String title;
 	int number;
-
+	
 	@Override
 	public void landOnField() {
-		
+
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return null;
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		description = desc;
+
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public abstract class Ownable implements Field {
 	int rent;
 	Player owner;
 	boolean mortgage;
+	int number;
 	
 	//METHODS
 	
@@ -38,8 +39,8 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the rent of a field
 	 */
-	public void setRent(){
-		
+	public void setRent(int ren){
+		rent = ren;
 	}
 	
 	/**
@@ -54,8 +55,8 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the price of the field
 	 */
-	public void setPrice(){
-		
+	public void setPrice(int pri){
+		price = pri;
 	}
 	
 	/**
@@ -70,21 +71,21 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the owner of the field to an integer, corresponding to the player number (int) of the player owning the field
 	 */
-	public void setOwner(){
-		
+	public void setOwner(Player own){
+		owner = own;
 	}
 	
 	/**
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
-	public void getOwner(){
-		
+	public Player getOwner(){
+		return owner;
 	}
 	
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
 	 */
-	public void payRent(){
+	public void payRent(int own, int rent){
 		
 	}
 	
@@ -97,18 +98,28 @@ public abstract class Ownable implements Field {
 		
 	}
 	
+	@Override
+	public int getNumber() {
+		return number;
+	}
+
+	@Override
+	public void setNumber(int numb) {
+		number = numb;
+	}
+
 	/**
 	 * Sets a field to a mortgaged state
 	 */
 	public void mortgage(){
-		
+		mortgage = true;
 	}
 	
 	/**
 	 * Sets a field to an unmortgaged state
 	 */
 	public void unmortgage(){
-		
+		mortgage = false;
 	}
 	
 	/**
