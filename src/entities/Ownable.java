@@ -13,9 +13,46 @@ public abstract class Ownable implements Field {
 	Player owner;
 	boolean mortgage;
 	int number;
+	String description;
+	String title;
 	
 	//METHODS
 	
+	@Override
+	public void landOnField() {
+		
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String desc) {
+		description = desc;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public void setTitle(String titl) {
+		title = titl;
+	}
+
+	@Override
+	public int getNumber() {
+		return number;
+	}
+
+	@Override
+	public void setNumber(int numb) {
+		number = numb;
+	}
+
 	/**
 	 * Lets a player buy a field, deducting price and changing owner
 	 */
@@ -95,18 +132,7 @@ public abstract class Ownable implements Field {
 	 */
 	public int playerOwned(){
 		return (tages senere) ;
-		
-	}
-	
-	@Override
-	public int getNumber() {
-		return number;
-	}
 
-	@Override
-	public void setNumber(int numb) {
-		number = numb;
-	}
 
 	/**
 	 * Sets a field to a mortgaged state
