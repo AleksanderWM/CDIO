@@ -21,7 +21,7 @@ public interface Field {
 	/**
 	 * Method for setting description
 	 */
-	public void setDescription();
+	public void setDescription(String desc);
 	
 	/**
 	 * Method for getting title
@@ -31,7 +31,7 @@ public interface Field {
 	/**
 	 * Method for setting title
 	 */
-	public void setTitle();
+	public void setTitle(String titl);
 	
 	/**
 	 * Method for getting number
@@ -41,6 +41,6 @@ public interface Field {
 	/**
 	 * Method for setting number
 	 */
-	public void setNumber();
+	public void setNumber(int numb);
 	
 }
