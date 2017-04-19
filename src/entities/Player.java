@@ -59,7 +59,7 @@ public class Player {
 		this.colour = colour;
 	}
 	
-	Account getAccount(){
+	public Account getAccount(){
 		return account;
 	}
 	
