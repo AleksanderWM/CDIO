@@ -9,16 +9,18 @@ import java.sql.Statement;
 /**
  * @author Emil Jørgensen
  */
-public class dbConnector {
+public class DBconnector extends aDB {
 	    
 			//Connection attributes, defined in the constructor
-		private String HOST     = "";
-	    private int    PORT     = 0000;
-	    private String DATABASE = "";
-	    private String USERNAME = ""; 
-	    private String PASSWORD = "";
 	    private Connection connection;
 	    
+	    /**
+	     * Sets the current Database
+	     * @param Database name of current Database
+	     */
+	    public void setCurrentDB(String Database){
+	    	super.setDATABASE(Database);
+	    }
 	    /**
 	     * The connector method. Connects to a SQL Dataase
 	     * @param host The host name, "Localhost" if run locally
@@ -27,14 +29,13 @@ public class dbConnector {
 	     * @param user The username to the server
 	     * @param pass The password to the server
 	     */
-	    public dbConnector(String host, int port, String database, String user, String pass) {
-	    	HOST = host; PORT = port; DATABASE = database; USERNAME = user; PASSWORD = pass;
+	    public DBconnector() {
 	        try {
 	        	//TEMP Connection attempt validation
 	        		System.out.println("Connecting to Database " + DATABASE);
 				Class.forName("com.mysql.jdbc.Driver");
 				String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?useSSL=false";
-				connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+				connection = DriverManager.getConnection(url, USER, PASS);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 				System.exit(1);

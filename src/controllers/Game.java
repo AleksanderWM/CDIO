@@ -3,12 +3,12 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import controllers.dbCreator.tbCreator;
+import controllers.DBcreator.tbCreator;
 
 public class Game {
 
 	public static void main(String[] argm){
-		dbCreator Creator = new dbCreator();
+		DBcreator Creator = new DBcreator();
 			Creator.DeleteGameTemp();
 			
 			//CREATION
@@ -16,12 +16,13 @@ public class Game {
 			tbCreator.tbCreatorGame();
 			
 			//CONNECTION
-		dbConnector Connector = new dbConnector("Localhost", 3306, "game", "root", "sql123");
+		DBconnector Connector = new DBconnector();
+			Connector.setCurrentDB("Game");
 			if(Connector!=null)System.out.println("Connection sucessful...");
 			
 			//INSERTION
 			try {
-				Connector.doUpdate("INSERT into PLAYER values(1, 'Simon', 'Red', 11, 0);");
+				Connector.doUpdate("INSERT into PLAYER values(1, 'Simon', 'Red', 11, 2);");
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
@@ -33,7 +34,8 @@ public class Game {
 				while(rs.next()){
 					String n = rs.getString("name");
 					int j = rs.getInt("GetOutOfJail");
-					System.out.println(n + "\t" + j);
+					String c = rs.getString("Colour");
+					System.out.println(n + "\t" + j + "\t" + c);
 
 				}
 			} catch (SQLException e) {
