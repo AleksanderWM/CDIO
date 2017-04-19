@@ -6,13 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /** @author Emil Jørgensen */
-public class dbCreator {
-
-	 // Connector Variables
-	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost?useSSL=false";
-	   static final String USER = "root";
-	   static final String PASS = "sql123";
+public class DBcreator extends aDB {
 	   
 	   /**
 	    * Creation of database GAME
@@ -113,8 +107,8 @@ public class dbCreator {
 		    */
 		   public static void tbCreatorGame(){
 			   //Connection to Database
-			   dbConnector Connector = new dbConnector("Localhost",3306,"Game","root","sql123");
-			   
+			   DBconnector Connector = new DBconnector();
+			   Connector.setCurrentDB("Game");
 			   //CREATION of tables
 			   try {
 				Connector.doUpdate("CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Colour VARCHAR(10), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
@@ -146,7 +140,8 @@ public class dbCreator {
 	    * Creation of database CHANCE
 	    */
 	   public void DeleteGameTemp() {
-			   dbConnector Connector = new dbConnector("Localhost",3306,"Game","root","sql123");
+			   DBconnector Connector = new DBconnector();
+			   Connector.setCurrentDB("Game");
 			   try {
 				Connector.doUpdate("DROP DATABASE Game;");
 				//TEMP Deletion Validation
