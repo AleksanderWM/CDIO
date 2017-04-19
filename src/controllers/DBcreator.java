@@ -107,20 +107,19 @@ public class DBcreator extends aDB {
 		    */
 		   public static void tbCreatorGame(){
 			   //Connection to Database
-			   DBconnector Connector = new DBconnector();
-			   Connector.setCurrentDB("Game");
+			   DBconnector GameConnector = new DBconnector("Game");
 			   //CREATION of tables
 			   try {
-				Connector.doUpdate("CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Colour VARCHAR(10), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
-				Connector.doUpdate("CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(1), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
-				Connector.doUpdate("CREATE TABLE Field(FieldID INTEGER(2), Name VARCHAR(20), Description VARCHAR(140), PRIMARY KEY ( FieldID ));");
-				Connector.doUpdate("CREATE TABLE Ownable(FieldID INTEGER(2), Owner INTEGER(2), Price INTEGER(2), Mortgage INTEGER(4), PRIMARY KEY( FieldID ), FOREIGN KEY ( Owner ) REFERENCES Player( PlayerID ));");
-				Connector.doUpdate("CREATE TABLE Property(FieldID INTEGER(2), Rent INTEGER(4), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), HotelRent INTEGER(5), HousePrice INTEGER(4), House INTEGER(1), Hotel INTEGER(1), PRIMARY KEY ( FieldID ));");
-				Connector.doUpdate("CREATE TABLE Utility(FieldID INTEGER(2), StartFee INTEGER(5), PRIMARY KEY ( FieldID ));");
-				Connector.doUpdate("CREATE TABLE Railroad(FieldID INTEGER(2), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), PRIMARY KEY ( FieldID ));");
-				Connector.doUpdate("CREATE TABLE Jail(FieldID INTEGER(2), Player INTEGER(2), Turns INTEGER(2), PRIMARY KEY ( FieldID ), FOREIGN KEY ( Player ) REFERENCES Player( PlayerID ));");
-				Connector.doUpdate("CREATE TABLE Tax(FieldID INTEGER(2), TaxType INTEGER(1), Tax INTEGER (4), PRIMARY KEY ( FieldID ));");
-				Connector.doUpdate("CREATE TABLE ProcentageTax(TaxID INTEGER(1), procentageTax INTEGER(2), PRIMARY KEY ( TaxID ));");
+				GameConnector.doUpdate("CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Colour VARCHAR(10), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
+				GameConnector.doUpdate("CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(1), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
+				GameConnector.doUpdate("CREATE TABLE Field(FieldID INTEGER(2), Name VARCHAR(20), Description VARCHAR(140), PRIMARY KEY ( FieldID ));");
+				GameConnector.doUpdate("CREATE TABLE Ownable(FieldID INTEGER(2), Owner INTEGER(2), Price INTEGER(2), Mortgage INTEGER(4), PRIMARY KEY( FieldID ), FOREIGN KEY ( Owner ) REFERENCES Player( PlayerID ));");
+				GameConnector.doUpdate("CREATE TABLE Property(FieldID INTEGER(2), Rent INTEGER(4), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), HotelRent INTEGER(5), HousePrice INTEGER(4), House INTEGER(1), Hotel INTEGER(1), PRIMARY KEY ( FieldID ));");
+				GameConnector.doUpdate("CREATE TABLE Utility(FieldID INTEGER(2), StartFee INTEGER(5), PRIMARY KEY ( FieldID ));");
+				GameConnector.doUpdate("CREATE TABLE Railroad(FieldID INTEGER(2), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), PRIMARY KEY ( FieldID ));");
+				GameConnector.doUpdate("CREATE TABLE Jail(FieldID INTEGER(2), Player INTEGER(2), Turns INTEGER(2), PRIMARY KEY ( FieldID ), FOREIGN KEY ( Player ) REFERENCES Player( PlayerID ));");
+				GameConnector.doUpdate("CREATE TABLE Tax(FieldID INTEGER(2), TaxType INTEGER(1), Tax INTEGER (4), PRIMARY KEY ( FieldID ));");
+				GameConnector.doUpdate("CREATE TABLE ProcentageTax(TaxID INTEGER(1), procentageTax INTEGER(2), PRIMARY KEY ( TaxID ));");
 				//TEMP validation
 					System.out.println("Tables created successfully");
 			   		}catch (SQLException e) {
@@ -128,8 +127,8 @@ public class DBcreator extends aDB {
 			   		}
 			  //CLOSURE
 			   try{
-			         if(Connector!=null)
-			            Connector.close();;
+			         if(GameConnector!=null)
+			            GameConnector.close();;
 			      }catch(SQLException se){
 			         se.printStackTrace();
 			      }
@@ -140,18 +139,17 @@ public class DBcreator extends aDB {
 	    * Creation of database CHANCE
 	    */
 	   public void DeleteGameTemp() {
-			   DBconnector Connector = new DBconnector();
-			   Connector.setCurrentDB("Game");
+			   DBconnector GameConnector = new DBconnector("Game");
 			   try {
-				Connector.doUpdate("DROP DATABASE Game;");
+				GameConnector.doUpdate("DROP DATABASE Game;");
 				//TEMP Deletion Validation
 					System.out.println("Database Game deleted successfully");
 			   }catch (SQLException e) {
 					e.printStackTrace();
 			   } 
 			   try{
-			         if(Connector!=null)
-			            Connector.close();;
+			         if(GameConnector!=null)
+			            GameConnector.close();;
 			      }catch(SQLException se){
 			         se.printStackTrace();
 			      }

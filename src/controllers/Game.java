@@ -16,13 +16,12 @@ public class Game {
 			tbCreator.tbCreatorGame();
 			
 			//CONNECTION
-		DBconnector Connector = new DBconnector();
-			Connector.setCurrentDB("Game");
-			if(Connector!=null)System.out.println("Connection sucessful...");
+		DBconnector GameConnector = new DBconnector("Game");
+			if(GameConnector!=null)System.out.println("Connection sucessful...");
 			
 			//INSERTION
 			try {
-				Connector.doUpdate("INSERT into PLAYER values(1, 'Simon', 'Red', 11, 2);");
+				GameConnector.doUpdate("INSERT into PLAYER values(1, 'Simon', 'Red', 11, 2);");
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
@@ -30,7 +29,7 @@ public class Game {
 			
 			//VIEWING
 			try {
-				ResultSet rs = Connector.doQuery("SELECT * FROM player");
+				ResultSet rs = GameConnector.doQuery("SELECT * FROM player");
 				while(rs.next()){
 					String n = rs.getString("name");
 					int j = rs.getInt("GetOutOfJail");
@@ -44,7 +43,7 @@ public class Game {
 			
 			//CLOSURE
 			try {
-				Connector.close();
+				GameConnector.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

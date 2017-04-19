@@ -15,13 +15,6 @@ public class DBconnector extends aDB {
 	    private Connection connection;
 	    
 	    /**
-	     * Sets the current Database
-	     * @param Database name of current Database
-	     */
-	    public void setCurrentDB(String Database){
-	    	super.setDATABASE(Database);
-	    }
-	    /**
 	     * The connector method. Connects to a SQL Dataase
 	     * @param host The host name, "Localhost" if run locally
 	     * @param port The port ID, "3306" if run locally
@@ -29,7 +22,8 @@ public class DBconnector extends aDB {
 	     * @param user The username to the server
 	     * @param pass The password to the server
 	     */
-	    public DBconnector() {
+	    public DBconnector(String DB) {
+	    	DATABASE = DB;
 	        try {
 	        	//TEMP Connection attempt validation
 	        		System.out.println("Connecting to Database " + DATABASE);
