@@ -1,49 +1,48 @@
 package entities;
 
-public class Tax extends Fee {
+import java.awt.Color;
+
+public class RailRoad extends Ownable{
+
+	private String Picture;
 	
-	public Tax() {
-		super();
-		Title = "Income Tax";
-		Fee = 1000;
-		Description = "Pay " + Fee;
-		
+	public RailRoad(String title, String description, String subText, Color color, Player player, int cost, int rent, String picture) {
+		super(title, description, subText, color, player, cost, rent);
+		Picture = picture;
 	}
 
 	@Override
 	public void landOnField() {
-		super.landOnField();
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescription();
+		
+		return null;
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		super.setDescription(desc);
 	}
 
 	@Override
 	public String getTitle() {
-		return super.getTitle();
+		
+		return null;
 	}
 
 	@Override
 	public void setTitle(String titl) {
-		super.setTitle(titl);
 	}
 
 	@Override
 	public int getNumber() {
-		return super.getNumber();
+		
+		return 0;
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		super.setNumber(numb);
 	}
-	
-}
 
+}

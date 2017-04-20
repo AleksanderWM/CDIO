@@ -1,49 +1,45 @@
 package entities;
 
-public class Tax extends Fee {
-	
-	public Tax() {
-		super();
-		Title = "Income Tax";
-		Fee = 1000;
-		Description = "Pay " + Fee;
-		
-	}
+public class Chance implements Field{
 
+	private String Title = "Try Your Luck";
+	private String Description = "Draw a 'Try Your Luck' card";
+	
+	public Chance(){
+
+	}
+	
 	@Override
 	public void landOnField() {
-		super.landOnField();
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescription();
+		return null;
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		super.setDescription(desc);
 	}
 
 	@Override
 	public String getTitle() {
-		return super.getTitle();
+		
+		return null;
 	}
 
 	@Override
 	public void setTitle(String titl) {
-		super.setTitle(titl);
 	}
 
 	@Override
 	public int getNumber() {
-		return super.getNumber();
+		
+		return 0;
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		super.setNumber(numb);
 	}
-	
-}
 
+}

@@ -3,10 +3,11 @@ package entities;
 public abstract class Fee implements Field {
 	//ATTRIBUTES
 	
-	int fee;
-	String description;
-	String title;
-	int number;
+	int Fee;
+	String Description;
+	String Title;
+	int Number;
+	String Subtext;
 
 	@Override
 	public void landOnField() {
@@ -15,32 +16,32 @@ public abstract class Fee implements Field {
 
 	@Override
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		description = desc;
+		Description = desc;
 	}
 
 	@Override
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 
 	@Override
 	public void setTitle(String titl) {
-		title = titl;
+		Title = titl;
 	}
 
 	@Override
 	public int getNumber() {
-		return number;
+		return Number;
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		number = numb;
+		Number = numb;
 	}
 
 }
