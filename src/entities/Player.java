@@ -1,3 +1,9 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
+
 package entities;
 
 import java.awt.Color;
@@ -8,16 +14,18 @@ public class Player {
 
 	private String name;
 	private int position;
-	private int number;
+	private int ID;
 	private Color colour;
 	private Account account;
 	
-//	Antallet af felter (skal opdateres)
 	private int maxfields;
 	
-	public Player(){
+	public Player(String name,int ID, Color colour){
 		this.account = new Account();
 		position = 0;
+		this.name = name;
+		this.colour = colour;
+		this.ID = ID;
 	}
 	
 	public String getName(){
@@ -43,12 +51,12 @@ public class Player {
 			position = this.position % maxfields;
 	}
 	
-	public int getNumber(){
-		return number;
+	public int getID(){
+		return ID;
 	}
 	
-	public void setNumber(int number){
-		this.number = number;
+	public void setID(int number){
+		this.ID = number;
 	}
 	
 	public Color getColour(){
