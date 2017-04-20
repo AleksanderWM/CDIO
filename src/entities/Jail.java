@@ -1,21 +1,16 @@
 package entities;
 
-public abstract class Fee implements Field {
-	//ATTRIBUTES
-	
-	int Fee;
-	String Description;
-	String Title;
-	int Number;
-	String Subtext;
+public class Jail implements Field {
 
-	public Fee(){
+	private String Title = "Jail";
+	private String Description = "Where criminals stay";
+	private String Picture = "";
+	
+	public Jail(){
 		
 	}
-	
 	@Override
 	public void landOnField() {
-
 	}
 
 	@Override
@@ -40,12 +35,12 @@ public abstract class Fee implements Field {
 
 	@Override
 	public int getNumber() {
-		return Number;
+		return 0;
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		Number = numb;
+		
 	}
 
 }

@@ -1,15 +1,17 @@
 package entities;
 
-public class Tax extends Fee {
-	
-	public Tax() {
-		super();
-		Title = "Income Tax";
-		Fee = 1000;
-		Description = "Pay " + Fee;
-		
-	}
+public class PercentageTax extends Fee{
 
+	private int Percentage;
+	
+	public PercentageTax() {
+		super();
+		Title = "Luxary Tax";
+		Fee = 1000;
+		Percentage = 10;
+		Description = "Pay " + Fee + ", or pay " + Percentage + "% of your balance.";
+	}
+	
 	@Override
 	public void landOnField() {
 		super.landOnField();
@@ -44,6 +46,4 @@ public class Tax extends Fee {
 	public void setNumber(int numb) {
 		super.setNumber(numb);
 	}
-	
 }
-

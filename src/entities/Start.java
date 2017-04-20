@@ -1,51 +1,45 @@
 package entities;
 
-public abstract class Fee implements Field {
-	//ATTRIBUTES
-	
-	int Fee;
-	String Description;
-	String Title;
-	int Number;
-	String Subtext;
+public class Start implements Field {
 
-	public Fee(){
-		
+
+	public Start(String tit, String desc){
+		setTitle(tit);
+		setDescription(desc);
 	}
 	
 	@Override
 	public void landOnField() {
-
 	}
 
 	@Override
 	public String getDescription() {
-		return Description;
+
+		return null;
 	}
 
 	@Override
 	public void setDescription(String desc) {
-		Description = desc;
 	}
 
 	@Override
 	public String getTitle() {
-		return Title;
+
+		return null;
 	}
 
 	@Override
 	public void setTitle(String titl) {
-		Title = titl;
 	}
 
 	@Override
 	public int getNumber() {
-		return Number;
+
+		return 0;
 	}
 
 	@Override
 	public void setNumber(int numb) {
-		Number = numb;
 	}
 
 }

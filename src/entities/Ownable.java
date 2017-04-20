@@ -5,14 +5,33 @@
  */
 package entities;
 
+import java.awt.Color;
+
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
-	
-	int price;
-	int rent;
-	Player owner;
+	protected String Title;
+	protected String Description;
+	protected String SubText;
+	protected String Picture;
+	protected Color bgColor;
+	protected Text file = new Text("BuyProperty.txt");
+	protected String[] TxtList = null;
+	protected int owned = 10;
+	protected int price;
+	protected int rent;
+	protected Player owner;
 	boolean mortgage;
 	
+	
+	public Ownable(String title, String description, String subText, Color color, Player player, int cost, int rent)
+	{
+		Title = title;
+		Description = description;
+		SubText = subText;
+		bgColor = color;
+		owner = player;
+		price = cost;
+	}
 	//METHODS
 	
 	/**
@@ -92,10 +111,10 @@ public abstract class Ownable implements Field {
 	 * Tages senere
 	 * @return
 	 */
-	public int playerOwned(){
-		return (tages senere) ;
-		
-	}
+//	public int playerOwned(){
+//		return (tages senere) ;
+//		
+//	}
 	
 	/**
 	 * Sets a field to a mortgaged state
