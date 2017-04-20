@@ -12,9 +12,12 @@ import java.sql.Statement;
 public class DBconnector extends aDB {
 	    
 			//Connection attributes, defined in the constructor
-	    private Connection connection;
+	    public Connection connection;
 	    
-	    /**
+	    public DBconnector() {
+		}
+
+		/**
 	     * The connector method. Connects to a SQL Dataase
 	     * @param host The host name, "Localhost" if run locally
 	     * @param port The port ID, "3306" if run locally
@@ -22,20 +25,15 @@ public class DBconnector extends aDB {
 	     * @param user The username to the server
 	     * @param pass The password to the server
 	     */
-	    public DBconnector(String DB) {
-	    	DATABASE = DB;
+	    public void Connect(String DB) {
 	        try {
-	        	//TEMP Connection attempt validation
-	        		System.out.println("Connecting to Database " + DATABASE);
 				Class.forName("com.mysql.jdbc.Driver");
-				String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?useSSL=false";
+				String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DB + "?useSSL=false";
 				connection = DriverManager.getConnection(url, USER, PASS);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 				System.exit(1);
 			}
-	        //TEMP Connection validation
-	        	if(connection!=null)System.out.println("Connected successfully to " + DATABASE);
 	    }
 	    
 	    /**
@@ -49,16 +47,19 @@ public class DBconnector extends aDB {
 	     * Method for SQL Data Querys (NOT DATA MANIPULATION)
 	     * @return Returns the data as a ResultSet
 	     */
-	    public ResultSet doQuery(String query) throws SQLException{
+	    public ResultSet doQuery(String DB,String query) throws SQLException{
+	    	Connect(DB);
 	        Statement stmt = connection.createStatement();
 	        ResultSet res = stmt.executeQuery(query);
 	        return res;
+
 	    }
 	    
 	    /**
 	     * Method for SQL Data Manipulation
 	     */
-	    public void doUpdate(String query) throws SQLException{
+	    public void doUpdate(String DB, String query) throws SQLException{
+	    	Connect(DB);
 	        Statement stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
 	    }
@@ -69,11 +70,6 @@ public class DBconnector extends aDB {
 	    public void close() throws SQLException{
 	    	if(connection!=null){
 	    		connection.close();
-	    		//TEMP Closing validation
-	    			System.out.println("Connection closed successfully \n");
-	    	}
-	    	else{
-	    		System.out.println("You are not connected to a Database");
 	    	}
 	    }
 	}
