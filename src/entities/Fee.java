@@ -9,6 +9,10 @@ public abstract class Fee implements Field {
 	int Number;
 	String Subtext;
 
+	public Fee(){
+		
+	}
+	
 	@Override
 	public void landOnField() {
 
