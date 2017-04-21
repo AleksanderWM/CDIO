@@ -100,4 +100,19 @@ public class Player {
 	}
 	
 
+
 }
+	public Color getColour(){
+		return colour;
+	}
+	
+	public void setColour(Color colour){
+		this.colour = colour;
+	}
+	
+	public Account getAccount(){
+		return account;
+	}
+	
+}
+
