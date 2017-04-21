@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.awt.Color;
+
 public interface Field {
 
 //METHODS
@@ -43,4 +45,14 @@ public interface Field {
 	 */
 	public void setNumber(int numb);
 	
+	/**
+	 * Method for setting the Colour of a field
+	 * @param colour the Java.awt.Color
+	 */
+	public void setColour(Color colour);
+	
+	/**
+	 * Method for getting the Colour of a field
+	 */
+	public Color getColour();
 }
