@@ -1,11 +1,15 @@
 package entities;
 
-public class Chance implements Field{
+import java.awt.Color;
+
+public class TryYourLuck implements Field{
 
 	private String Title = "Try Your Luck";
 	private String Description = "Draw a 'Try Your Luck' card";
+	private Color Colour = Color.BLACK;
+	private Color TxColour = Color.WHITE;
 	
-	public Chance(){
+	public TryYourLuck(){
 
 	}
 	
@@ -40,6 +44,24 @@ public class Chance implements Field{
 
 	@Override
 	public void setNumber(int numb) {
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		Colour = colour;
+	}
+
+	@Override
+	public Color getColour() {
+		return Colour;
+	}
+	
+	public Color getTxColour(){
+		return TxColour;
+	}
+	
+	public void setTxColour(Color colour){
+		TxColour = colour;
 	}
 
 }
