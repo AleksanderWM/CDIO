@@ -10,7 +10,7 @@ import java.awt.Color;
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
 	protected String Title;
-	protected String Description;
+	protected String Description = "";
 	protected String SubText;
 	protected String Picture;
 	protected Color bgColor;
@@ -20,15 +20,15 @@ public abstract class Ownable implements Field {
 	protected int price;
 	protected int rent;
 	protected Player owner;
-	boolean mortgage;
+	protected Color Colour;
+	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String description, String subText, Color color, Player player, int cost, int rent)
+	public Ownable(String title, String subText, Color color, Player player, int cost, int rent)
 	{
 		Title = title;
-		Description = description;
 		SubText = subText;
-		bgColor = color;
+		Colour = color;
 		owner = player;
 		price = cost;
 	}
@@ -120,14 +120,14 @@ public abstract class Ownable implements Field {
 	 * Sets a field to a mortgaged state
 	 */
 	public void mortgage(){
-		
+		mortgage = true;
 	}
 	
 	/**
 	 * Sets a field to an unmortgaged state
 	 */
 	public void unmortgage(){
-		
+		mortgage = false;
 	}
 	
 	/**
@@ -136,6 +136,31 @@ public abstract class Ownable implements Field {
 	 */
 	public boolean getMortgageState(){
 		return mortgage;
-		
 	}
+	
+	/**
+	 * Gets the subtext of a  field
+	 * @return Subtext
+	 */
+	public String getSub(){
+		return SubText;
+	
+	}
+
+	/**
+	 * Sets the subtext ofa field
+	 */
+	public void setSub(String sub){
+		SubText = sub;
+	}
+	
+	/**
+	 * 
+	 */
+	public String toString(int value)
+	{
+		String ret = "" + value;
+		return ret;
+	}
+	
 }

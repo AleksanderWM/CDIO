@@ -6,7 +6,6 @@
 
 package entities;
 
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,15 +16,15 @@ public class Player {
 
 
 	private int position = 0;
-	private int ID = 1;
 	private Account Account;
+	private int getOutOfJail = 0;
 	
 	private int maxfields;
 	DBconnector connector = new DBconnector();
 	
-	public Player(String name, Color colour){
+	public Player(String name, int ID){
 		try {
-			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name +"', '" + colour +"', "+ position + ", " + 0 +");");
+			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name +"', " + position + ", " + getOutOfJail +");");
 			new Account(ID);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,10 +48,21 @@ public class Player {
 		return playername;
 	}
 	
-	
-//	public void setName(String name){
-//		this.name = name;
-//	}
+	public int getOutOfJail(int ID){
+		connector.Connect("game");
+		int amountOfFreecards = 0;
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			while(rs.next()){
+				int freecards = rs.getInt("GetOutOfJail");
+				connector.close();
+				amountOfFreecards = freecards;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return amountOfFreecards;
+	}
 	
 	public int getPosition(int ID){
 		connector.Connect("game");
@@ -95,23 +105,8 @@ public class Player {
 		}
 	}
 	
-	public void setID(int number){
-		this.ID = number;
-	}
-	
-
-
-}
-	public Color getColour(){
-		return colour;
-	}
-	
-	public void setColour(Color colour){
-		this.colour = colour;
-	}
-	
 	public Account getAccount(){
-		return account;
+		return Account;
 	}
 	
 }

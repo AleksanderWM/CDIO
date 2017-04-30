@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class Game {
 static mGUI gui = new mGUI();
+
 int numberOfPlayers = 0;
 PlayTurn thread = new PlayTurn();
 public volatile int id;
