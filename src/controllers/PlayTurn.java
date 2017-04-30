@@ -5,14 +5,14 @@ import entities.Player;
 public class PlayTurn implements Runnable{
 	Game game = new Game();
 	
-	int count = game.playerCounter;
 	@Override
 	public void run() {
-		String name = mui.getUserString();
-		Player player = new Player(name, count, null );
+		String name = mGui.getUserString();
+		Player player = new Player(name, game.id );
+		
 		
 		while(player.getAccount().getBalance()!=0){
-			while(count==player.getID()){
+			while(game.id!=player.getID()){
 				//Waiting for number to be changed to their turn.
 				
 			}
