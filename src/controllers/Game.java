@@ -4,23 +4,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Game {
+static mGUI gui = new mGUI();
+int numberOfPlayers = 0;
+PlayTurn thread = new PlayTurn();
+public volatile int id;
 
-		public int playerCounter = 1;
-		int numberOfPlayers;
+	public void enterPlayers()
+	{
+		while (numberOfPlayers < 2 && numberOfPlayers > 6)
+		{
+			//Message shown to user, to clarify that he needs to put in the correct value of players between 2 and 6.
+			
+			//code to mgui for entering an INT ammount
+		}
 		
-			public void createPlayerThreads(){
-				while(numberOfPlayers < 2 || numberOfPlayers > 6)
-				{
-					for(int i = 0; i < numberOfPlayers; i++){
-					PlayTurn player = new PlayTurn();
-					player.run();
-					i++;
-					}
-				}
-				game.createPlayerList(numOfPlayers, mui);
-			}
-			
-			
-			
+		this.createPlayerThreads(numberOfPlayers);
+		
 	}
+	/**
+	 * Creates the different threads for the game.
+	 * @param playersInGame
+	 */
+	public void createPlayerThreads(int playersInGame)
+	{
+		while (id != numberOfPlayers)
+		{
+		PlayTurn thread = new PlayTurn();
+		thread.run();
+		
+		id++;
+		}
+
+	}
+	
+	
 }
