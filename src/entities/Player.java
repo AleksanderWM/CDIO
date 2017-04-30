@@ -105,6 +105,9 @@ public class Player {
 		}
 	}
 	
+	public Account getAccount(int ID){
+		return Account;
+	}
 	
 }
 
