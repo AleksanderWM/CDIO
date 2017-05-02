@@ -18,6 +18,7 @@ public class Player {
 	private int position = 0;
 	private Account Account;
 	private int getOutOfJail = 0;
+	private int ID = 0;
 	
 	private int maxfields;
 	DBconnector connector = new DBconnector();
@@ -25,14 +26,15 @@ public class Player {
 	public Player(String name, int ID){
 		try {
 			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name +"', " + position + ", " + getOutOfJail +");");
-			new Account(ID);
+			this.Account = new Account(ID);
+			this.ID = ID;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 	
-	public String getName(int ID){
+	public String getName(){
 		connector.Connect("game");
 		String playername = null;
 		try {
@@ -48,7 +50,7 @@ public class Player {
 		return playername;
 	}
 	
-	public int getOutOfJail(int ID){
+	public int getOutOfJail(){
 		connector.Connect("game");
 		int amountOfFreecards = 0;
 		try {
@@ -64,7 +66,17 @@ public class Player {
 		return amountOfFreecards;
 	}
 	
-	public int getPosition(int ID){
+	public void setOutOfJail(int Amount){
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE Player SET GetOutOfJail = " + getOutOfJail() + Amount + " WHERE PlayerID EQUALS " + ID + ");");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getPosition(){
 		connector.Connect("game");
 		int playerPosition = 0;
 		try {
@@ -80,7 +92,7 @@ public class Player {
 		return playerPosition;
 	}
 	
-	public void setPosition(int ID, int newPosition){
+	public void setPosition(int newPosition){
 		connector.Connect("game");
 		try {
 			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID EQUALS " + ID + ");");
@@ -90,9 +102,9 @@ public class Player {
 		}
 	}
 	
-	public void movePosition(int ID, int moves){
+	public void movePosition(int moves){
 		connector.Connect("game");
-		int newPosition = moves + getPosition(ID);
+		int newPosition = moves + getPosition();
 		if(newPosition > maxfields){
 			newPosition = newPosition % maxfields;
 			Account.addBalance(ID, 4000);
@@ -109,5 +121,24 @@ public class Player {
 		return Account;
 	}
 	
+	public void setAccount(Account Account){
+		this.Account = Account;
+	}
+	
+	public int getID(){
+		return ID;
+	}
+	
+	public void setID(int ID){
+		this.ID = ID;
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE Player SET PlayerID = " + ID + " WHERE PlayerID EQUALS " + this.ID + ");");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
 
