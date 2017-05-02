@@ -9,7 +9,12 @@ public class Account {
 	
 	DBconnector connector = new DBconnector();
 
+	int ID;
+	int money;
+	
 	public Account(int ID){
+		this.ID = ID;
+		this.money = 30000;
 		try{
 		connector.doUpdate("game","INSERT into ACCOUNT values(" + ID + "," + 30000 + "," + 30000 + ");");
 		}
@@ -18,25 +23,14 @@ public class Account {
 			}
 	}
 	
-	public int getMoney(int ID){
-		connector.Connect("game");
-		int Moneys = 0;
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT Money FROM ACCOUNT WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				int Money = rs.getInt("Money");
-				connector.close();
-				Moneys = Money;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return Moneys;
+	public int getMoney(){
+		return money;
 	}
 	
-	public void addBalance(int ID, int money){
+	public void addBalance(int money){
 		connector.Connect("game");
-		int newBalance = money + getMoney(ID);
+		int newBalance = money + money;
+		money = newBalance;
 		try {
 			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID EQUALS " + ID + ");");
 				connector.close();
@@ -45,7 +39,8 @@ public class Account {
 		}
 	}
 	
-	public void setBalance(int ID, int balance){
+	public void setBalance(int balance){
+		money = balance;
 		connector.Connect("game");
 		try {
 			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID EQUALS " + ID + ");");
@@ -55,20 +50,8 @@ public class Account {
 		}
 	}
 	
-	public boolean enoughMoney(int ID, int price){
-			connector.Connect("game");
-			int Moneys = 0;
-			try {
-				ResultSet rs = connector.doQuery("Game","SELECT Money FROM ACCOUNT WHERE "+ ID +"EQUALS PlayerID");
-				while(rs.next()){
-					int Money = rs.getInt("Money");
-					connector.close();
-					Moneys = Money;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return Moneys > price;
+	public boolean enoughMoney(int price){
+			return money > price;
 		
 	}
 }
