@@ -23,7 +23,7 @@ public class Account {
 			}
 	}
 	
-	public int getMoney(){
+	public int getBalance(){
 		return money;
 	}
 	
