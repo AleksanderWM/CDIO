@@ -6,6 +6,7 @@
 
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.DBconnector;
@@ -36,10 +37,50 @@ public class Player {
 	}
 	
 	public String getName(){
+		connector.Connect("game");
+		String playername = null;
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			while(rs.next()){
+				String names = rs.getString("Name");
+				connector.close();
+				playername = names;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(name != playername){
+			name = playername;
+		}
 		return name;
 	}
 	
+	public void setName(String name){
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID EQUALS " + ID + ");");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int getOutOfJail(){
+		connector.Connect("game");
+		int amountOfFreecards = 0;
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			while(rs.next()){
+				int freecards = rs.getInt("GetOutOfJail");
+				connector.close();
+				amountOfFreecards = freecards;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(amountOfFreecards != getOutOfJail){
+			getOutOfJail = amountOfFreecards;
+		}
 	return getOutOfJail;
 	}
 	
@@ -56,6 +97,21 @@ public class Player {
 	}
 	
 	public int getPosition(){
+		connector.Connect("game");
+		int playerPosition = 0;
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT position FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			while(rs.next()){
+				int position = rs.getInt("Position");
+				connector.close();
+				playerPosition = position;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(playerPosition != position){
+			position = playerPosition;
+		}
 		return position;
 	}
 	
