@@ -37,21 +37,6 @@ public class Player {
 	}
 	
 	public String getName(){
-		connector.Connect("game");
-		String playername = null;
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT name FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				String names = rs.getString("Name");
-				connector.close();
-				playername = names;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if(name != playername){
-			name = playername;
-		}
 		return name;
 	}
 	
@@ -66,21 +51,6 @@ public class Player {
 	}
 	
 	public int getOutOfJail(){
-		connector.Connect("game");
-		int amountOfFreecards = 0;
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT name FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				int freecards = rs.getInt("GetOutOfJail");
-				connector.close();
-				amountOfFreecards = freecards;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if(amountOfFreecards != getOutOfJail){
-			getOutOfJail = amountOfFreecards;
-		}
 	return getOutOfJail;
 	}
 	
@@ -97,21 +67,6 @@ public class Player {
 	}
 	
 	public int getPosition(){
-		connector.Connect("game");
-		int playerPosition = 0;
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT position FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				int position = rs.getInt("Position");
-				connector.close();
-				playerPosition = position;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if(playerPosition != position){
-			position = playerPosition;
-		}
 		return position;
 	}
 	
@@ -163,6 +118,32 @@ public class Player {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void updatePlayer(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			while(rs.next()){
+				String names = rs.getString("Name");
+				int pos = rs.getInt("position");
+				int gooj = rs.getInt("getoutofjail");
+				connector.close();
+				if(name != names){
+					name = names;
+				}
+				if(position != pos){
+					position = pos;
+				}
+				if(getOutOfJail != gooj){
+					getOutOfJail = gooj;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
 
