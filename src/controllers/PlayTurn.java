@@ -40,13 +40,9 @@ public class PlayTurn implements Runnable{
 	public void interact(Player thisplayer){
 		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
 			int currentField = mGui.getFieldChoice();
-				
-			if (((Ownable) board.FieldList.get(currentField)) != Ownable)
-				mGui.showMessage("No action can be performed on this field");
-			
-			if (((Ownable) board.FieldList.get(currentField)) == Ownable)
+)
 				if (((Ownable) board.FieldList.get(currentField)).getOwner() == thisplayer)
-					switch (mGui.get3Buttons("Housing","Sell","Mortgage")){
+					switch (mGui.get3Buttons("What do you want to do?","Housing","Sell","Mortgage")){
 					case "Housing": {
 						if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
 							
@@ -67,7 +63,7 @@ public class PlayTurn implements Runnable{
 						/**
 						 * The price you want to sell the field for
 						 */
-						int sellPrice = mGui.getUserint("What price do you want to sell it for?");
+						int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
 						
 						//Balance check of recieving player
 						if (sellToPlayer.getAccount().getBalance() - sellPrice << 0)
@@ -80,7 +76,7 @@ public class PlayTurn implements Runnable{
 						//Transferral
 								((Ownable) board.FieldList.get(currentField)).setOwner(sellToPlayer);
 								thisplayer.addBalance(sellPrice);
-								sellToPlayer.addBalance(-sellPrice);
+								sellToPlayer.getAccount().addBalance(-sellPrice);
 						}
 						}
 					break;
