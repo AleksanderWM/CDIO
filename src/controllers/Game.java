@@ -8,7 +8,14 @@ static mGUI gui = new mGUI();
 
 int numberOfPlayers = 0;
 PlayTurn thread = new PlayTurn();
-public volatile int id;
+public volatile int id = 1;
+
+public static void main(String[] args){
+	System.out.println("lol");
+}
+	public void start(){
+		enterPlayers();
+	}
 
 	public void enterPlayers()
 	{
@@ -28,15 +35,14 @@ public volatile int id;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-		while (id != numberOfPlayers)
+		while (id != numberOfPlayers+1)
 		{
 		PlayTurn thread = new PlayTurn();
 		thread.run();
-		
 		id++;
 		}
 
 	}
 	
-	
+
 }
