@@ -5,14 +5,12 @@ import java.sql.SQLException;
 
 public class Game {
 static mGUI gui = new mGUI();
+GameBoard board = new GameBoard();
 
 int numberOfPlayers = 0;
 PlayTurn thread = new PlayTurn();
 public volatile int id = 1;
 
-public static void main(String[] args){
-	System.out.println("lol");
-}
 	public void start(){
 		enterPlayers();
 	}
