@@ -131,8 +131,7 @@ public class mGUI {
 		case "Frederiksberggade":ret = 38;
 		break;
 		case "Raadhuspladsen":ret = 40;
-		break;
 		}
-		
+		return ret;
 	}
 }
