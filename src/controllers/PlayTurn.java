@@ -29,7 +29,7 @@ public class PlayTurn implements Runnable{
 				equalsCount++;
 			}
 			if(equalsCount == 3){
-				gotofuckingjailbitch();
+				//gotofuckingjailbitch();
 			}
 			
 			System.out.println("Boya");
@@ -47,8 +47,8 @@ public class PlayTurn implements Runnable{
 			if (((Ownable) board.FieldList.get(currentField)) == Ownable)
 				if (((Ownable) board.FieldList.get(currentField)).getOwner() == thisplayer)
 					switch (mGui.get3Buttons("Housing","Sell","Mortgage")){
-					case 1: {
-						if (mGui.get2Buttons("Buy","Sell") == true){
+					case "Housing": {
+						if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
 							
 						}
 						else{
@@ -58,7 +58,7 @@ public class PlayTurn implements Runnable{
 					break;
 					
 					//Selling the field
-					case 2: {
+					case "Sell": {
 						/**
 						 * The player you want to sell too
 						 */
@@ -71,7 +71,7 @@ public class PlayTurn implements Runnable{
 						
 						//Balance check of recieving player
 						if (sellToPlayer.getAccount().getBalance() - sellPrice << 0)
-							mGui.showMessage("The player doesn´t have enough money");
+							mGui.showMessage("The player doesnï¿½t have enough money");
 						else
 						{
 						//Accept from recieving player if balance check passes
@@ -86,7 +86,7 @@ public class PlayTurn implements Runnable{
 					break;
 					
 					//Mortgaging
-					case 3: {
+					case "Mortgage": {
 						//Recheck
 						if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
 							//Is the field mortgaged or unmortgaged

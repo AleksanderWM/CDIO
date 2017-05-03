@@ -71,7 +71,7 @@ public class mGUI {
 	
 	/**
 	 * Gets a drop down menu of the 40 fields for the player to choose from 
-	 * @return
+	 * @return An int corresponding to the field number of the field chosen
 	 */
 	public int getFieldChoice(){
 		int ret = 0;
@@ -133,5 +133,20 @@ public class mGUI {
 		case "Raadhuspladsen":ret = 40;
 		}
 		return ret;
+	}
+	/**
+	 * Shows a message prompt to the player
+	 * @param msg The message
+	 */
+	public void showMessage(String msg){
+		GUI.showMessage(msg);
+	}
+	
+	public String get3Buttons(String msg, String bt1, String bt2, String bt3){
+		return GUI.getUserButtonPressed(msg, bt1, bt2, bt3);
+	}
+	
+	public int getUserInt(String msg){
+		return GUI.getUserInteger(msg);
 	}
 }
