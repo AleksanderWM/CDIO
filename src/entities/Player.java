@@ -122,7 +122,7 @@ public class Player {
 		int newPosition = moves + position;
 		if(newPosition > maxfields){
 			newPosition = newPosition % maxfields;
-			Account.addBalance(ID, 4000);
+			Account.addBalance(4000);
 		}
 		position = newPosition;
 		try {
