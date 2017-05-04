@@ -38,9 +38,11 @@ public class Account {
 			}
 	}
 	
+
 	/**
 	 * @return money
 	 */
+
 	public int getBalance(){
 		return money;
 	}
