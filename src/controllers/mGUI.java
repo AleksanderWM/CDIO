@@ -66,7 +66,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(5)).toString(((Ownable) FieldList.getFieldList().get(5)).getRent())).
 					setTitle(FieldList.getFieldList().get(5).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(5)).getSub()).
-					setPicture(((RailRoad) FieldList.getFieldList().get(5)).getPicture()).
 					setFgColor(((RailRoad) FieldList.getFieldList().get(5)).getTxColour()).
 					build();
 			Fields[6] = new Street.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
@@ -105,7 +104,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(12)).toString(((Ownable) FieldList.getFieldList().get(12)).getRent())).
 					setTitle(FieldList.getFieldList().get(12).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(12)).getSub()).
-					setPicture(((Utility) FieldList.getFieldList().get(12)).getPicture()).
 					setFgColor(((Utility) FieldList.getFieldList().get(12)).getTxColour()).
 					build();
 			Fields[13] = new Street.Builder().setBgColor(FieldList.getFieldList().get(13).getColour()).
@@ -125,7 +123,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(15)).toString(((Ownable) FieldList.getFieldList().get(15)).getRent())).
 					setTitle(FieldList.getFieldList().get(15).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(15)).getSub()).
-					setPicture(((RailRoad) FieldList.getFieldList().get(15)).getPicture()).
 					setFgColor(((RailRoad) FieldList.getFieldList().get(15)).getTxColour()).
 					build();
 			Fields[16] = new Street.Builder().setBgColor(FieldList.getFieldList().get(16).getColour()).
@@ -180,7 +177,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(25)).toString(((Ownable) FieldList.getFieldList().get(25)).getRent())).
 					setTitle(FieldList.getFieldList().get(25).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(25)).getSub()).
-					setPicture(((RailRoad) FieldList.getFieldList().get(25)).getPicture()).
 					setFgColor(((RailRoad) FieldList.getFieldList().get(25)).getTxColour()).
 					build();
 			Fields[26] = new Street.Builder().setBgColor(FieldList.getFieldList().get(26).getColour()).
@@ -200,7 +196,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(28)).toString(((Ownable) FieldList.getFieldList().get(28)).getRent())).
 					setTitle(FieldList.getFieldList().get(28).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(28)).getSub()).
-					setPicture(((Utility) FieldList.getFieldList().get(28)).getPicture()).
 					setFgColor(((Utility) FieldList.getFieldList().get(28)).getTxColour()).
 					build();
 			Fields[29] = new Street.Builder().setBgColor(FieldList.getFieldList().get(29).getColour()).
@@ -239,7 +234,6 @@ public class mGUI {
 					setRent(((Ownable) FieldList.getFieldList().get(35)).toString(((Ownable) FieldList.getFieldList().get(35)).getRent())).
 					setTitle(FieldList.getFieldList().get(35).getTitle()).
 					setSubText(((Ownable) FieldList.getFieldList().get(35)).getSub()).
-					setPicture(((RailRoad) FieldList.getFieldList().get(35)).getPicture()).
 					setFgColor(((RailRoad) FieldList.getFieldList().get(35)).getTxColour()).
 					build();
 			Fields[36] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(36).getColour()).

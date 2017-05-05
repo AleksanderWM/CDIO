@@ -7,8 +7,8 @@ public class Jail implements Field {
 	private String Title = "Jail";
 	private String Description = "Where criminals stay";
 	private String Picture = "";
-	private Color TxColour = Color.WHITE;
-	private Color Colour = Color.BLACK;
+	private Color TxColour = Color.BLACK;
+	private Color Colour = Color.GRAY;
 	private String Subtext = "Faengelsbesog";
 	
 	public Jail(){

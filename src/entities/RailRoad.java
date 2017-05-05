@@ -4,12 +4,11 @@ import java.awt.Color;
 
 public class RailRoad extends Ownable{
 
-	private String Picture;
-	private Color TxColour = Color.WHITE;
+	private Color TxColour = Color.BLACK;
 	
-	public RailRoad(String title, String subText, Color color, int player, int cost, int rent, String picture) {
+	public RailRoad(String title, String subText, Color color, int player, int cost, int rent) {
 		super(title, subText, color, player, cost, rent);
-		Picture = picture;
+		super.Colour = Color.WHITE;
 	}
 
 	@Override
