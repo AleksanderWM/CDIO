@@ -8,7 +8,7 @@ public class Tax extends Fee {
 		super();
 		Title = "Indkomst skat";
 		Fee = 1000;
-		Description = "Pay " + Fee;
+		Description = "Betal " + Fee;
 		Colour = Color.GRAY;
 		
 	}

@@ -5,6 +5,7 @@ import java.awt.Color;
 public class RailRoad extends Ownable{
 
 	private String Picture;
+	private Color TxColour = Color.WHITE;
 	
 	public RailRoad(String title, String subText, Color color, int player, int cost, int rent, String picture) {
 		super(title, subText, color, player, cost, rent);
@@ -53,5 +54,20 @@ public class RailRoad extends Ownable{
 	public Color getColour() {
 		return super.Colour;
 	}
+	
+	public String getPicture() {
+		return Picture;
+	}
 
+	public void setPicture(String url){
+		Picture = url;
+	}
+	
+	public Color getTxColour(){
+		return TxColour;
+	}
+	
+	public void setTxColour(Color colour){
+		TxColour = colour;
+	}
 }

@@ -7,6 +7,9 @@ public class GoToJail implements Field {
 	private String Title = "Go to Jail";
 	private String Description = "Move to Jail";
 	private String Picture = "";
+	private Color TxColour = Color.WHITE;
+	private Color Colour = Color.BLACK;
+	private String Subtext = "Gaa i faengsel";
 	
 	public GoToJail(){
 		
@@ -42,20 +45,28 @@ public class GoToJail implements Field {
 	}
 
 	@Override
-	public void setNumber(int numb) {
-		
-	}
-
-	@Override
-	public void setColour(Color colour) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Color getColour() {
-		// TODO Auto-generated method stub
-		return null;
+		return Colour;
+	}
+	
+	@Override
+	public void setColour(Color colour){
+		Colour = colour;
+	}
+	
+	public Color getTxColour() {
+		return TxColour;}
+		
+	public void setTxColour(Color colour) {
+		TxColour = colour;
+	}
+	
+	public void setSubtext(String sub){
+		Subtext = sub;
+	}
+	
+	public String getSubtext(){
+		return Subtext;
 	}
 
 }

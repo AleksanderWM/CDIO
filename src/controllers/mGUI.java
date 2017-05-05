@@ -1,22 +1,24 @@
 package controllers;
 
+import desktop_fields.Brewery;
 import desktop_fields.Chance;
 import desktop_fields.Field;
+import desktop_fields.Jail;
+import desktop_fields.Refuge;
 import desktop_fields.Start;
 import desktop_fields.Street;
 import desktop_fields.Tax;
+import desktop_fields.Shipping;
 import desktop_resources.GUI;
 import entities.Ownable;
+import entities.Parking;
+import entities.RailRoad;
 import entities.TryYourLuck;
-import game.GameBoard;
-import game.Shaker;
-import desktop_resources.GUI;
+import entities.Utility;
+import entities.Shaker;
 import java.awt.Color;
 import desktop_codebehind.Car;
-import desktop_fields.Shipping;
-import desktop_fields.Field;
-import desktop_fields.Start;
-import entities.Shaker;
+import desktop_board.Board;
 
 /**s
  * @author Emil Jørgensen
@@ -32,8 +34,9 @@ public class mGUI {
 	 */
 	public void CreateBoard(){
 		{
+			//Board.destroy();
 			FieldList.CreateBoard();
-			Field[] Fields = new Field[5];
+			Field[] Fields = new Field[40];
 			
 			Fields[0] = new Start.Builder().
 					setBgColor(FieldList.getFieldList().get(0).getColour()).
@@ -58,8 +61,206 @@ public class mGUI {
 			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(4).getColour()).
 					setDescription(FieldList.getFieldList().get(4).getDescription()).
 					setTitle(FieldList.getFieldList().get(4).getTitle()).build();
-							
-			GUI.create(Fields);
+			Fields[5] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(5).getColour()).
+					setDescription(FieldList.getFieldList().get(5).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(5)).toString(((Ownable) FieldList.getFieldList().get(5)).getRent())).
+					setTitle(FieldList.getFieldList().get(5).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(5)).getSub()).
+					setPicture(((RailRoad) FieldList.getFieldList().get(5)).getPicture()).
+					setFgColor(((RailRoad) FieldList.getFieldList().get(5)).getTxColour()).
+					build();
+			Fields[6] = new Street.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
+					setDescription(FieldList.getFieldList().get(6).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(6)).toString(((Ownable) FieldList.getFieldList().get(6)).getRent())).
+					setTitle(FieldList.getFieldList().get(6).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(6)).getSub()).
+					build();
+			Fields[7] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(7).getColour()).
+					setFgColor(((TryYourLuck) FieldList.getFieldList().get(7)).getTxColour()).
+					build();
+			Fields[8] = new Street.Builder().setBgColor(FieldList.getFieldList().get(8).getColour()).
+					setDescription(FieldList.getFieldList().get(8).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(8)).toString(((Ownable) FieldList.getFieldList().get(6)).getRent())).
+					setTitle(FieldList.getFieldList().get(8).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(8)).getSub()).
+					build();
+			Fields[9] = new Street.Builder().setBgColor(FieldList.getFieldList().get(9).getColour()).
+					setDescription(FieldList.getFieldList().get(9).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(9)).toString(((Ownable) FieldList.getFieldList().get(9)).getRent())).
+					setTitle(FieldList.getFieldList().get(9).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(9)).getSub()).
+					build();
+			Fields[10] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(10).getColour()).
+					setFgColor(((entities.Jail) FieldList.getFieldList().get(10)).getTxColour()).
+					setSubText(((entities.Jail) FieldList.getFieldList().get(10)).getSubtext()).
+					build();
+			Fields[11] = new Street.Builder().setBgColor(FieldList.getFieldList().get(11).getColour()).
+					setDescription(FieldList.getFieldList().get(11).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(11)).toString(((Ownable) FieldList.getFieldList().get(11)).getRent())).
+					setTitle(FieldList.getFieldList().get(11).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(11)).getSub()).
+					build();
+			Fields[12] = new Brewery.Builder().setBgColor(FieldList.getFieldList().get(12).getColour()).
+					setDescription(FieldList.getFieldList().get(12).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(12)).toString(((Ownable) FieldList.getFieldList().get(12)).getRent())).
+					setTitle(FieldList.getFieldList().get(12).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(12)).getSub()).
+					setPicture(((Utility) FieldList.getFieldList().get(12)).getPicture()).
+					setFgColor(((Utility) FieldList.getFieldList().get(12)).getTxColour()).
+					build();
+			Fields[13] = new Street.Builder().setBgColor(FieldList.getFieldList().get(13).getColour()).
+					setDescription(FieldList.getFieldList().get(13).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(13)).toString(((Ownable) FieldList.getFieldList().get(13)).getRent())).
+					setTitle(FieldList.getFieldList().get(13).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(13)).getSub()).
+					build();
+			Fields[14] = new Street.Builder().setBgColor(FieldList.getFieldList().get(14).getColour()).
+					setDescription(FieldList.getFieldList().get(14).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(14)).toString(((Ownable) FieldList.getFieldList().get(14)).getRent())).
+					setTitle(FieldList.getFieldList().get(14).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(14)).getSub()).
+					build();
+			Fields[15] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(15).getColour()).
+					setDescription(FieldList.getFieldList().get(15).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(15)).toString(((Ownable) FieldList.getFieldList().get(15)).getRent())).
+					setTitle(FieldList.getFieldList().get(15).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(15)).getSub()).
+					setPicture(((RailRoad) FieldList.getFieldList().get(15)).getPicture()).
+					setFgColor(((RailRoad) FieldList.getFieldList().get(15)).getTxColour()).
+					build();
+			Fields[16] = new Street.Builder().setBgColor(FieldList.getFieldList().get(16).getColour()).
+					setDescription(FieldList.getFieldList().get(16).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(16)).toString(((Ownable) FieldList.getFieldList().get(16)).getRent())).
+					setTitle(FieldList.getFieldList().get(16).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(16)).getSub()).
+					build();
+			Fields[17] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(17).getColour()).
+					setFgColor(((TryYourLuck) FieldList.getFieldList().get(17)).getTxColour()).
+					build();
+			Fields[18] = new Street.Builder().setBgColor(FieldList.getFieldList().get(18).getColour()).
+					setDescription(FieldList.getFieldList().get(18).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(18)).toString(((Ownable) FieldList.getFieldList().get(18)).getRent())).
+					setTitle(FieldList.getFieldList().get(18).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(18)).getSub()).
+					build();
+			Fields[19] = new Street.Builder().setBgColor(FieldList.getFieldList().get(19).getColour()).
+					setDescription(FieldList.getFieldList().get(19).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(19)).toString(((Ownable) FieldList.getFieldList().get(19)).getRent())).
+					setTitle(FieldList.getFieldList().get(19).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(19)).getSub()).
+					build();
+			Fields[20] = new Refuge.Builder().setBgColor(FieldList.getFieldList().get(20).getColour()).
+					setBgColor(((Parking) FieldList.getFieldList().get(20)).getColour()).
+					setFgColor(((Parking) FieldList.getFieldList().get(20)).getTxColour()).
+					setSubText(((Parking) FieldList.getFieldList().get(20)).getSubtext()).
+					build();
+			Fields[21] = new Street.Builder().setBgColor(FieldList.getFieldList().get(21).getColour()).
+					setDescription(FieldList.getFieldList().get(21).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(21)).toString(((Ownable) FieldList.getFieldList().get(21)).getRent())).
+					setTitle(FieldList.getFieldList().get(21).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(21)).getSub()).
+					build();
+			Fields[22] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(22).getColour()).
+					setFgColor(((TryYourLuck) FieldList.getFieldList().get(22)).getTxColour()).
+					build();
+			Fields[23] = new Street.Builder().setBgColor(FieldList.getFieldList().get(23).getColour()).
+					setDescription(FieldList.getFieldList().get(23).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(23)).toString(((Ownable) FieldList.getFieldList().get(23)).getRent())).
+					setTitle(FieldList.getFieldList().get(23).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(23)).getSub()).
+					build();
+			Fields[24] = new Street.Builder().setBgColor(FieldList.getFieldList().get(24).getColour()).
+					setDescription(FieldList.getFieldList().get(24).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(24)).toString(((Ownable) FieldList.getFieldList().get(24)).getRent())).
+					setTitle(FieldList.getFieldList().get(24).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(24)).getSub()).
+					build();
+			Fields[25] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(25).getColour()).
+					setDescription(FieldList.getFieldList().get(25).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(25)).toString(((Ownable) FieldList.getFieldList().get(25)).getRent())).
+					setTitle(FieldList.getFieldList().get(25).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(25)).getSub()).
+					setPicture(((RailRoad) FieldList.getFieldList().get(25)).getPicture()).
+					setFgColor(((RailRoad) FieldList.getFieldList().get(25)).getTxColour()).
+					build();
+			Fields[26] = new Street.Builder().setBgColor(FieldList.getFieldList().get(26).getColour()).
+					setDescription(FieldList.getFieldList().get(26).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(26)).toString(((Ownable) FieldList.getFieldList().get(26)).getRent())).
+					setTitle(FieldList.getFieldList().get(26).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(26)).getSub()).
+					build();
+			Fields[27] = new Street.Builder().setBgColor(FieldList.getFieldList().get(27).getColour()).
+					setDescription(FieldList.getFieldList().get(27).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(27)).toString(((Ownable) FieldList.getFieldList().get(27)).getRent())).
+					setTitle(FieldList.getFieldList().get(27).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(27)).getSub()).
+					build();
+			Fields[28] = new Brewery.Builder().setBgColor(FieldList.getFieldList().get(28).getColour()).
+					setDescription(FieldList.getFieldList().get(28).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(28)).toString(((Ownable) FieldList.getFieldList().get(28)).getRent())).
+					setTitle(FieldList.getFieldList().get(28).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(28)).getSub()).
+					setPicture(((Utility) FieldList.getFieldList().get(28)).getPicture()).
+					setFgColor(((Utility) FieldList.getFieldList().get(28)).getTxColour()).
+					build();
+			Fields[29] = new Street.Builder().setBgColor(FieldList.getFieldList().get(29).getColour()).
+					setDescription(FieldList.getFieldList().get(29).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(29)).toString(((Ownable) FieldList.getFieldList().get(29)).getRent())).
+					setTitle(FieldList.getFieldList().get(29).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(29)).getSub()).
+					build();
+			Fields[30] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(30).getColour()).
+					setFgColor(((entities.GoToJail) FieldList.getFieldList().get(30)).getTxColour()).
+					setSubText(((entities.GoToJail) FieldList.getFieldList().get(30)).getSubtext()).
+					build();
+			Fields[31] = new Street.Builder().setBgColor(FieldList.getFieldList().get(31).getColour()).
+					setDescription(FieldList.getFieldList().get(31).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(31)).toString(((Ownable) FieldList.getFieldList().get(31)).getRent())).
+					setTitle(FieldList.getFieldList().get(31).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(31)).getSub()).
+					build();
+			Fields[32] = new Street.Builder().setBgColor(FieldList.getFieldList().get(32).getColour()).
+					setDescription(FieldList.getFieldList().get(32).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(32)).toString(((Ownable) FieldList.getFieldList().get(32)).getRent())).
+					setTitle(FieldList.getFieldList().get(32).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(32)).getSub()).
+					build();
+			Fields[33] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(33).getColour()).
+					setFgColor(((TryYourLuck) FieldList.getFieldList().get(33)).getTxColour()).
+					build();
+			Fields[34] = new Street.Builder().setBgColor(FieldList.getFieldList().get(34).getColour()).
+					setDescription(FieldList.getFieldList().get(34).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(34)).toString(((Ownable) FieldList.getFieldList().get(34)).getRent())).
+					setTitle(FieldList.getFieldList().get(34).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(34)).getSub()).
+					build();
+			Fields[35] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(35).getColour()).
+					setDescription(FieldList.getFieldList().get(35).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(35)).toString(((Ownable) FieldList.getFieldList().get(35)).getRent())).
+					setTitle(FieldList.getFieldList().get(35).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(35)).getSub()).
+					setPicture(((RailRoad) FieldList.getFieldList().get(35)).getPicture()).
+					setFgColor(((RailRoad) FieldList.getFieldList().get(35)).getTxColour()).
+					build();
+			Fields[36] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(36).getColour()).
+					setFgColor(((TryYourLuck) FieldList.getFieldList().get(36)).getTxColour()).
+					build();
+			Fields[37] = new Street.Builder().setBgColor(FieldList.getFieldList().get(37).getColour()).
+					setDescription(FieldList.getFieldList().get(37).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(37)).toString(((Ownable) FieldList.getFieldList().get(37)).getRent())).
+					setTitle(FieldList.getFieldList().get(37).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(37)).getSub()).
+					build();
+			Fields[38] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(38).getColour()).
+					setDescription(FieldList.getFieldList().get(38).getDescription()).
+					setTitle(FieldList.getFieldList().get(38).getTitle()).build();
+			Fields[39] = new Street.Builder().setBgColor(FieldList.getFieldList().get(39).getColour()).
+					setDescription(FieldList.getFieldList().get(39).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(39)).toString(((Ownable) FieldList.getFieldList().get(39)).getRent())).
+					setTitle(FieldList.getFieldList().get(39).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(39)).getSub()).
+					build();
+				GUI.create(Fields);
 			}
 	}
 	/**

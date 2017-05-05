@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Player;
+import language.Language;
 
 public class Game {
 static mGUI gui = new mGUI();
@@ -24,6 +25,7 @@ public volatile int id = 1;
 		if(dbc.checkDB("chance") == false){
 			dbc.CreateChance();
 		}
+//		Language.chooseLanguage(gui.getUserString("Choose language (Danish/English)"));
 		board.CreateBoard();
 		gui.CreateBoard();
 

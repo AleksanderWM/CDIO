@@ -17,6 +17,7 @@ import entities.Start;
 import entities.Tax;
 import entities.Text;
 import entities.Utility;
+import language.Language;
 
 /**
  * @author Emil Jørgensen
@@ -71,7 +72,7 @@ public class GameBoard {
 		FieldList.add(new Property(TxtList[34],"6400",Color.YELLOW,noOwner,6400,600));
 		FieldList.add(new RailRoad(TxtList[35],"4000",Color.BLUE,noOwner,4000,500, "url"));
 		FieldList.add(new TryYourLuck());
-		FieldList.add(new Property(TxtList[37],"7000",Color.MAGENTA,noOwner,7000,700));
+		FieldList.add(new Property(TxtList[37],"7000",Color.magenta,noOwner,7000,700));
 		FieldList.add(new PercentageTax());
 		FieldList.add(new Property(TxtList[39],"8000",Color.MAGENTA,noOwner,8000,1000));
 	}

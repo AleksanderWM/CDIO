@@ -5,10 +5,13 @@ import java.awt.Color;
 public class Utility extends Ownable{
 
 	private String Picture;
+	private Color TxColour = Color.BLACK;
 	
 	public Utility(String title, String subText, Color color, int player, int cost, int rent, String picture) {
 		super(title, subText, color, player, cost, rent);
 		Picture = picture;
+		
+		
 	}
 
 	@Override
@@ -52,6 +55,21 @@ public class Utility extends Ownable{
 	@Override
 	public Color getColour() {
 		return super.Colour;
+	}
+	public String getPicture() {
+		return Picture;
+	}
+
+	public void setPicture(String url){
+		Picture = url;
+	}
+	
+	public Color getTxColour(){
+		return TxColour;
+	}
+	
+	public void setTxColour(Color colour){
+		TxColour = colour;
 	}
 
 }
