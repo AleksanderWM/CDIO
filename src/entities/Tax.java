@@ -6,9 +6,10 @@ public class Tax extends Fee {
 	
 	public Tax() {
 		super();
-		Title = "Income Tax";
+		Title = "Indkomst skat";
 		Fee = 1000;
 		Description = "Pay " + Fee;
+		Colour = Color.GRAY;
 		
 	}
 
@@ -49,14 +50,13 @@ public class Tax extends Fee {
 
 	@Override
 	public void setColour(Color colour) {
-		// TODO Auto-generated method stub
+		Colour = colour;
 		
 	}
 
 	@Override
 	public Color getColour() {
-		// TODO Auto-generated method stub
-		return null;
+		return Colour;
 	}
 	
 }

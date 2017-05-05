@@ -4,6 +4,7 @@ import desktop_fields.Chance;
 import desktop_fields.Field;
 import desktop_fields.Start;
 import desktop_fields.Street;
+import desktop_fields.Tax;
 import desktop_resources.GUI;
 import entities.Ownable;
 import entities.TryYourLuck;
@@ -32,7 +33,7 @@ public class mGUI {
 	public void CreateBoard(){
 		{
 			FieldList.CreateBoard();
-			Field[] Fields = new Field[3];
+			Field[] Fields = new Field[5];
 			
 			Fields[0] = new Start.Builder().
 					setBgColor(FieldList.getFieldList().get(0).getColour()).
@@ -48,6 +49,15 @@ public class mGUI {
 			Fields[2] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(2).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(2)).getTxColour()).
 					build();
+			Fields[3] = new Street.Builder().setBgColor(FieldList.getFieldList().get(3).getColour()).
+					setDescription(FieldList.getFieldList().get(3).getDescription()).
+					setRent(((Ownable) FieldList.getFieldList().get(3)).toString(((Ownable) FieldList.getFieldList().get(3)).getRent())).
+					setTitle(FieldList.getFieldList().get(3).getTitle()).
+					setSubText(((Ownable) FieldList.getFieldList().get(3)).getSub()).
+					build();
+			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(4).getColour()).
+					setDescription(FieldList.getFieldList().get(4).getDescription()).
+					setTitle(FieldList.getFieldList().get(4).getTitle()).build();
 							
 			GUI.create(Fields);
 			}
