@@ -7,12 +7,15 @@ import desktop_fields.Street;
 import desktop_resources.GUI;
 import entities.Ownable;
 import entities.TryYourLuck;
+import game.GameBoard;
+import game.Shaker;
 import desktop_resources.GUI;
 import java.awt.Color;
 import desktop_codebehind.Car;
 import desktop_fields.Shipping;
 import desktop_fields.Field;
 import desktop_fields.Start;
+import entities.Shaker;
 
 /**s
  * @author Emil Jørgensen
@@ -22,7 +25,10 @@ public class mGUI {
 
 	GameBoard FieldList = new GameBoard();
 	Game game;
-	
+	/**
+	 * Creates the board 
+	 * NEEDS EXTENSION
+	 */
 	public void CreateBoard(){
 		{
 			FieldList.CreateBoard();
@@ -46,11 +52,38 @@ public class mGUI {
 			GUI.create(Fields);
 			}
 	}
-	
-	
-	public void addPlayer(GameBoard game, int v,int c)
+	/**
+	 * Creates a color for the car. Allows six players
+	 * @param c
+	 * @return
+	 */
+	public Color getColor(int c)
 	{
-		Car car = new Car.Builder().secondaryColor(getColor(c)).build();
+		Color color = null;
+		switch(c){
+		case 0 : color = Color.RED;
+		break;
+		case 1 : color = Color.BLUE;
+		break;
+		case 2 : color = Color.YELLOW;
+		break;
+		case 3 : color = Color.PINK;
+		break;
+		case 4 : color = Color.ORANGE;
+		break;
+		case 5 : color = Color.MAGENTA;
+		}
+		return color;
+	}
+	/**
+	 * Adds a player, with car, to the board
+	 * @param game
+	 * @param v
+	 * @param c
+	 */
+	public void addPlayer(GameBoard game, int v)
+	{
+		Car car = new Car.Builder().secondaryColor(getColor(v)).build();
 		GUI.addPlayer(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance(),car);
 	}
 	
@@ -158,11 +191,53 @@ public class mGUI {
 		GUI.showMessage(msg);
 	}
 	
+	/**
+	 * Gets three buttons for the player to click
+	 * @param msg The message prompt to the player
+	 * @param bt1 The string on the left most button
+	 * @param bt2 The string on the middle button
+	 * @param bt3 THe string on the right most button
+	 * @return The string of the button pressed
+	 */
 	public String get3Buttons(String msg, String bt1, String bt2, String bt3){
 		return GUI.getUserButtonPressed(msg, bt1, bt2, bt3);
 	}
 	
+	/**
+	 * Gets an integer value from the user
+	 * @param msg The message promt to the user
+	 * @return An int specified by the user
+	 */
 	public int getUserInt(String msg){
 		return GUI.getUserInteger(msg);
+	}
+	
+	/**
+	 * Removes a car on a given field position (-1) on the board
+	 */
+	public void removeCar(GameBoard game, int v)
+	{
+		GUI.removeAllCars(game.playerList.get(v).getPlayerName());
+	}
+	public void playTurn(GameBoard game, int v, Shaker shaker)
+	{
+		removeCar(game, v);
+		setCar(game, v);
+		setDice(shaker);
+	}
+	
+	/**
+	 * Shows to dice with given integer values at a random position on the board
+	 */
+	public void setDice(Shaker shaker)
+	{
+		GUI.setDice(shaker.getDice1Value(), shaker.getDice2Value());
+	}
+	/**
+	 * Sets a car on a given field position (-1) on the board
+	 */
+	public void setCar(GameBoard game, int v)
+	{
+		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getPlayerName());
 	}
 }
