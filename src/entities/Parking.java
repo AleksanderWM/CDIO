@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+
 public class Parking implements Field {
 
 	private String Title = "Free Parking";
@@ -42,6 +44,18 @@ public class Parking implements Field {
 	@Override
 	public void setNumber(int numb) {
 		
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Color getColour() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

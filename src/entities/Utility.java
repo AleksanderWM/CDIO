@@ -6,7 +6,7 @@ public class Utility extends Ownable{
 
 	private String Picture;
 	
-	public Utility(String title, String subText, Color color, Player player, int cost, int rent, String picture) {
+	public Utility(String title, String subText, Color color, int player, int cost, int rent, String picture) {
 		super(title, subText, color, player, cost, rent);
 		Picture = picture;
 	}
