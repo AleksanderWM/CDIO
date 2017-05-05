@@ -9,12 +9,15 @@ import entities.Player;
 public class Game {
 static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
+DBcreator dbc = new DBcreator();
+
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
 int numberOfPlayers = 3;
 public volatile int id = 1;
 
 	public void gameStart(){
+		dbc.CreateGame();
 		board.CreateBoard();
 		gui.CreateBoard();
 
