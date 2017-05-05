@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import controllers.DBconnector;
 import entities.Account;
+import javafx.scene.paint.Color;
 
 public class Player {
 
@@ -37,7 +38,7 @@ public class Player {
 			this.ID = ID;
 			this.name = name;
 		try {
-			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name +"', " + position + ", " + getOutOfJail +");");
+			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name + "', " + position + ", " + getOutOfJail +");");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -2,12 +2,40 @@ package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /** @author Emil Jørgensen */
 public class DBcreator extends aDB {
 	   
+public boolean checkDB(String dbName){
+		Connection conn = null;
+		
+		try{
+	       Class.forName("com.mysql.jdbc.Driver"); //Register JDBC Driver
+	       
+	       System.out.println("Creating a connection...");
+	       conn = DriverManager.getConnection(DB_URL, USER, PASS); //Open a connection
+
+	       ResultSet resultSet = conn.getMetaData().getCatalogs();
+
+	        while (resultSet.next()) {
+
+	          String databaseName = resultSet.getString(1);
+	            if(databaseName.equals(dbName)){
+	                return true;
+	            }
+	        }
+	        resultSet.close();
+
+	    }
+	    catch(Exception e){
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
 	   /**
 	    * Creation of database GAME
 	    */
@@ -50,7 +78,7 @@ public class DBcreator extends aDB {
 	   /**
 	    * Creation of database CHANCE
 	    */
-	   public static void CreateChance() {
+	   public void CreateChance() {
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -60,9 +88,9 @@ public class DBcreator extends aDB {
 	      
 	      		//CREATION
 	      			stmt = conn.createStatement();
-	      			String sql = "CREATE DATABASE Chance";
+	      			String sql = "CREATE DATABASE chance";
 	      			stmt.executeUpdate(sql);
-	      			System.out.println("Database Chance created successfully...");
+	      			System.out.println("Database chance created successfully...");
 		
 	   }catch(SQLException se){
 	      //Creation errors

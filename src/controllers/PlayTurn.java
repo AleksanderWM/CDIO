@@ -6,6 +6,7 @@ public class PlayTurn implements Runnable{
 	mGUI mGui = new mGUI();
 	Shaker shake = new Shaker();
 	GameBoard board = new GameBoard();
+	DBcreator creator = new DBcreator();
 	int playerID;
 	Game thisgame;
 	

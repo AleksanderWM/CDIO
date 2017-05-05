@@ -17,7 +17,13 @@ int numberOfPlayers = 3;
 public volatile int id = 1;
 
 	public void gameStart(){
-		dbc.CreateGame();
+		if(dbc.checkDB("game") == false){
+			dbc.CreateGame();
+			dbc.tbCreatorGame();
+		}
+		if(dbc.checkDB("chance") == false){
+			dbc.CreateChance();
+		}
 		board.CreateBoard();
 		gui.CreateBoard();
 
