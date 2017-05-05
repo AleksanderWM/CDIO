@@ -7,6 +7,12 @@ import desktop_fields.Street;
 import desktop_resources.GUI;
 import entities.Ownable;
 import entities.TryYourLuck;
+import desktop_resources.GUI;
+import java.awt.Color;
+import desktop_codebehind.Car;
+import desktop_fields.Shipping;
+import desktop_fields.Field;
+import desktop_fields.Start;
 
 /**s
  * @author Emil Jørgensen
@@ -15,6 +21,7 @@ import entities.TryYourLuck;
 public class mGUI {
 
 	GameBoard FieldList = new GameBoard();
+	Game game;
 	
 	public void CreateBoard(){
 		{
@@ -39,6 +46,15 @@ public class mGUI {
 			GUI.create(Fields);
 			}
 	}
+	
+	
+	public void addPlayer(GameBoard game, int v,int c)
+	{
+		Car car = new Car.Builder().secondaryColor(getColor(c)).build();
+		GUI.addPlayer(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance(),car);
+	}
+	
+	
 	/**
 	 * Displays a message to the user and awaits a response
 	 * @param msg The message shown to the user

@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+
 public class Tax extends Fee {
 	
 	public Tax() {
@@ -43,6 +45,18 @@ public class Tax extends Fee {
 	@Override
 	public void setNumber(int numb) {
 		super.setNumber(numb);
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Color getColour() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Property extends Ownable {
 	
-	public Property(String title, String subText, Color colour, Player player,int cost,int rent) 
+	public Property(String title, String subText, Color colour, int player,int cost,int rent) 
 	{
 		super(title, subText, colour, player, cost, rent);
 	}

@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+
 public class GoToJail implements Field {
 
 	private String Title = "Go to Jail";
@@ -42,6 +44,18 @@ public class GoToJail implements Field {
 	@Override
 	public void setNumber(int numb) {
 		
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Color getColour() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

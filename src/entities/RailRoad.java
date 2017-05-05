@@ -6,7 +6,7 @@ public class RailRoad extends Ownable{
 
 	private String Picture;
 	
-	public RailRoad(String title, String subText, Color color, Player player, int cost, int rent, String picture) {
+	public RailRoad(String title, String subText, Color color, int player, int cost, int rent, String picture) {
 		super(title, subText, color, player, cost, rent);
 		Picture = picture;
 	}
