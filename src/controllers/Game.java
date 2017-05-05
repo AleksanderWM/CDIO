@@ -3,6 +3,7 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import entities.Player;
 import language.Language;
@@ -11,6 +12,7 @@ public class Game {
 static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
 DBcreator dbc = new DBcreator();
+Scanner scan = new Scanner(System.in);
 
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
@@ -25,7 +27,8 @@ public volatile int id = 1;
 		if(dbc.checkDB("chance") == false){
 			dbc.CreateChance();
 		}
-//		Language.chooseLanguage(gui.getUserString("Choose language (Danish/English)"));
+		System.out.println("Choose Language (Dansk/English)");
+		Language.chooseLanguage(scan.nextLine());
 		board.CreateBoard();
 		gui.CreateBoard();
 

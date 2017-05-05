@@ -15,6 +15,8 @@ import entities.Parking;
 import entities.RailRoad;
 import entities.TryYourLuck;
 import entities.Utility;
+import game.GameBoard;
+import language.Language;
 import entities.Shaker;
 import java.awt.Color;
 import desktop_codebehind.Car;
@@ -50,6 +52,7 @@ public class mGUI {
 					setSubText(((Ownable) FieldList.getFieldList().get(1)).getSub()).
 					build();
 			Fields[2] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(2).getColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(2)).getTxColour()).
 					build();
 			Fields[3] = new Street.Builder().setBgColor(FieldList.getFieldList().get(3).getColour()).
@@ -76,6 +79,7 @@ public class mGUI {
 					build();
 			Fields[7] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(7).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(7)).getTxColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					build();
 			Fields[8] = new Street.Builder().setBgColor(FieldList.getFieldList().get(8).getColour()).
 					setDescription(FieldList.getFieldList().get(8).getDescription()).
@@ -133,6 +137,7 @@ public class mGUI {
 					build();
 			Fields[17] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(17).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(17)).getTxColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					build();
 			Fields[18] = new Street.Builder().setBgColor(FieldList.getFieldList().get(18).getColour()).
 					setDescription(FieldList.getFieldList().get(18).getDescription()).
@@ -147,6 +152,7 @@ public class mGUI {
 					setSubText(((Ownable) FieldList.getFieldList().get(19)).getSub()).
 					build();
 			Fields[20] = new Refuge.Builder().setBgColor(FieldList.getFieldList().get(20).getColour()).
+					setSubText(FieldList.getFieldList().get(20).getTitle()).
 					setBgColor(((Parking) FieldList.getFieldList().get(20)).getColour()).
 					setFgColor(((Parking) FieldList.getFieldList().get(20)).getTxColour()).
 					setSubText(((Parking) FieldList.getFieldList().get(20)).getSubtext()).
@@ -159,6 +165,7 @@ public class mGUI {
 					build();
 			Fields[22] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(22).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(22)).getTxColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					build();
 			Fields[23] = new Street.Builder().setBgColor(FieldList.getFieldList().get(23).getColour()).
 					setDescription(FieldList.getFieldList().get(23).getDescription()).
@@ -205,6 +212,7 @@ public class mGUI {
 					setSubText(((Ownable) FieldList.getFieldList().get(29)).getSub()).
 					build();
 			Fields[30] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(30).getColour()).
+					setTitle(FieldList.getFieldList().get(30).getTitle()).
 					setFgColor(((entities.GoToJail) FieldList.getFieldList().get(30)).getTxColour()).
 					setSubText(((entities.GoToJail) FieldList.getFieldList().get(30)).getSubtext()).
 					build();
@@ -222,6 +230,7 @@ public class mGUI {
 					build();
 			Fields[33] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(33).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(33)).getTxColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					build();
 			Fields[34] = new Street.Builder().setBgColor(FieldList.getFieldList().get(34).getColour()).
 					setDescription(FieldList.getFieldList().get(34).getDescription()).
@@ -238,6 +247,7 @@ public class mGUI {
 					build();
 			Fields[36] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(36).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(36)).getTxColour()).
+					setSubText(FieldList.getFieldList().get(2).getTitle()).
 					build();
 			Fields[37] = new Street.Builder().setBgColor(FieldList.getFieldList().get(37).getColour()).
 					setDescription(FieldList.getFieldList().get(37).getDescription()).
@@ -329,62 +339,112 @@ public class mGUI {
 	 */
 	public int getFieldChoice(){
 		int ret = 0;
-		switch(GUI.getUserSelection("Choose a field", "Rodovrevej","Hvidovrevej","LB Ferries","Roskildevej","Valby Langgade","Allégade","Frederikberg Allé ","Carlsberg","Bülowsvej","Gl. Kongevej","M/S Danmark","Bernstorffsvej","Hellerupvej","Strandvej","Trianglen","Oesterbrogade","Groenningen","Mols-Linien A/S","Bredgade","Kgs. Nytorv","Coca-Cola","Oestergade","Amagertorv","Vimmelskaftet","Nygade","Scandlines","Frederiksberggade","Raadhuspladsen")){
+		switch(GUI.getUserSelection("Choose a field", Language.toString(2),Language.toString(4),Language.toString(6),Language.toString(7),Language.toString(9),Language.toString(10),Language.toString(12),Language.toString(13),Language.toString(14),Language.toString(15),Language.toString(16),Language.toString(17),Language.toString(19),Language.toString(20),Language.toString(22),Language.toString(24),Language.toString(25),Language.toString(26),Language.toString(27),Language.toString(28),Language.toString(29),Language.toString(30),Language.toString(32),Language.toString(33),Language.toString(35),Language.toString(36),Language.toString(38),Language.toString(40))){
 		case "Rodovrevej":ret = 2;
 		break;
+		case "Old Kent Road":ret = 2;
+		break;
 		case "Hvidovrevej":ret =  4;
+		break;
+		case "Whitechapel Road":ret = 4;
+		break;
+		case "LB Færger":ret = 6;
 		break;
 		case "LB Ferries":ret = 6;
 		break;
 		case "Roskildevej":ret = 7;
 		break;
+		case "Islington":ret = 7;
+		break;
 		case "Valby Langgade":ret = 9;
+		break;
+		case "Euston Road":ret = 9;
 		break;
 		case "Allégade":ret = 10;
 		break;
+		case "Pentonville Road":ret = 10;
+		break;
 		case "Frederiksberg Allé":ret = 12;
 		break;
-		case "Carlsberg":ret = 13;
+		case "Pall Mall":ret = 12;
+		break;
+		case "Tuborg":ret = 13;
 		break;
 		case "Bülowsgade":ret = 14;
 		break;
+		case "Whitehall":ret = 14;
+		break;
 		case "Gl. Kongevej":ret = 15;
 		break;
-		case "M/S Danmark":ret = 16;
+		case "Northumberland":ret =152;
 		break;
-		case "Bernstorffsvej":ret = 17;
+		case "DSB Færge":ret = 16;
+		break;
+		case "DSB Ferry":ret = 16;
+		break;
+		case "Bernstorfsvej":ret = 17;
+		break;
+		case "Bow Street":ret = 17;
 		break;
 		case "Hellerupvej":ret = 19;
 		break;
+		case "Malborough Street":ret = 19;
+		break;
 		case "Strandvej":ret = 20;
+		break;
+		case "Vine Street":ret = 20;
 		break;
 		case "Trianglen":ret = 22;
 		break;
+		case "Strand":ret = 22;
+		break;
 		case "Oesterbrogade":ret = 24;
+		break;
+		case "Fleet Street":ret = 24;
 		break;
 		case "Groenningen":ret = 25;
 		break;
-		case "Mols-Linien A/S":ret = 26;
+		case "Trefalgar Square":ret = 25;
+		break;
+		case "Mols-Linien":ret = 26;
+		break;
+		case "Mols-Line":ret = 26;
 		break;
 		case "Bredgade":ret = 27;
 		break;
+		case "Leicester Suuare":ret = 27;
+		break;
 		case "Kgs. Nytorv":ret = 28;
 		break;
-		case "Coca-Cola":ret = 29;
+		case "Coventry Street":ret = 28;
+		break;
+		case "Carlsberg":ret = 29;
 		break;
 		case "Oestergade":ret = 30;
 		break;
+		case "Piccadilly":ret = 30;
+		break;
 		case "Amagertorv":ret = 32;
+		break;
+		case "Regent Street":ret = 32;
 		break;
 		case "Vimmelskaftet":ret = 33;
 		break;
+		case "Oxford Street":ret = 33;
+		break;
 		case "Nygade":ret = 35;
+		break;
+		case "Bond Street":ret = 35;
 		break;
 		case "Scandlines":ret = 36;
 		break;
 		case "Frederiksberggade":ret = 38;
 		break;
+		case "Park Lane":ret = 38;
+		break;
 		case "Raadhuspladsen":ret = 40;
+		break;
+		case "Mayfair":ret = 40;
 		}
 		return ret;
 	}
@@ -444,5 +504,75 @@ public class mGUI {
 	public void setCar(GameBoard game, int v)
 	{
 		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getPlayerName());
+	}
+	
+	/**
+	 * Adds a player to the board
+	 * @param game
+	 * @param v
+	 */
+	public void addPlayer(GameBoard game, int v)
+	{
+		Car car = new Car.Builder().secondaryColor(getColor(v)).build();
+		GUI.addPlayer(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance(),car);
+	}
+	
+	/**
+	 * Shows the Balance of a player on the board
+	 */
+	public void setBalance(GameBoard game, int v)
+	{
+		GUI.setBalance(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance());
+	}
+	
+	/**
+	 * Shows to dice with given integer values at a random position on the board
+	 */
+	public void setDice(Shaker shaker)
+	{
+		GUI.setDice(shaker.getDice1Value(), shaker.getDie2Value().;
+	}
+	
+	/**
+	 * sets the car on the start field again.
+	 */
+	public void setCarOnStart(GameBoard game, int v)
+	{
+		GUI.setCar(1, game.playerList.get(v).getPlayerName());
+	}
+	
+	/**
+	 * Removes a car on a given field position (-1) on the board
+	 */
+	public void removeCar(GameBoard game, int v)
+	{
+		GUI.removeAllCars(game.playerList.get(v).getPlayerName());
+	}
+	
+	/**
+	 * Shows a description of the actions performed on a turn in the middle of the board
+	 */
+	public void displayMidDescription(String text)
+	{
+		GUI.displayChanceCard(text);
+	}
+	
+	/**
+	 * A set method for updating the owners of fields in the GUI. 
+	 * @param board
+	 * @param player
+	 */
+	public void setOwner(int pos, String player)
+	{
+	GUI.setOwner(pos, player);
+	}
+	
+	/**
+	 * Removes the owner of a field
+	 * @param pos the number of the field to be removed of owner designation
+	 */
+	public void removeOwner(int pos)
+	{
+		GUI.removeOwner(pos);
 	}
 }

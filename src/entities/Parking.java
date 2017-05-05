@@ -11,8 +11,8 @@ public class Parking implements Field {
 	private String Subtext = "Parking";
 	private Color Colour = Color.WHITE;
 	
-	public Parking(){
-		
+	public Parking(String sub){
+		Subtext = sub;
 	}
 	
 	@Override
