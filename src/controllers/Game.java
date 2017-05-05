@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import entities.Player;
 
 public class Game {
-
-DBcreator dbc = new DBcreator();
 static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
 public ArrayList<Player> playerList = new ArrayList<Player>();
@@ -17,7 +15,6 @@ int numberOfPlayers = 3;
 public volatile int id = 1;
 
 	public void gameStart(){
-		dbc.CreateGame();
 		board.CreateBoard();
 		gui.CreateBoard();
 
