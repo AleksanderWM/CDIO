@@ -5,13 +5,14 @@ import java.awt.Color;
 public class PercentageTax extends Fee{
 
 	private int Percentage;
+	private Color Colour = Color.GRAY;
 	
 	public PercentageTax() {
 		super();
 		Title = "Luxary Tax";
 		Fee = 1000;
 		Percentage = 10;
-		Description = "Pay " + Fee + ", or pay " + Percentage + "% of your balance.";
+		Description = "Betal " + Fee + ", eller " + Percentage + "% af din balance.";
 	}
 	
 	@Override
@@ -51,13 +52,11 @@ public class PercentageTax extends Fee{
 
 	@Override
 	public void setColour(Color colour) {
-		// TODO Auto-generated method stub
-		
+		Colour = colour;
 	}
 
 	@Override
 	public Color getColour() {
-		// TODO Auto-generated method stub
-		return null;
+		return Colour;
 	}
 }

@@ -3,12 +3,11 @@ package entities;
 import java.awt.Color;
 
 public class Utility extends Ownable{
-
-	private String Picture;
 	
-	public Utility(String title, String subText, Color color, int player, int cost, int rent, String picture) {
-		super(title, subText, color, player, cost, rent);
-		Picture = picture;
+	private Color TxColour = Color.WHITE;
+	
+	public Utility(String title, String subText, int player, int cost, int rent) {
+		super(title, subText, new Color(6,76,30), player, cost, rent);
 	}
 
 	@Override
@@ -52,6 +51,21 @@ public class Utility extends Ownable{
 	@Override
 	public Color getColour() {
 		return super.Colour;
+	}
+	public String getPicture() {
+		return Picture;
+	}
+
+	public void setPicture(String url){
+		Picture = url;
+	}
+	
+	public Color getTxColour(){
+		return TxColour;
+	}
+	
+	public void setTxColour(Color colour){
+		TxColour = colour;
 	}
 
 }

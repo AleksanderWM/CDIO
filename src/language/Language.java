@@ -21,7 +21,7 @@ public class Language {
 	
 	public static void chooseLanguage(String Language){
 		
-			InputStream in = Language.class.getResourceAsStream("/" + Language + ".txt");
+			InputStream in = Language.class.getResourceAsStream("/" + Language);
 
 			Reader reader = null;
 			try {
