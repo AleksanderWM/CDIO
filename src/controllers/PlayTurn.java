@@ -4,44 +4,43 @@ import entities.*;
 
 
 
-public class PlayTurn extends Thread{
+public class PlayTurn implements Runnable{
 	mGUI mGui = new mGUI();
 	Shaker shake = new Shaker();
 	GameBoard board = new GameBoard();
 	DBcreator creator = new DBcreator();
 	int playerID;
 	Game thisgame;
+	private Thread t;
+	private String thread1;
 	
-	public PlayTurn(int id, Game game){
+	public PlayTurn(String name, int id, Game game){
+		thread1 = name;
+		System.out.println("Created " + thread1);
 		playerID = id-1;
 		thisgame = game;
 
 	}
 	@Override
 	public void run() {
-		try {
-			sleep(100);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println(thisgame.playerList.get(playerID));
+		
+		System.out.println(thisgame.playerList.get(playerID).getName());
 		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
 			synchronized(thisgame.lock){
 				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
 					try {
 						System.out.println("flot");
 						thisgame.lock.wait();
-						System.out.println("flot");
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
+			}
 			
-			
+			System.out.println(thisgame.playerList.get(playerID).getName());
 			mGui.getButton("Press the Button to shake the dies", "Shake");
-			
+			System.out.println(thisgame.playerList.get(playerID).getName());
 			int shakeValue = shake.getShake();
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			int equalsCount = 1;
@@ -62,7 +61,7 @@ public class PlayTurn extends Thread{
 				thisgame.lock.notifyAll();
 			}
 		}
-	}
+	
 
 //	public void interact(Player thisplayer){
 //		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
@@ -144,7 +143,10 @@ public class PlayTurn extends Thread{
 
 	public void start() {
 		// TODO Auto-generated method stub
-		run();
+		if (t == null){
+			t = new Thread(this, thread1);
+			t.start();
+		}
 	}
 }
 	
