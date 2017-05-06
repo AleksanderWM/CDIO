@@ -127,7 +127,7 @@ public class Player {
 		}
 		position = newPosition;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
