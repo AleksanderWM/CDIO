@@ -53,7 +53,7 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-		while (id != numberOfPlayers+1)
+		while (id != playersInGame+1)
 		{
 		PlayTurn thread = new PlayTurn(id, this);
 		thread.run();

@@ -18,11 +18,12 @@ public class PlayTurn implements Runnable{
 	}
 	@Override
 	public void run() {
-//		String name = mGui.getUserString("Enter a name");
+		String name = mGui.getUserString("Enter a name");
 		
-		Player player = new Player("Adolf", playerID );
+		Player player = new Player(name, playerID );
 		thisgame.playerList.add(player);
 		
+		System.out.println(player.getName());
 		while(player.getAccount().getBalance()!=0){
 			while(thisgame.id!=player.getID()){
 				//Waiting for number to be changed to their turn.	possibly changing their  own values in the GUI if they are changed by other players.
