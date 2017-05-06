@@ -14,22 +14,21 @@ public class PlayTurn implements Runnable{
 	private Thread t;
 	private String thread1;
 	
-	public PlayTurn(String name, int id, Game game){
+	public PlayTurn(String name, int playid, Game game){
 		thread1 = name;
 		System.out.println("Created " + thread1);
-		playerID = id-1;
+		playerID = playid-1;
 		thisgame = game;
 
 	}
 	@Override
 	public void run() {
 		
-		System.out.println(thisgame.playerList.get(playerID).getName());
+
 		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
 			synchronized(thisgame.lock){
 				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
 					try {
-						System.out.println("flot");
 						thisgame.lock.wait();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -38,9 +37,9 @@ public class PlayTurn implements Runnable{
 				}
 			}
 			
-			System.out.println(thisgame.playerList.get(playerID).getName());
+
 			mGui.getButton("Press the Button to shake the dies", "Shake");
-			System.out.println(thisgame.playerList.get(playerID).getName());
+			shake.setShake();
 			int shakeValue = shake.getShake();
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			int equalsCount = 1;
@@ -53,13 +52,12 @@ public class PlayTurn implements Runnable{
 				//gotofuckingjailbitch();
 			}
 			
-			System.out.println("Boya");
-			
-			}
 			synchronized(thisgame.lock) {
-				thisgame.id = thisgame.id+1;
+				System.out.println(thisgame.gameId());
 				thisgame.lock.notifyAll();
 			}
+			}
+			
 		}
 	
 
