@@ -19,13 +19,13 @@ public class Player {
 	 * The Players attributes
 	 * @param position and getOutOfJail start values predefined
 	 */
-	private int position = 0;
+	private int position = 1;
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
 	private String name;
 	
-	private int maxfields = 40;
+	private int maxfields = 39;
 	DBconnector connector = new DBconnector();
 	
 	
@@ -174,7 +174,7 @@ public class Player {
 	 * if not, the java attributes are set to match the database attributes
 	 * And call the updateAccount method
 	 */
-	public void updatePlayer(){
+	public void loadPlayer(){
 		connector.Connect("game");
 	
 		try {
@@ -192,6 +192,33 @@ public class Player {
 				}
 				if(getOutOfJail != gooj){
 					getOutOfJail = gooj;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Account.loadAccount();
+		
+	}
+	
+	public void updatePlayer(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
+			while(rs.next()){
+				String names = rs.getString("Name");
+				int pos = rs.getInt("position");
+				int gooj = rs.getInt("getoutofjail");
+				connector.close();
+				if(name != names){
+					setName("name");
+				}
+				if(position != pos){
+					setPosition(pos);
+				}
+				if(getOutOfJail != gooj){
+					setOutOfJail(getOutOfJail);
 				}
 			}
 		} catch (SQLException e) {
