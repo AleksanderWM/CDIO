@@ -96,7 +96,7 @@ public class Account {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT Money, networth FROM ACCOUNT WHERE = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT Balance, networth FROM ACCOUNT WHERE = "+ ID +";");
 			while(rs.next()){
 				int Balance = rs.getInt("balance");
 				int NW = rs.getInt("networth");
