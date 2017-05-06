@@ -495,6 +495,7 @@ public class mGUI {
 	 */
 	public void setCar(Game game, int v)
 	{
+		removeCar(game,v);
 		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
 	}
 	
@@ -547,5 +548,23 @@ public class mGUI {
 	public void removeOwner(int pos)
 	{
 		GUI.removeOwner(pos);
+	}
+	
+	/**
+	 * Sets a hotel on the field (and removes
+	 * @param field
+	 * @param value The boolean value, true for hotel, false for none.
+	 */
+	public void setHotel(int field,boolean value){
+		GUI.setHotel(field, value);
+	}
+	
+	/**
+	 * Sets a given number of houses on a field
+	 * @param field
+	 * @param house the int value of the number of houses to be set
+	 */
+	public void setHouse(int field,int house){
+		GUI.setHouses(field, house);
 	}
 }
