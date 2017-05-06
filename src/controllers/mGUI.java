@@ -495,6 +495,7 @@ public class mGUI {
 	 */
 	public void setCar(Game game, int v)
 	{
+		removeCar(game,v);
 		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
 	}
 	
