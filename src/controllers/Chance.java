@@ -72,23 +72,34 @@ public class Chance {
 		ChanceCard Card = ChanceList.get(ListLength());
 	
 			switch(Card.getChanceType()){
-				case 1 : ;
+			
+//			UtillityMove
+				case 1 : 
+					
 					break;
-				case 2 : ;
+//			PropertyTax
+				case 2 : 
 					break;
-				case 3 : ;
+//			FixedMove
+				case 3 : 
 					break;
-				case 4 : ;
+//			DynamicMove
+				case 4 : 
 					break;
-				case 5 : ;
+//			Matador
+				case 5 : 
 					break;
-				case 6 : ;
+//			Fee
+				case 6 : 
 					break;
-				case 7 : ;
+//			Birthday
+				case 7 : 
 					break;
-				case 8 : ;
+//			GetOutOfJail
+				case 8 : 
 					break;
-				case 9 : ;
+//			RailRoad
+				case 9 : 
 					break;
 					
 
