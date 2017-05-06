@@ -12,11 +12,11 @@ public class PlayTurn implements Runnable{
 	int playerID;
 	Game thisgame;
 	private Thread t;
-	private String thread1;
+	private String thread;
 	
 	public PlayTurn(String name, int playid, Game game){
 		thread = name;
-		playerID = playid-1;
+		playerID = playid;
 		thisgame = game;
 
 	}
@@ -38,9 +38,13 @@ public class PlayTurn implements Runnable{
 			
 
 			mGui.getButton("Press the Button to shake the dies", "Shake");
-			shake.setShake();
+			shake.shakeShaker();
 			int shakeValue = shake.getShake();
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
+			System.out.println(thisgame.playerList.get(playerID).getID());
+			mGui.removeCar(thisgame, thisgame.playerList.get(playerID).getID());
+			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
+			
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
 				
@@ -141,7 +145,7 @@ public class PlayTurn implements Runnable{
 	public void start() {
 		// TODO Auto-generated method stub
 		if (t == null){
-			t = new Thread(this, thread1);
+			t = new Thread(this, thread);
 			t.start();
 		}
 	}

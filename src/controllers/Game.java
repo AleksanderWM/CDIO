@@ -16,11 +16,12 @@ Scanner scan = new Scanner(System.in);
 DBconnector connector = new DBconnector();
 public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
+
 public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
-		
+		playerList.add(null);
 		dbc.DeleteDBTemp("game", connector);
 		if(dbc.checkDB("game") == false){
 			dbc.CreateGame();
@@ -49,10 +50,11 @@ public volatile int id = 1;
 			String name = gui.getUserString("Enter a name");
 			Player player = new Player(name, id);
 			playerList.add(player);
+			gui.addPlayer(this, id);
+			gui.setCarOnStart(this, id);
 			id++;
 
 		}
-		id = 0;
 				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
@@ -61,7 +63,7 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-			for(int x = 0; x < playersInGame; x++){
+			for(int x = 1; x <= playersInGame; x++){
 		synchronized(lock){
 			
 		}
