@@ -14,7 +14,6 @@ import entities.Matador;
 import entities.Player;
 import entities.Property;
 import entities.PropertyTax;
-import entities.RailRoad;
 import entities.RailroadMove;
 import entities.Utility;
 import entities.UtillityMove;
@@ -143,34 +142,14 @@ public class Chance {
 					Birthday Birthday = (Birthday)Card;
 					int Count = 0;
 					for(int i = 0 ; i <= 6 ; i++){
-						if (game.playerList.get(i) != Player || game.playerList.get(i) != null){
-							i++;
-							game.playerList.get(i).getAccount().addBalance(-Birthday.getFee());
-						}
-					int present = Birthday.getFee() * Count;
-					Player.getAccount().addBalance(present);
+						Player.get
 					}
 					break;
 //			GetOutOfJail
 				case 8 : 
-					Player.setOutOfJail(1);
 					break;
 //			RailRoad
 				case 9 : 
-					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
-						if(game.board.getField(i) instanceof RailRoad){
-							Player.setPosition(i);
-							return;
-						}
-						else{
-							for(int z = 0 ; z <= game.board.getFieldList().size() ; z++){
-								if(game.board.getField(i) instanceof RailRoad){
-									Player.setPosition(i);
-									return;
-								}
-							}
-						}
-					}
 					break;
 					
 
