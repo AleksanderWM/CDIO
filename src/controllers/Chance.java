@@ -13,13 +13,14 @@ import entities.Matador;
 import entities.Player;
 import entities.PropertyTax;
 import entities.RailroadMove;
+import entities.Utility;
 import entities.UtillityMove;
 import language.Language;
 
 public class Chance {
 
 		private ArrayList<ChanceCard> ChanceList = new ArrayList<ChanceCard>();
-	
+		private Game game;
 		
 		public Chance(){
 			
@@ -75,21 +76,39 @@ public class Chance {
 			
 //			UtillityMove
 				case 1 : 
+//					if owned by an other player pay double
+					int pos;
 					if(Player.getPosition() < 12 && Player.getPosition() > 28){
-						Player.setPosition(28);
+						pos = 28;
 					}
-					else
-						Player.setPosition(12);
+					else{
+						pos = 12;
+					}
+					Utility Utility = (Utility)game.board.getField(pos);
+					if(Utility.getOwner() != Player.getID()){
+//						Mangler en get rent
+					}
+					else{
+						Player.setPosition(pos);
+					}
 					break;
 					
 //			PropertyTax
 				case 2 : 
+					PropertyTax Chance = (PropertyTax)Card;
+					int HouseTax = Chance.getHouseTax();
+					int HotelTax = Chance.getHotelTax();
 					int HouseCount;
 					int HotelCount;
+					for(int i = 0; i <= 40 ; i++){
+//						if(game.board.getField(i))
+					}
+//					Property Property = (Property)game.board;
 					
 					break;
 //			FixedMove
 				case 3 : 
+					
 					break;
 //			DynamicMove
 				case 4 : 
