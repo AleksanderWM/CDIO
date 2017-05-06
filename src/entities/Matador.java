@@ -63,4 +63,10 @@ public class Matador extends ChanceCard{
 	public void setBonus(){
 		
 	}
+
+	@Override
+	public void Chance() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -51,4 +51,10 @@ public class UtillityMove extends ChanceCard {
 	
 	public void setMultiplier(){
 	}
+
+	@Override
+	public void Chance() {
+		// TODO Auto-generated method stub
+		
+	}
 }

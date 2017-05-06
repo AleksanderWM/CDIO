@@ -91,7 +91,6 @@ public class Chance {
 				case 9 : ;
 					break;
 					
-
 					
 			}
 		}	

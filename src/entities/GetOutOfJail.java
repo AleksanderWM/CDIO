@@ -43,4 +43,10 @@ public class GetOutOfJail extends ChanceCard{
 		
 	}
 
+	@Override
+	public void Chance() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
