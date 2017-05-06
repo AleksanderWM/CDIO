@@ -92,14 +92,13 @@ public class Account {
 			return money > price;
 		
 	}
-
-	public void loadAccount(){
+	public void updateAccount(){
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT Balance, networth FROM ACCOUNT WHERE = "+ ID +";");
 			while(rs.next()){
-				int Balance = rs.getInt("money");
+				int Balance = rs.getInt("balance");
 				int NW = rs.getInt("networth");
 				connector.close();
 				if(money != Balance){
@@ -111,35 +110,7 @@ public class Account {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}}
+		}
 		
-
-	
-	public int getNetworth(){
-		return networth;
 	}
-	
-	public void setNetworth(int networth){
-		this.networth = networth;
-
-	}
-	public void updateAccount(){
-		connector.Connect("game");
-	
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE = "+ ID +";");
-			while(rs.next()){
-				int Balance = rs.getInt("money");
-				int NW = rs.getInt("networth");
-				connector.close();
-				if(money != Balance){
-					setBalance(money);
-				}
-				if(networth != NW){
-					setNetworth(networth);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}}
 }
