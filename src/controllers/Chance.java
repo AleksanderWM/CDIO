@@ -75,10 +75,18 @@ public class Chance {
 			
 //			UtillityMove
 				case 1 : 
-					
+					if(Player.getPosition() < 12 && Player.getPosition() > 28){
+						Player.setPosition(28);
+					}
+					else
+						Player.setPosition(12);
 					break;
+					
 //			PropertyTax
 				case 2 : 
+					int HouseCount;
+					int HotelCount;
+					
 					break;
 //			FixedMove
 				case 3 : 
