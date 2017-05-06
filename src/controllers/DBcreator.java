@@ -127,7 +127,7 @@ public boolean checkDB(String dbName){
 			   //CREATION of tables
 			   try {
 				GameConnector.doUpdate("Game","CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
-				GameConnector.doUpdate("Game","CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(10), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
+				GameConnector.doUpdate("Game","CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(1), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Field(FieldID INTEGER(2), Name VARCHAR(20), Description VARCHAR(140), PRIMARY KEY ( FieldID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Ownable(FieldID INTEGER(2), Owner INTEGER(2), Price INTEGER(2), Mortgage INTEGER(4), PRIMARY KEY( FieldID ), FOREIGN KEY ( Owner ) REFERENCES Player( PlayerID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Property(FieldID INTEGER(2), Rent INTEGER(4), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), HotelRent INTEGER(5), HousePrice INTEGER(4), House INTEGER(1), Hotel INTEGER(1), PRIMARY KEY ( FieldID ));");
