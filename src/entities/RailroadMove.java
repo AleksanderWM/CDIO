@@ -1,14 +1,9 @@
 package entities;
 
-public class Matador extends ChanceCard{
-	
-	protected int MaxNetworth;
-	protected int Bonus;
+public class RailroadMove extends ChanceCard{
 
-	public Matador(int ID, int Type, String Des, int Max, int Bonus) {
+	public RailroadMove(int ID, int Type, String Des) {
 		super(ID, Type, Des);
-		this.Bonus = Bonus;
-		this.MaxNetworth = Max;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,20 +42,5 @@ public class Matador extends ChanceCard{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public int getMaxNetworth(){
-		return MaxNetworth;
-	}
 
-	public void setMaxNetworth(){
-		
-	}
-	
-	public int getBonus(){
-		return Bonus;
-	}
-	
-	public void setBonus(){
-		
-	}
 }
