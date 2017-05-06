@@ -19,7 +19,7 @@ public class Player {
 	 * The Players attributes
 	 * @param position and getOutOfJail start values predefined
 	 */
-	private int position = 0;
+	private int position = 1;
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
