@@ -80,4 +80,8 @@ public class GameBoard {
 	public ArrayList<Field> getFieldList(){
 		return FieldList;
 	}
+	
+	public Field getField(int index){
+		return FieldList.get(index);
+	}
 }
