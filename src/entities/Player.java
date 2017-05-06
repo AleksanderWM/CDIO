@@ -25,7 +25,7 @@ public class Player {
 	private int ID;
 	private String name;
 	
-	private int maxfields = 40;
+	private int maxfields = 39;
 	DBconnector connector = new DBconnector();
 	
 	

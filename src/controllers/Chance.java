@@ -176,7 +176,13 @@ public class Chance {
 
 					
 			}
-		}	
+//			need to remove the card form the database and the Arraylist
+		}
+			
+		public void LoadChance(){
+			
+		}
 		
+			
+	}	
 		
-}
