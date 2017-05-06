@@ -53,4 +53,11 @@ public class ChanceFee extends ChanceCard{
 		
 	}
 
+	public int getFee(){
+		return Fee;
+	}
+	
+	public void setFee(int fee){
+		Fee = fee;
+	}
 }

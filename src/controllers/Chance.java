@@ -7,11 +7,14 @@ import entities.Birthday;
 import entities.ChanceCard;
 import entities.ChanceFee;
 import entities.DynamicMove;
+import entities.Fee;
 import entities.FixedMove;
 import entities.GetOutOfJail;
 import entities.Matador;
 import entities.Player;
+import entities.Property;
 import entities.PropertyTax;
+import entities.RailRoad;
 import entities.RailroadMove;
 import entities.Utility;
 import entities.UtillityMove;
@@ -98,41 +101,88 @@ public class Chance {
 					PropertyTax Chance = (PropertyTax)Card;
 					int HouseTax = Chance.getHouseTax();
 					int HotelTax = Chance.getHotelTax();
-					int HouseCount;
-					int HotelCount;
+					int HouseCount = 0;
+					int HotelCount = 0;
 					for(int i = 0; i <= 40 ; i++){
-//						if(game.board.getField(i))
+						if(game.board.getField(i) instanceof Property){
+							Property Property = (Property)game.board.getField(i);
+							if(Property.getOwner() == Player.getID()){
+								HouseCount = HouseCount + Property.getHouses();
+								HotelCount = HotelCount + Property.getHotel();								
+							}
+						}
 					}
-//					Property Property = (Property)game.board;
-					
+					int Totaltax = (HouseTax * HouseCount) + (HotelTax * HotelCount);
+					Player.getAccount().addBalance(-Totaltax);										
 					break;
 //			FixedMove
 				case 3 : 
-					
+					FixedMove Fixed = (FixedMove)Card;
+					Player.setPosition(Fixed.getMove());
 					break;
 //			DynamicMove
 				case 4 : 
+					DynamicMove Dyn = (DynamicMove)Card;
+					Player.movePosition(Dyn.getMoves());
 					break;
 //			Matador
 				case 5 : 
+					int NetWorth = Player.getAccount().getNetworth();
+					Matador Matador = (Matador)Card;
+					if(NetWorth < Matador.getMaxNetworth()){
+						Player.getAccount().addBalance(Matador.getBonus());						
+					}
 					break;
 //			Fee
 				case 6 : 
+					ChanceFee Fee = (ChanceFee)Card;
+					Player.getAccount().addBalance(Fee.getFee());
 					break;
 //			Birthday
 				case 7 : 
+					Birthday Birthday = (Birthday)Card;
+					int Count = 0;
+					for(int i = 0 ; i <= 6 ; i++){
+						if (game.playerList.get(i) != Player || game.playerList.get(i) != null){
+							i++;
+							game.playerList.get(i).getAccount().addBalance(-Birthday.getFee());
+						}
+					int present = Birthday.getFee() * Count;
+					Player.getAccount().addBalance(present);
+					}
 					break;
 //			GetOutOfJail
 				case 8 : 
+					Player.setOutOfJail(1);
 					break;
 //			RailRoad
 				case 9 : 
+					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
+						if(game.board.getField(i) instanceof RailRoad){
+							Player.setPosition(i);
+							return;
+						}
+						else{
+							for(int z = 0 ; z <= game.board.getFieldList().size() ; z++){
+								if(game.board.getField(i) instanceof RailRoad){
+									Player.setPosition(i);
+									return;
+								}
+							}
+						}
+					}
 					break;
 					
 
 					
 			}
-		}	
+//			need to remove the card form the database and the Arraylist
+		}
+			
+		public void LoadChance(){
+			
+		}
 		
+			
+	}	
 		
-}

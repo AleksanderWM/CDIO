@@ -15,14 +15,14 @@ DBcreator dbc = new DBcreator();
 Scanner scan = new Scanner(System.in);
 DBconnector connector = new DBconnector();
 public final Object lock = new Object();
-
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
-int numberOfPlayers = 3;
+public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
-		
+		board.CreateBoard();
+		playerList.add(null);
 		dbc.DeleteDBTemp("game", connector);
 		if(dbc.checkDB("game") == false){
 			dbc.CreateGame();
@@ -41,7 +41,7 @@ public volatile int id = 1;
 
 	public void enterPlayers()
 	{
-		while (numberOfPlayers < 2 && numberOfPlayers > 6)
+		while (numberOfPlayers < 2 || numberOfPlayers > 6)
 		{
 			//Message shown to user, to clarify that he needs to put in the correct value of players between 2 and 6.
 			numberOfPlayers = gui.getUserInt("Enter Ammount of Players between 2 and 6");
@@ -51,10 +51,11 @@ public volatile int id = 1;
 			String name = gui.getUserString("Enter a name");
 			Player player = new Player(name, id);
 			playerList.add(player);
+			gui.addPlayer(this, id);
+			gui.setCarOnStart(this, id);
 			id++;
 
 		}
-		id = 0;
 				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
@@ -63,13 +64,12 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-			for(int x = 0; x < playersInGame; x++){
+			for(int x = 1; x <= playersInGame; x++){
 		synchronized(lock){
 			
 		}
-		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this);
+		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this, this.board);
 		thread.start();
-		System.out.println("started thread" + x);
 			}
 			synchronized(lock){
 			
@@ -83,6 +83,10 @@ public volatile int id = 1;
 
 	
 	public int gameId(){
+		if(id == numberOfPlayers){
+			id = 1;
+		}
+		else id++;
 		return id;
 	}
 

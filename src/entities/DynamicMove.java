@@ -51,5 +51,13 @@ public class DynamicMove extends ChanceCard{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public int getMoves(){
+		return Moves;
+	}
+	
+	public void setMoves(int moves){
+		Moves = moves;
+	}
 
 }

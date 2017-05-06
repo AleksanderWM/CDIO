@@ -19,13 +19,13 @@ public class Player {
 	 * The Players attributes
 	 * @param position and getOutOfJail start values predefined
 	 */
-	private int position = 0;
+	private int position = 1;
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
 	private String name;
 	
-	private int maxfields = 40;
+	private int maxfields = 39;
 	DBconnector connector = new DBconnector();
 	
 	

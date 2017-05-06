@@ -57,8 +57,8 @@ public class Account {
 		money = newBalance;
 		networth = newNetworth;
 		try {
-			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID EQUALS " + ID + ");");
-			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + newNetworth + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID = " + ID + ";");
+			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + newNetworth + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,5 +91,13 @@ public class Account {
 	public boolean enoughMoney(int price){
 			return money > price;
 		
+	}
+	
+	public int getNetworth(){
+		return networth;
+	}
+	
+	public void setNetworth(int networth){
+		this.networth = networth;
 	}
 }
