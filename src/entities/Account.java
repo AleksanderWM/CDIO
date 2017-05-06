@@ -97,9 +97,9 @@ public class Account {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT Balance, networth FROM ACCOUNT WHERE = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE = "+ ID +";");
 			while(rs.next()){
-				int Balance = rs.getInt("balance");
+				int Balance = rs.getInt("money");
 				int NW = rs.getInt("networth");
 				connector.close();
 				if(money != Balance){
@@ -111,7 +111,7 @@ public class Account {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}}
 		
 
 	
