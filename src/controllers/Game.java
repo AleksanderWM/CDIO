@@ -13,6 +13,8 @@ static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
 DBcreator dbc = new DBcreator();
 Scanner scan = new Scanner(System.in);
+DBconnector connector = new DBconnector();
+public final Object lock = new Object();
 
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
@@ -20,6 +22,8 @@ int numberOfPlayers = 3;
 public volatile int id = 1;
 
 	public void gameStart(){
+		
+		dbc.DeleteDBTemp("game", connector);
 		if(dbc.checkDB("game") == false){
 			dbc.CreateGame();
 			dbc.tbCreatorGame();
@@ -33,7 +37,6 @@ public volatile int id = 1;
 		gui.CreateBoard();
 
 		enterPlayers();
-		System.out.println(playerList.get(1).getName());
 	}
 
 	public void enterPlayers()
@@ -44,8 +47,15 @@ public volatile int id = 1;
 			numberOfPlayers = gui.getUserInt("Enter Ammount of Players between 2 and 6");
 		}
 		
-		this.createPlayerThreads(numberOfPlayers);
-		
+		for(int x = 0; x < numberOfPlayers; x++){
+			String name = gui.getUserString("Enter a name");
+			Player player = new Player(name, id);
+			playerList.add(player);
+			id++;
+
+		}
+		id = 0;
+				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
 	 * Creates the different threads for the game.
@@ -53,14 +63,15 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-		while (id != numberOfPlayers+1)
-		{
-		PlayTurn thread = new PlayTurn(id, this);
-		thread.run();
-		id++;
+			for(int x = 0; x < playersInGame; x++){
+		PlayTurn thread = new PlayTurn(playerList.get(0).getID(), this);
+		System.out.println("started thread" + x);
+			}
+			id = 1;
 		}
+	
 
-	}
+	
 	public int gameId(){
 		return id;
 	}

@@ -1,10 +1,16 @@
 package entities;
 
-public class GetOutOfJail extends ChanceCard{
+public class RailroadMove extends ChanceCard{
 
-	public GetOutOfJail(int ID, int Type, String Des) {
+	public RailroadMove(int ID, int Type, String Des) {
 		super(ID, Type, Des);
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void Chance() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -39,12 +45,6 @@ public class GetOutOfJail extends ChanceCard{
 
 	@Override
 	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Chance() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -2,7 +2,9 @@ package controllers;
 
 import entities.*;
 
-public class PlayTurn implements Runnable{
+
+
+public class PlayTurn extends Thread{
 	mGUI mGui = new mGUI();
 	Shaker shake = new Shaker();
 	GameBoard board = new GameBoard();
@@ -11,31 +13,41 @@ public class PlayTurn implements Runnable{
 	Game thisgame;
 	
 	public PlayTurn(int id, Game game){
-		playerID = id;
+		playerID = id-1;
 		thisgame = game;
-		run();
-		
+
 	}
 	@Override
 	public void run() {
-//		String name = mGui.getUserString("Enter a name");
-		
-		Player player = new Player("Adolf", playerID );
-		thisgame.playerList.add(player);
-		
-		while(player.getAccount().getBalance()!=0){
-			while(thisgame.id!=player.getID()){
-				//Waiting for number to be changed to their turn.	possibly changing their  own values in the GUI if they are changed by other players.
-			}
+		try {
+			sleep(100);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(thisgame.playerList.get(playerID));
+		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
+			synchronized(thisgame.lock){
+				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
+					try {
+						System.out.println("flot");
+						thisgame.lock.wait();
+						System.out.println("flot");
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
 			
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			
 			int shakeValue = shake.getShake();
-			player.movePosition(shakeValue);
+			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
 				
-				
+			
 				equalsCount++;
 			}
 			if(equalsCount == 3){
@@ -45,8 +57,13 @@ public class PlayTurn implements Runnable{
 			System.out.println("Boya");
 			
 			}
-			
+			synchronized(thisgame.lock) {
+				thisgame.id = thisgame.id+1;
+				thisgame.lock.notifyAll();
+			}
 		}
+	}
+
 //	public void interact(Player thisplayer){
 //		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
 //			int currentField = mGui.getFieldChoice();
@@ -127,7 +144,7 @@ public class PlayTurn implements Runnable{
 
 	public void start() {
 		// TODO Auto-generated method stub
-		
+		run();
 	}
 }
 	
