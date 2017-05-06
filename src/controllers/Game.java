@@ -54,7 +54,7 @@ public volatile int id = 1;
 			id++;
 
 		}
-		id = 1;
+		id = 0;
 				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
@@ -63,16 +63,15 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-		synchronized(lock){
 			for(int x = 0; x < playersInGame; x++){
 		PlayTurn thread = new PlayTurn(playerList.get(0).getID(), this);
-		thread.start();
 		System.out.println("started thread" + x);
-		}
+			}
+			id = 1;
 		}
 	
 
-	}
+	
 	public int gameId(){
 		return id;
 	}
