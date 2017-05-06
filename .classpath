@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.41-bin.jar"/>
-	<classpathentry exported="true" kind="lib" path="GUI.jar" sourcepath="GUI_source_code.zip"/>
+	<classpathentry kind="lib" path="GUI2.jar" sourcepath="Desktop_GUI"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,15 +4,15 @@ import java.awt.Color;
 
 public class GoToJail implements Field {
 
-	private String Title = "Go to Jail";
+	private String Title;
 	private String Description = "Move to Jail";
 	private String Picture = "";
 	private Color TxColour = Color.BLACK;
 	private Color Colour = Color.GRAY;
 	private String Subtext = "Gaa i faengsel";
 	
-	public GoToJail(){
-		
+	public GoToJail(String name){
+		Title = name;
 	}
 	
 	@Override

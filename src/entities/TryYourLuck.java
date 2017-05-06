@@ -4,13 +4,13 @@ import java.awt.Color;
 
 public class TryYourLuck implements Field{
 
-	private String Title = "Try Your Luck";
+	private String Title;
 	private String Description = "Draw a 'Try Your Luck' card";
 	private Color Colour = Color.BLACK;
 	private Color TxColour = Color.WHITE;
 	
-	public TryYourLuck(){
-
+	public TryYourLuck(String name){
+		Title = name;
 	}
 	
 	@Override
@@ -28,12 +28,12 @@ public class TryYourLuck implements Field{
 
 	@Override
 	public String getTitle() {
-		
-		return null;
+		return Title;
 	}
 
 	@Override
 	public void setTitle(String titl) {
+		Title = titl;
 	}
 
 	@Override
