@@ -64,11 +64,21 @@ public volatile int id = 1;
 	public void createPlayerThreads(int playersInGame)
 	{
 			for(int x = 0; x < playersInGame; x++){
-		PlayTurn thread = new PlayTurn(playerList.get(0).getID(), this);
+		synchronized(lock){
+			
+		}
+		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this);
+		thread.start();
 		System.out.println("started thread" + x);
 			}
+			synchronized(lock){
+			
 			id = 1;
+			lock.notifyAll();
+			}
 		}
+
+	
 	
 
 	
