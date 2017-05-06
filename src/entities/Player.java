@@ -169,7 +169,7 @@ public class Player {
 	}
 	
 	/**
-	 * updatePlayer takes the name, position and getOutOfJail attributes from the database
+	 * loadPlayer takes the name, position and getOutOfJail attributes from the database
 	 * and checks if the attributes are the same as the java attributes
 	 * if not, the java attributes are set to match the database attributes
 	 * And call the updateAccount method
@@ -185,13 +185,13 @@ public class Player {
 				int gooj = rs.getInt("getoutofjail");
 				connector.close();
 				if(name != names){
-					name = names;
+					setName(name);
 				}
 				if(position != pos){
-					position = pos;
+					setPosition(position);
 				}
 				if(getOutOfJail != gooj){
-					getOutOfJail = gooj;
+					setOutOfJail(getOutOfJail);
 				}
 			}
 		} catch (SQLException e) {

@@ -103,10 +103,10 @@ public class Account {
 				int NW = rs.getInt("networth");
 				connector.close();
 				if(money != Balance){
-					money = Balance;
+					setBalance(money);
 				}
 				if(networth != NW){
-					networth = NW;
+					setNetworth(networth);
 				}
 			}
 		} catch (SQLException e) {
