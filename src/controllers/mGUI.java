@@ -15,7 +15,6 @@ import entities.Parking;
 import entities.RailRoad;
 import entities.TryYourLuck;
 import entities.Utility;
-import game.GameBoard;
 import language.Language;
 import entities.Shaker;
 import java.awt.Color;
@@ -296,10 +295,10 @@ public class mGUI {
 	 * @param v
 	 * @param c
 	 */
-	public void addPlayer(GameBoard game, int v)
+	public void addPlayer(Game game, int v)
 	{
 		Car car = new Car.Builder().secondaryColor(getColor(v)).build();
-		GUI.addPlayer(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance(),car);
+		GUI.addPlayer(game.playerList.get(v).getName(), game.playerList.get(v).getAccount().getBalance(),car);
 	}
 	
 	
@@ -477,14 +476,7 @@ public class mGUI {
 		return GUI.getUserInteger(msg);
 	}
 	
-	/**
-	 * Removes a car on a given field position (-1) on the board
-	 */
-	public void removeCar(GameBoard game, int v)
-	{
-		GUI.removeAllCars(game.playerList.get(v).getPlayerName());
-	}
-	public void playTurn(GameBoard game, int v, Shaker shaker)
+	public void playTurn(Game game, int v, Shaker shaker)
 	{
 		removeCar(game, v);
 		setCar(game, v);
@@ -501,52 +493,33 @@ public class mGUI {
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
-	public void setCar(GameBoard game, int v)
+	public void setCar(Game game, int v)
 	{
-		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getPlayerName());
-	}
-	
-	/**
-	 * Adds a player to the board
-	 * @param game
-	 * @param v
-	 */
-	public void addPlayer(GameBoard game, int v)
-	{
-		Car car = new Car.Builder().secondaryColor(getColor(v)).build();
-		GUI.addPlayer(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance(),car);
+		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
 	}
 	
 	/**
 	 * Shows the Balance of a player on the board
 	 */
-	public void setBalance(GameBoard game, int v)
+	public void setBalance(Game game, int v)
 	{
-		GUI.setBalance(game.playerList.get(v).getPlayerName(), game.playerList.get(v).getAccount().getBalance());
-	}
-	
-	/**
-	 * Shows to dice with given integer values at a random position on the board
-	 */
-	public void setDice(Shaker shaker)
-	{
-		GUI.setDice(shaker.getDice1Value(), shaker.getDie2Value().;
+		GUI.setBalance(game.playerList.get(v).getName(), game.playerList.get(v).getAccount().getBalance());
 	}
 	
 	/**
 	 * sets the car on the start field again.
 	 */
-	public void setCarOnStart(GameBoard game, int v)
+	public void setCarOnStart(Game game, int v)
 	{
-		GUI.setCar(1, game.playerList.get(v).getPlayerName());
+		GUI.setCar(1, game.playerList.get(v).getName());
 	}
 	
 	/**
 	 * Removes a car on a given field position (-1) on the board
 	 */
-	public void removeCar(GameBoard game, int v)
+	public void removeCar(Game game, int v)
 	{
-		GUI.removeAllCars(game.playerList.get(v).getPlayerName());
+		GUI.removeAllCars(game.playerList.get(v).getName());
 	}
 	
 	/**
