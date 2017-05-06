@@ -42,7 +42,6 @@ public class Player {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 	/**
 	 * @return name
@@ -59,7 +58,7 @@ public class Player {
 		this.name = name;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,7 +83,7 @@ public class Player {
 		int goojNow = getOutOfJail + Amount;
 		getOutOfJail = goojNow;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET GetOutOfJail = " + goojNow + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET GetOutOfJail = " + goojNow + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,7 +105,7 @@ public class Player {
 		connector.Connect("game");
 		position = newPosition;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,7 +161,7 @@ public class Player {
 		this.ID = ID;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE Player SET PlayerID = " + ID + " WHERE PlayerID EQUALS " + this.ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET PlayerID = " + ID + " WHERE PlayerID EQUALS " + this.ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,12 +172,13 @@ public class Player {
 	 * updatePlayer takes the name, position and getOutOfJail attributes from the database
 	 * and checks if the attributes are the same as the java attributes
 	 * if not, the java attributes are set to match the database attributes
+	 * And call the updateAccount method
 	 */
 	public void updatePlayer(){
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
+			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
 			while(rs.next()){
 				String names = rs.getString("Name");
 				int pos = rs.getInt("position");
@@ -197,6 +197,7 @@ public class Player {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		Account.updateAccount();
 		
 	}
 }
