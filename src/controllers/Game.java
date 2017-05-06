@@ -13,6 +13,7 @@ static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
 DBcreator dbc = new DBcreator();
 Scanner scan = new Scanner(System.in);
+DBconnector connector = new DBconnector();
 
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
@@ -20,6 +21,8 @@ int numberOfPlayers = 3;
 public volatile int id = 1;
 
 	public void gameStart(){
+		
+		dbc.DeleteDBTemp("game", connector);
 		if(dbc.checkDB("game") == false){
 			dbc.CreateGame();
 			dbc.tbCreatorGame();
