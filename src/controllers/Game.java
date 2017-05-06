@@ -21,6 +21,7 @@ public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
+		board.CreateBoard();
 		playerList.add(null);
 		dbc.DeleteDBTemp("game", connector);
 		if(dbc.checkDB("game") == false){
@@ -67,7 +68,7 @@ public volatile int id = 1;
 		synchronized(lock){
 			
 		}
-		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this);
+		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this, this.board);
 		thread.start();
 			}
 			synchronized(lock){
