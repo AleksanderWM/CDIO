@@ -51,5 +51,13 @@ public class FixedMove extends ChanceCard{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public int getMove(){
+		return Move;
+	}
+	
+	public void setMove(int move){
+		Move = move;
+	}
 
 }
