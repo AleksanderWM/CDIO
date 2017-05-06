@@ -15,8 +15,7 @@ public class PlayTurn implements Runnable{
 	private String thread1;
 	
 	public PlayTurn(String name, int playid, Game game){
-		thread1 = name;
-		System.out.println("Created " + thread1);
+		thread = name;
 		playerID = playid-1;
 		thisgame = game;
 
@@ -53,7 +52,7 @@ public class PlayTurn implements Runnable{
 			}
 			
 			synchronized(thisgame.lock) {
-				System.out.println(thisgame.gameId());
+				thisgame.gameId();
 				thisgame.lock.notifyAll();
 			}
 			}

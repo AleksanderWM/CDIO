@@ -33,7 +33,7 @@ public volatile int id = 1;
 		Language.chooseLanguage(scan.nextLine());
 		board.CreateBoard();
 		gui.CreateBoard();
-		System.out.println("emil er dum");
+
 		enterPlayers();
 	}
 
@@ -41,7 +41,6 @@ public volatile int id = 1;
 	{
 		while (numberOfPlayers < 2 || numberOfPlayers > 6)
 		{
-			System.out.println("emil er dum");
 			//Message shown to user, to clarify that he needs to put in the correct value of players between 2 and 6.
 			numberOfPlayers = gui.getUserInt("Enter Ammount of Players between 2 and 6");
 		}
@@ -50,7 +49,6 @@ public volatile int id = 1;
 			String name = gui.getUserString("Enter a name");
 			Player player = new Player(name, id);
 			playerList.add(player);
-			System.out.println(id);
 			id++;
 
 		}
@@ -69,7 +67,6 @@ public volatile int id = 1;
 		}
 		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this);
 		thread.start();
-		System.out.println("started thread" + x);
 			}
 			synchronized(lock){
 			
