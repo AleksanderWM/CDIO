@@ -19,17 +19,17 @@ public abstract class Ownable implements Field {
 	protected int owned = 10;
 	protected int price;
 	protected int rent;
-	protected Player owner;
+	protected int owner;
 	protected Color Colour;
 	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String subText, Color color, Player player, int cost, int rent)
+	public Ownable(String title, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
 		SubText = subText;
 		Colour = color;
-		owner = player;
+		owner = playerID;
 		price = cost;
 	}
 	//METHODS
@@ -89,14 +89,16 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the owner of the field to an integer, corresponding to the player number (int) of the player owning the field
 	 */
-	public void setOwner(){
-		
+	public void setOwner(int ID){
+		owner = ID;
 	}
 	
 	/**
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
-	public void getOwner(){
+	public int getOwner(){
+		
+		return owner;
 		
 	}
 	

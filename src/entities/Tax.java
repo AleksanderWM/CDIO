@@ -1,12 +1,15 @@
 package entities;
 
+import java.awt.Color;
+
 public class Tax extends Fee {
 	
 	public Tax() {
 		super();
-		Title = "Income Tax";
+		Title = "Indkomst skat";
 		Fee = 1000;
-		Description = "Pay " + Fee;
+		Description = "Betal " + Fee;
+		Colour = Color.GRAY;
 		
 	}
 
@@ -43,6 +46,17 @@ public class Tax extends Fee {
 	@Override
 	public void setNumber(int numb) {
 		super.setNumber(numb);
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		Colour = colour;
+		
+	}
+
+	@Override
+	public Color getColour() {
+		return Colour;
 	}
 	
 }

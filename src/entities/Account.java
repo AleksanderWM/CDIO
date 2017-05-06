@@ -92,6 +92,7 @@ public class Account {
 			return money > price;
 		
 	}
+
 	public void updateAccount(){
 		connector.Connect("game");
 	
@@ -112,5 +113,14 @@ public class Account {
 			e.printStackTrace();
 		}
 		
+
+	
+	public int getNetworth(){
+		return networth;
+	}
+	
+	public void setNetworth(int networth){
+		this.networth = networth;
+
 	}
 }

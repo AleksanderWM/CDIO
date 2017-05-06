@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+
 public abstract class Fee implements Field {
 	//ATTRIBUTES
 	
@@ -8,6 +10,7 @@ public abstract class Fee implements Field {
 	String Title;
 	int Number;
 	String Subtext;
+	Color Colour;
 
 	public Fee(){
 		

@@ -4,7 +4,10 @@ import java.awt.Color;
 
 public class Property extends Ownable {
 	
-	public Property(String title, String subText, Color colour, Player player,int cost,int rent) 
+	private int Houses = 0;
+	private int Hotel = 0;
+	
+	public Property(String title, String subText, Color colour, int player,int cost,int rent) 
 	{
 		super(title, subText, colour, player, cost, rent);
 	}
@@ -51,5 +54,27 @@ public class Property extends Ownable {
 		return super.Colour;
 	}
 	
+	public int getHouses(){
+		return Houses;
+	}
+	/**
+	 * Only add 1 or -1 House at a time
+	 * @param houses
+	 */
+	public void addHouses(int houses){
+		this.Houses = this.Houses + houses;
+		if(Houses > 4){
+			Houses = 0;
+			Hotel = 1;
+		}
+		if(Hotel == 1 && houses == -1){
+			Hotel = 0;
+			Houses = 4;
+		}
+	}
+	
+	public int getHotel(){
+		return Hotel;
+	}
 
 }
