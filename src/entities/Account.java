@@ -92,4 +92,12 @@ public class Account {
 			return money > price;
 		
 	}
+	
+	public int getNetworth(){
+		return networth;
+	}
+	
+	public void setNetworth(int networth){
+		this.networth = networth;
+	}
 }
