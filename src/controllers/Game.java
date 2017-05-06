@@ -14,6 +14,7 @@ GameBoard board = new GameBoard();
 DBcreator dbc = new DBcreator();
 Scanner scan = new Scanner(System.in);
 DBconnector connector = new DBconnector();
+public final Object lock = new Object();
 
 public ArrayList<Player> playerList = new ArrayList<Player>();
 
