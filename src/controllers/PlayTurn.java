@@ -19,6 +19,13 @@ public class PlayTurn extends Thread{
 	}
 	@Override
 	public void run() {
+		try {
+			sleep(100);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(thisgame.playerList.get(playerID));
 		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
 			synchronized(thisgame.lock){
 				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
