@@ -74,7 +74,8 @@ public class PlayTurn implements Runnable{
 			
 		}
 	public void amIInJail(){
-		if(thisgame.playerList.get(playerID).getPosition() == jailed){
+	if(thisgame.playerList.get(playerID).getPosition() == jailed){
+		if(thisgame.playerList.get(playerID).getOutOfJail() == 0){
 			if(thisgame.playerList.get(playerID).getJailTries() < 3){
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
 					payOutOfJail();
@@ -95,8 +96,11 @@ public class PlayTurn implements Runnable{
 				}
 			}
 		}
-		
-		wasIJustReleasedFromJail = true;
+		else {
+			thisgame.playerList.get(playerID).setOutOfJail(-1);
+			wasIJustReleasedFromJail = false;
+		}
+	}
 	}
 	
 	
