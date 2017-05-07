@@ -16,11 +16,13 @@ Scanner scan = new Scanner(System.in);
 DBconnector connector = new DBconnector();
 public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
+Chance chance = new Chance();
 
 public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
+		chance.createChance();
 		board.CreateBoard();
 		playerList.add(null);
 		dbc.DeleteDBTemp("game", connector);
