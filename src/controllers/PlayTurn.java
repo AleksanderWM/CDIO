@@ -40,6 +40,7 @@ public class PlayTurn implements Runnable{
 			shakeAndMove();
 			thisgame.playerList.get(playerID).updatePlayer();
 			interact(thisgame.playerList.get(playerID));
+			mGui.setBalance(thisgame, playerID);
 			
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
