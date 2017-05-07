@@ -25,8 +25,10 @@ public class GameBoard {
 	public ArrayList<Field> FieldList = new ArrayList<Field>();
 	private Text TitleFile = new Text("FieldTitles.txt");
 	private Text DescriptionFile = new Text("FieldDescription.txt");
+	private Text SubtextFile = new Text("FieldSubtext.txt");
 	private String[] TitleList = null;
 	private String[] DescriptionList = null;
+	private String[] SubtextList = null;
 	private int noOwner = 0;
 
 	
@@ -34,6 +36,7 @@ public class GameBoard {
 		try {
 			TitleList = TitleFile.OpenFile();
 			DescriptionList = DescriptionFile.OpenFile();
+			SubtextList = SubtextFile.OpenFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +45,7 @@ public class GameBoard {
 		FieldList.add(new Property(TitleList[2],DescriptionList[2],"1200",Color.CYAN,noOwner,1200,1000,50,250,750, 2250, 4000, 6000,0,0));
 		FieldList.add(new TryYourLuck(TitleList[3]));
 		FieldList.add(new Property(TitleList[4],DescriptionList[4],"1200",Color.CYAN,noOwner,1200,1000,50, 250, 750, 2250, 4000, 6000, 0, 0));
-		FieldList.add(new Tax());
+		FieldList.add(new Tax(TitleList[5],DescriptionList[5],SubtextList[5]));
 		FieldList.add(new RailRoad(TitleList[6],DescriptionList[6],"4000",Color.BLUE,noOwner,4000,500));
 		FieldList.add(new Property(TitleList[7],DescriptionList[7],"2000",Color.ORANGE,noOwner,2000,100,100, 600, 1800, 5400, 8000, 11000, 0, 0));
 		FieldList.add(new TryYourLuck(TitleList[8]));
@@ -76,7 +79,7 @@ public class GameBoard {
 		FieldList.add(new RailRoad(TitleList[36],DescriptionList[36],"4000",Color.BLUE,noOwner,4000,500));
 		FieldList.add(new TryYourLuck(TitleList[37]));
 		FieldList.add(new Property(TitleList[38],DescriptionList[38],"7000",new Color(150,53,150),noOwner,7000,4000,700, 3500, 10000, 22000, 26000, 30000, 0, 0));
-		FieldList.add(new PercentageTax());
+		FieldList.add(new PercentageTax(TitleList[39],DescriptionList[39],SubtextList[39]));
 		FieldList.add(new Property(TitleList[40],DescriptionList[40],"8000",new Color(150,53,150),noOwner,8000,4000,1000, 4000, 12000, 28000, 34000, 40000, 0, 0));
 	}
 	
