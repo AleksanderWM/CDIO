@@ -20,6 +20,7 @@ import entities.Shaker;
 import java.awt.Color;
 import desktop_codebehind.Car;
 import desktop_board.Board;
+import entities.Property;
 
 /**s
  * @author Emil Jørgensen
