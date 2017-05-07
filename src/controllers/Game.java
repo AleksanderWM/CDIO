@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entities.Field;
 import entities.Player;
 
 public class Game {
@@ -80,7 +81,11 @@ public volatile int id = 1;
 		}
 
 	
-	
+	public void gameWinner(){
+		for(Player item : playerList){
+			
+		}
+	}
 
 	
 	public int gameId(){
