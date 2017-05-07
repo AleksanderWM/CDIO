@@ -93,7 +93,7 @@ public class Chance {
 			return ChanceList.size();
 		}
 		
-		public void DrawChance(int PlayerID,Game game, mGUI gui){
+		public void DrawChance(int PlayerID,Game game, mGUI gui,Shaker shake){
 		if(ChanceList.size() == 0){
 			createChance();
 		}
