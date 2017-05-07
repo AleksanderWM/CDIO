@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -17,6 +22,11 @@ public abstract class ChanceCard {
 		this.ID = ID;
 		this.Type = Type;
 		Description = Des;
+		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Des + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getChanceID(){

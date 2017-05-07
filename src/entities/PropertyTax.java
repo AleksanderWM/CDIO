@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -12,6 +17,11 @@ public class PropertyTax extends ChanceCard{
 		super(ID, Type, Des);
 		HouseTax = House;
 		HotelTax = Hotel;
+		try {
+			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + House + "," + Hotel + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 	

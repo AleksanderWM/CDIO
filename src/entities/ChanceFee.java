@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -9,8 +14,12 @@ public class ChanceFee extends ChanceCard{
 	
 	public ChanceFee(int ID, int Type, String Des, int Fee) {
 		super(ID, Type, Des);
-		
 		this.Fee = Fee;
+		try {
+			connector.doUpdate("chance","INSERT into ChanceFee values(" + ID + "," + Fee + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 
