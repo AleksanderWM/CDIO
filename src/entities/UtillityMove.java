@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class UtillityMove extends ChanceCard {
 
 	protected int Multiplier;
@@ -53,8 +55,14 @@ public class UtillityMove extends ChanceCard {
 	}
 
 	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM utillitymove WHERE " + card.getChanceID() +  "= UtillityMoveID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

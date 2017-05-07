@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class GetOutOfJail extends ChanceCard{
 
 	public GetOutOfJail(int ID, int Type, String Des) {
@@ -44,9 +46,13 @@ public class GetOutOfJail extends ChanceCard{
 	}
 
 	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
 }
