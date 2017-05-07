@@ -201,11 +201,13 @@ public class PlayTurn implements Runnable{
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
 		int turnsTried = 3;
-		while(shake.getDice1Value()!= shake.getDice2Value() || turnsTried == 0){
+		while(shake.getDice1Value()!= shake.getDice2Value()){
+			if(turnsTried != 0){
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			shake.shakeShaker();
 			mGui.setDice(shake);
 			turnsTried--;
+			}
 		}
 		if(shake.getDice1Value()==shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);

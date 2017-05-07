@@ -72,11 +72,11 @@ public class Property extends Ownable {
 		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
 			if(((Property) gameboard.FieldList.get(boardValue)).getHotel() == 1){
 				int rentToPay = getRent(5);
-				payRent(game, playerID, gameboard, boardValue, rentToPay);
+				payRent(game, playerID, gameboard, boardValue, rentToPay, mui);
 			}
 			else {
 				int rentToPay = getRent(((Property)gameboard.FieldList.get(boardValue)).getHouses());
-				payRent(game, playerID, gameboard, boardValue, rentToPay);
+				payRent(game, playerID, gameboard, boardValue, rentToPay, mui);
 			}
 		}
 

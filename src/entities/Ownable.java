@@ -125,10 +125,11 @@ public abstract class Ownable implements Field {
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
 	 */
-	public void payRent(Game game, int p, GameBoard gameboard, int b, int rent){
+	public void payRent(Game game, int p, GameBoard gameboard, int b, int rent, mGUI mui){
 		game.playerList.get(p).getAccount().addBalance(-rent);
+		mui.setBalance(game, p);
 		game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getAccount().addBalance(rent);
-
+		mui.setBalance(game, ((Ownable)gameboard.FieldList.get(b)).getOwner());
 	}
 	
 	/**

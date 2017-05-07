@@ -41,10 +41,12 @@ public class PercentageTax extends Fee{
 		if (!taxChoice)
 		{
 			game.playerList.get(p).getAccount().addBalance((int) -(game.playerList.get(p).getAccount().getBalance()*Percentage));
+			mui.setBalance(game, p);
 		}
 		else
 		{
-			game.playerList.get(p).getAccount().addBalance(Fee);
+			game.playerList.get(p).getAccount().addBalance(-Fee);
+			mui.setBalance(game, p);
 		}
 	}
 
