@@ -31,8 +31,6 @@ public volatile int id = 1;
 		if(dbc.checkDB("chance") == false){
 			dbc.CreateChance();
 		}
-		System.out.println("Choose Language (Dansk/English)");
-		Language.chooseLanguage(scan.nextLine());
 		board.CreateBoard();
 		gui.CreateBoard();
 

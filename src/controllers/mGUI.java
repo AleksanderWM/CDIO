@@ -339,111 +339,89 @@ public class mGUI {
 	public int getFieldChoice(){
 		int ret = 0;
 		switch(GUI.getUserSelection("Choose a field", Language.toString(2),Language.toString(4),Language.toString(6),Language.toString(7),Language.toString(9),Language.toString(10),Language.toString(12),Language.toString(13),Language.toString(14),Language.toString(15),Language.toString(16),Language.toString(17),Language.toString(19),Language.toString(20),Language.toString(22),Language.toString(24),Language.toString(25),Language.toString(26),Language.toString(27),Language.toString(28),Language.toString(29),Language.toString(30),Language.toString(32),Language.toString(33),Language.toString(35),Language.toString(36),Language.toString(38),Language.toString(40))){
-		case "Rodovrevej":ret = 1;
+
+		case "Old Kent Road":ret = 2;
 		break;
-		case "Old Kent Road":ret = 1;
+
+		case "Whitechapel Road":ret = 4;
 		break;
-		case "Hvidovrevej":ret =  3;
+
+		case "LB Ferries":ret = 6;
 		break;
-		case "Whitechapel Road":ret = 3;
+
+		case "Islington":ret = 8;
 		break;
-		case "LB Færger":ret = 5;
+
+		case "Euston Road":ret = 9;
 		break;
-		case "LB Ferries":ret = 5;
+
+		case "Pentonville Road":ret = 10;
 		break;
-		case "Roskildevej":ret = 6;
+
+		case "Pall Mall":ret = 12;
 		break;
-		case "Islington":ret = 6;
+		
+		case "Tuborg":ret = 13;
 		break;
-		case "Valby Langgade":ret = 8;
+
+		case "Whitehall":ret = 14;
 		break;
-		case "Euston Road":ret = 8;
+
+		case "Northumberland":ret =15;
 		break;
-		case "Allégade":ret = 9;
+
+		case "DSB Ferry":ret = 16;
 		break;
-		case "Pentonville Road":ret = 9;
+
+		case "Bow Street":ret = 17;
 		break;
-		case "Frederiksberg Allé":ret = 11;
-		break;
-		case "Pall Mall":ret = 11;
-		break;
-		case "Tuborg":ret = 12;
-		break;
-		case "Bülowsgade":ret = 13;
-		break;
-		case "Whitehall":ret = 13;
-		break;
-		case "Gl. Kongevej":ret = 14;
-		break;
-		case "Northumberland":ret =14;
-		break;
-		case "DSB Færge":ret = 15;
-		break;
-		case "DSB Ferry":ret = 15;
-		break;
-		case "Bernstorfsvej":ret = 16;
-		break;
-		case "Bow Street":ret = 16;
-		break;
-		case "Hellerupvej":ret = 18;
-		break;
+
 		case "Malborough Street":ret = 18;
 		break;
-		case "Strandvej":ret = 19;
+
+		case "Vine Street":ret = 20;
 		break;
-		case "Vine Street":ret = 19;
+
+		case "Strand":ret = 22;
 		break;
-		case "Trianglen":ret = 21;
+
+		case "Fleet Street":ret = 24;
 		break;
-		case "Strand":ret = 21;
+
+		case "Trefalgar Square":ret = 25;
 		break;
-		case "Oesterbrogade":ret = 23;
+
+		case "Mols-Line":ret = 26;
 		break;
-		case "Fleet Street":ret = 23;
-		break;
-		case "Groenningen":ret = 24;
-		break;
-		case "Trefalgar Square":ret = 24;
-		break;
-		case "Mols-Linien":ret = 25;
-		break;
-		case "Mols-Line":ret = 25;
-		break;
-		case "Bredgade":ret = 26;
-		break;
+
 		case "Leicester Suuare":ret = 26;
 		break;
-		case "Kgs. Nytorv":ret = 27;
+
+		case "Coventry Street":ret = 28;
 		break;
-		case "Coventry Street":ret = 27;
+		
+		case "Carlsberg":ret = 29;
 		break;
-		case "Carlsberg":ret = 28;
+
+		case "Piccadilly":ret = 30;
 		break;
-		case "Oestergade":ret = 29;
+
+		case "Regent Street":ret = 32;
 		break;
-		case "Piccadilly":ret = 29;
+
+		case "Oxford Street":ret = 33;
 		break;
-		case "Amagertorv":ret = 31;
+
+		case "Bond Street":ret = 35;
 		break;
-		case "Regent Street":ret = 31;
+		
+		case "Scandlines":ret = 36;
 		break;
-		case "Vimmelskaftet":ret = 32;
+
+		case "Park Lane":ret = 38;
 		break;
-		case "Oxford Street":ret = 32;
-		break;
-		case "Nygade":ret = 34;
-		break;
-		case "Bond Street":ret = 34;
-		break;
-		case "Scandlines":ret = 35;
-		break;
-		case "Frederiksberggade":ret = 37;
-		break;
-		case "Park Lane":ret = 37;
-		break;
-		case "Raadhuspladsen":ret = 39;
-		break;
-		case "Mayfair":ret = 39;
+
+		case "Mayfair":ret = 40;
 		}
 		return ret;
 	}
@@ -476,10 +454,10 @@ public class mGUI {
 		return GUI.getUserInteger(msg);
 	}
 	
-	public void playTurn(Game game, int v, Shaker shaker)
+	public void playTurn(Game game, int v, Shaker shaker, int pos)
 	{
 		removeCar(game, v);
-		setCar(game, v);
+		setCar(pos, v);
 		setDice(shaker);
 	}
 	
@@ -493,10 +471,9 @@ public class mGUI {
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
-	public void setCar(Game game, int v)
+	public void setCar(int pos, int v)
 	{
-		removeCar(game,v);
-		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
+		GUI.setCar(pos, game.playerList.get(v).getName());
 	}
 	
 	/**

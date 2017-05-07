@@ -23,7 +23,7 @@ public class Player {
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
-	private int Jailtrys;
+	private int Jailtries;
 	private String name;
 	
 	private int maxfields = 40;
@@ -182,11 +182,11 @@ public class Player {
 			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail, Jailtrys FROM PLAYER WHERE PlayerID = "+ ID +";");
 				int pos = 0;
 				int gooj = 0;
-				int Jailtrys = 0;
+				int Jailtried = 0;
 				while(rs.next()){
 				pos = rs.getInt("position");
 				gooj = rs.getInt("getoutofjail");
-				Jailtrys = rs.getInt("jailtrys");
+				Jailtried = rs.getInt("jailtrys");
 				}
 				connector.close();
 				if(position != pos){
@@ -195,8 +195,8 @@ public class Player {
 				if(getOutOfJail != gooj){
 					setOutOfJail(getOutOfJail);
 				}
-				if(this.Jailtrys != Jailtrys){
-					setJailtrys(this.Jailtrys);
+				if(this.Jailtries != Jailtried){
+					setJailTries(this.Jailtries);
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -206,15 +206,17 @@ public class Player {
 		}
 	
 	
-	public int getJailtrys(){
-		return Jailtrys;
+	public int getJailTries(){
+		return Jailtries;
 	}
-	
-	public void setJailtrys(int trys){
-		Jailtrys = trys;
+	public void resetJailTries(){
+		Jailtries = 0;
+	}
+	public void setJailTries(int trys){
+		Jailtries = Jailtries + trys;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE Player SET jailtrys = " + Jailtrys + " WHERE PlayerID EQUALS " + ID + ";");
+			connector.doUpdate("Game","UPDATE Player SET jailtrys = " + Jailtries + " WHERE PlayerID EQUALS " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
