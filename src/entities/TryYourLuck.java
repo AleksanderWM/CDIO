@@ -23,7 +23,7 @@ public class TryYourLuck implements Field{
 	
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		Chance.DrawChance(p,game, mui);
+		Chance.DrawChance(p,game, mui,shake);
 	
 	}
 
