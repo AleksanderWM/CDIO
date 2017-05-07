@@ -8,14 +8,16 @@ import controllers.mGUI;
 
 public class Parking implements Field {
 
-	private String Title = "Free Parking";
-	private String Description = "Take a break for free";
+	private String Title;
+	private String Description;
 	private String Picture = "";
 	private Color TxColour = Color.BLACK;
 	private String Subtext = "Parking";
 	private Color Colour = Color.WHITE;
 	
-	public Parking(String sub){
+	public Parking(String title, String description,String sub){
+		Title = title;
+		Description = description;
 		Subtext = sub;
 	}
 	

@@ -19,7 +19,7 @@ Price = 3600 \nRent = 300\nRent w. 1 house = 1400\nRent w. 2 houses = 4000\nRent
 Try Your Luck
 Price = 3600 \nRent = 300\nRent w. 1 house = 1400\nRent w. 2 houses = 4000\nRent w. 3 houses = 11000\nRent w. 4 houses = 15000\nRent w. hotel = 19000
 Price = 4000 \nRent = 350\nRent w. 1 house = 1600\nRent w. 2 houses = 4400\nRent w. 3 houses = 12000\nRent w. 4 houses = 16000\nRent w. hotel = 20000
-Parking
+Take a break for free
 Price = 4400 \nRent = 350\nRent w. 1 house = 1800\nRent w. 2 houses = 5000\nRent w. 3 houses = 14000\nRent w. 4 houses = 17500\nRent w. hotel = 21000
 Try Your Luck
 Price = 4400 \nRent = 350\nRent w. 1 house = 1800\nRent w. 2 houses = 5000\nRent w. 3 houses = 14000\nRent w. 4 houses = 17500\nRent w. hotel = 21000

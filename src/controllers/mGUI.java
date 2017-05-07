@@ -69,7 +69,7 @@ public class mGUI {
 					build();
 			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(5).getColour()).
 					setDescription(FieldList.getFieldList().get(5).getDescription()).
-					//setSubtext((entities.Tax) FieldList.getFieldList().get(35)).getSubtext().
+//					setSubtext((entities.Tax) FieldList.getFieldList().get(35)).getSubtext().
 					setTitle(FieldList.getFieldList().get(5).getTitle()).build();
 			Fields[5] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
 					setDescription(FieldList.getFieldList().get(6).getDescription()).
@@ -103,6 +103,7 @@ public class mGUI {
 			Fields[10] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(11).getColour()).
 					setFgColor(((entities.Jail) FieldList.getFieldList().get(11)).getTxColour()).
 					setTitle(FieldList.getFieldList().get(11).getTitle()).
+					setDescription(FieldList.getFieldList().get(11).getDescription()).
 					setSubText(((entities.Jail) FieldList.getFieldList().get(11)).getSubtext()).
 					build();
 			Fields[11] = new Street.Builder().setBgColor(FieldList.getFieldList().get(12).getColour()).
@@ -161,6 +162,7 @@ public class mGUI {
 					build();
 			Fields[20] = new Refuge.Builder().setBgColor(FieldList.getFieldList().get(21).getColour()).
 					setSubText(FieldList.getFieldList().get(21).getTitle()).
+					setDescription(FieldList.getFieldList().get(21).getDescription()).
 					setBgColor(((Parking) FieldList.getFieldList().get(21)).getColour()).
 					setFgColor(((Parking) FieldList.getFieldList().get(21)).getTxColour()).
 					setSubText(((Parking) FieldList.getFieldList().get(21)).getSubtext()).
@@ -222,6 +224,7 @@ public class mGUI {
 			Fields[30] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(31).getColour()).
 					setTitle(FieldList.getFieldList().get(31).getTitle()).
 					setFgColor(((entities.GoToJail) FieldList.getFieldList().get(31)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(31).getDescription()).
 					setSubText(((entities.GoToJail) FieldList.getFieldList().get(31)).getSubtext()).
 					build();
 			Fields[31] = new Street.Builder().setBgColor(FieldList.getFieldList().get(32).getColour()).
@@ -265,7 +268,7 @@ public class mGUI {
 					build();
 			Fields[38] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(39).getColour()).
 					setDescription(FieldList.getFieldList().get(39).getDescription()).
-					//setSubtext((entities.Tax) FieldList.getFieldList().get(39)).getSubtext().
+//					setSubtext((entities.Tax) FieldList.getFieldList().get(39)).getSubtext().
 					setTitle(FieldList.getFieldList().get(39).getTitle()).build();
 			Fields[39] = new Street.Builder().setBgColor(FieldList.getFieldList().get(40).getColour()).
 					setDescription(FieldList.getFieldList().get(40).getDescription()).
