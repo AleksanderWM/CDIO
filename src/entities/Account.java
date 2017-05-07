@@ -98,7 +98,6 @@ public class Account {
 	
 		try {
 			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE PlayerID = "+ ID +";");
-			while(rs.next()){
 				int Balance = rs.getInt("money");
 				int NW = rs.getInt("networth");
 				connector.close();
@@ -108,7 +107,6 @@ public class Account {
 				if(networth != NW){
 					setNetworth(networth);
 				}
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}}

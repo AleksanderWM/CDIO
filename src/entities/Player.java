@@ -179,7 +179,6 @@ public class Player {
 	
 		try {
 			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
-			while(rs.next()){
 				String names = rs.getString("Name");
 				int pos = rs.getInt("position");
 				int gooj = rs.getInt("getoutofjail");
@@ -193,7 +192,6 @@ public class Player {
 				if(getOutOfJail != gooj){
 					setOutOfJail(getOutOfJail);
 				}
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
