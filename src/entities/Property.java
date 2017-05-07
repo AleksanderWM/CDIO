@@ -2,6 +2,10 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
 public class Property extends Ownable {
 	
 	private int Houses = 0;
@@ -12,7 +16,7 @@ public class Property extends Ownable {
 		super(title, subText, colour, player, cost, rent);
 	}
 	@Override
-	public void landOnField() {
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
 	}
 
 	@Override
