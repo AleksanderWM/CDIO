@@ -49,6 +49,17 @@ public abstract class ChanceCard {
 		}
 	}
 	
+	public void setDescription(String des){
+		Description = des;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE chance SET chancetype = " + des + " WHERE ChanceID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String getDescription(){
 		return Description;
 	}
@@ -82,6 +93,38 @@ public abstract class ChanceCard {
 		}
 		return ChanceID;
 	}
+	
+	public String getDescriptionFdb(int ChanceID){
+		connector.Connect("chance");
+		String des = null;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
+		while(rs.next()){
+		des = rs.getString("Description");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return des;
+	}
+	
+	public int getTypeFDB(int ChanceID){
+		connector.Connect("chance");
+		int ChanceType = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
+		while(rs.next()){
+		ChanceType = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ChanceType;
+	}
+
+	
 	
 	public abstract void removeChance(ChanceCard card);
 	

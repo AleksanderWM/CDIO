@@ -95,4 +95,34 @@ public class Matador extends ChanceCard{
 		ID = getdbID();
 		Type = getdbType();
 	}
+	
+	public int getMaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int Max = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT max FROM matador WHERE matadorid = "+ ChanceID +";");
+		while(rs.next()){
+		Max = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Max;
+	}
+	
+	public int getBonusFDB(int ChanceID){
+		connector.Connect("chance");
+		int B = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT bonus FROM Matador WHERE matadorid = "+ ChanceID +";");
+		while(rs.next()){
+		B = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return B;
+	}
 }

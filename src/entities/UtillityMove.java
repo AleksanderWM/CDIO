@@ -53,6 +53,21 @@ public class UtillityMove extends ChanceCard {
 		return multi;
 	}
 	
+	public int getMultiFDB(int ChanceID){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT multiplier FROM utillitymove WHERE utillitymoveID = "+ ChanceID +";");
+		while(rs.next()){
+		M = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
+	}
+	
 	@Override
 	public void loadChance() {
 		ID = getdbID();

@@ -86,6 +86,37 @@ public class PropertyTax extends ChanceCard{
 		}
 		return HT;
 	}
+	
+	public int getHouseTaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Housetax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getHoteltaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT hoteltax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
 	@Override
 	public void loadChance() {
 		// TODO Auto-generated method stub

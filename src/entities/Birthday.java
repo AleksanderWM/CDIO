@@ -55,6 +55,21 @@ public class Birthday extends ChanceCard{
 		return fee;
 	}
 	
+	public int getFeeFDB(int ChanceID){
+		connector.Connect("chance");
+		int Fee = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Fee FROM Chance Fee FeeID = "+ ChanceID +";");
+		while(rs.next()){
+		Fee = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Fee;
+	}
+	
 	@Override
 	public void loadChance() {
 		// TODO Auto-generated method stub
