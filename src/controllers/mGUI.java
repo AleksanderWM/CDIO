@@ -17,7 +17,11 @@ import entities.TryYourLuck;
 import entities.Utility;
 import language.Language;
 import entities.Shaker;
+import entities.Text;
+
 import java.awt.Color;
+import java.io.IOException;
+
 import desktop_codebehind.Car;
 import desktop_board.Board;
 import entities.Property;
@@ -27,8 +31,10 @@ import entities.Property;
  *
  */
 public class mGUI {
-
+	
+	private Text TitleFile = new Text("FieldTitles.txt");
 	GameBoard FieldList = new GameBoard();
+	private String[] TitleList = null;
 	Game game;
 	/**
 	 * Creates the board 
@@ -63,6 +69,7 @@ public class mGUI {
 					build();
 			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(5).getColour()).
 					setDescription(FieldList.getFieldList().get(5).getDescription()).
+					//setSubtext((entities.Tax) FieldList.getFieldList().get(35)).getSubtext().
 					setTitle(FieldList.getFieldList().get(5).getTitle()).build();
 			Fields[5] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
 					setDescription(FieldList.getFieldList().get(6).getDescription()).
@@ -258,6 +265,7 @@ public class mGUI {
 					build();
 			Fields[38] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(39).getColour()).
 					setDescription(FieldList.getFieldList().get(39).getDescription()).
+					//setSubtext((entities.Tax) FieldList.getFieldList().get(39)).getSubtext().
 					setTitle(FieldList.getFieldList().get(39).getTitle()).build();
 			Fields[39] = new Street.Builder().setBgColor(FieldList.getFieldList().get(40).getColour()).
 					setDescription(FieldList.getFieldList().get(40).getDescription()).
@@ -340,7 +348,15 @@ public class mGUI {
 	 */
 	public int getFieldChoice(){
 		int ret = 0;
-		switch(GUI.getUserSelection("Choose a field", Language.toString(2),Language.toString(4),Language.toString(6),Language.toString(7),Language.toString(9),Language.toString(10),Language.toString(12),Language.toString(13),Language.toString(14),Language.toString(15),Language.toString(16),Language.toString(17),Language.toString(19),Language.toString(20),Language.toString(22),Language.toString(24),Language.toString(25),Language.toString(26),Language.toString(27),Language.toString(28),Language.toString(29),Language.toString(30),Language.toString(32),Language.toString(33),Language.toString(35),Language.toString(36),Language.toString(38),Language.toString(40))){
+		try {
+			TitleList = TitleFile.OpenFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		switch(GUI.getUserSelection("Choose a field",TitleList[2] ,TitleList[4],TitleList[6],TitleList[7],TitleList[9],
+				TitleList[10],TitleList[12],TitleList[13],TitleList[14],TitleList[15],TitleList[16],TitleList[17],TitleList[19],
+				TitleList[20],TitleList[22],TitleList[24],TitleList[25],TitleList[26],TitleList[27],TitleList[28],TitleList[29],
+				TitleList[30],TitleList[32],TitleList[33],TitleList[35],TitleList[36],TitleList[38],TitleList[40])){
 
 		case "Old Kent Road":ret = 2;
 		break;
