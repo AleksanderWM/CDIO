@@ -20,6 +20,7 @@ import entities.Shaker;
 import java.awt.Color;
 import desktop_codebehind.Car;
 import desktop_board.Board;
+import entities.Property;
 
 /**s
  * @author Emil Jørgensen
@@ -94,6 +95,7 @@ public class mGUI {
 					build();
 			Fields[10] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(11).getColour()).
 					setFgColor(((entities.Jail) FieldList.getFieldList().get(11)).getTxColour()).
+					setTitle(FieldList.getFieldList().get(11).getTitle()).
 					setSubText(((entities.Jail) FieldList.getFieldList().get(11)).getSubtext()).
 					build();
 			Fields[11] = new Street.Builder().setBgColor(FieldList.getFieldList().get(12).getColour()).
@@ -457,7 +459,7 @@ public class mGUI {
 	public void playTurn(Game game, int v, Shaker shaker, int pos)
 	{
 		removeCar(game, v);
-		setCar(pos, v);
+		setCar(game, v);
 		setDice(shaker);
 	}
 	
@@ -471,9 +473,10 @@ public class mGUI {
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
-	public void setCar(int pos, int v)
+	public void setCar(Game game, int v)
 	{
-		GUI.setCar(pos, game.playerList.get(v).getName());
+		removeCar(game,v);
+		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
 	}
 	
 	/**

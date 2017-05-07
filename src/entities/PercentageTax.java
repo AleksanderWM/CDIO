@@ -11,12 +11,14 @@ public class PercentageTax extends Fee{
 	private double Percentage;
 	private Color Colour = Color.GRAY;
 	
-	public PercentageTax() {
+	public PercentageTax(String title,String description, String subtext) {
 		super();
-		Title = "Luxary Tax";
-		Fee = -1000;
+		Title = title;
+		Fee = 4000;
 		Percentage = 0.10;
-		Description = "" + Fee + ", eller " + Percentage + "% af din balance.";
+		Description = description;
+		Colour = Color.GRAY;
+		
 	}
 	
 	@Override

@@ -15,8 +15,9 @@ public class Property extends Ownable {
 	private int RENT3;
 	private int RENT4;
 	private int RENT5;
+	private int Houseprice;
 	
-	public Property(String title, String description, String subText, Color colour, int player,int cost,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
+	public Property(String title, String description, String subText, Color colour, int player,int cost,int hprice,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
 	{
 		super(title, description, subText, colour, player, cost, rent0);
 		Houses = house;
@@ -26,11 +27,20 @@ public class Property extends Ownable {
 		RENT3 = rent3;
 		RENT4 = rent4;
 		RENT5 = rent5;
+		Houseprice = hprice;
 	}
 	@Override
 
 	public int getRent(){
 		return super.rent;
+	}
+	
+	public void setHousePrice(int price){
+		Houseprice = price;
+	}
+	
+	public int getHousePrice(){
+		return Houseprice;
 	}
 	
 	public int getRent(int value){
@@ -53,7 +63,7 @@ public class Property extends Ownable {
 	
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != game.playerList.get(playerID).getID()){
 			buyProperty(game, gameboard, mui, playerID, boardValue);
 		}
 		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
