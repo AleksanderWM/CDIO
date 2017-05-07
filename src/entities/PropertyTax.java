@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class PropertyTax extends ChanceCard{
 	
 	protected int HouseTax;
@@ -64,9 +66,14 @@ public class PropertyTax extends ChanceCard{
 	}
 
 	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM propertytax WHERE " + card.getChanceID() +  "= propertytaxID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
 }
