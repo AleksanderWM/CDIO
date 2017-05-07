@@ -35,6 +35,7 @@ public class GameBoard {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		FieldList.add(null);
 		FieldList.add(new Start());
 		FieldList.add(new Property(Language.toString(2),"1200",Color.CYAN,noOwner,1200,50));
 		FieldList.add(new TryYourLuck(Language.toString(3)));

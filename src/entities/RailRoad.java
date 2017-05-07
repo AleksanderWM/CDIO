@@ -2,9 +2,19 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
+
 public class RailRoad extends Ownable{
 
 	private Color TxColour = Color.BLACK;
+	private int ownedRailRoads = 0;
+	private int RENT_1 = 500;
+	private int RENT_2 = 1000;
+	private int RENT_3 = 2000;
+	private int RENT_4 = 4000;
 	
 	public RailRoad(String title, String subText, Color color, int player, int cost, int rent) {
 		super(title, subText, color, player, cost, rent);
@@ -12,7 +22,34 @@ public class RailRoad extends Ownable{
 	}
 
 	@Override
-	public void landOnField() {
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p){
+			for(Field item : gameboard.FieldList)
+			{
+				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				{
+				ownedRailRoads++;
+				}
+			}
+			payRent(game, p, gameboard, b, rent);
+		}
+	}
+	
+	public int getRent() 
+	{
+		int rent = 0;
+		switch(ownedRailRoads)
+		{
+		case 1: rent = RENT_1;
+		break;
+		case 2: rent = RENT_2;
+		break;
+		case 3: rent = RENT_3;
+		break;
+		case 4: rent = RENT_4;
+		break;
+		}
+		return rent;
 	}
 
 	@Override

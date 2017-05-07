@@ -38,8 +38,10 @@ public class PlayTurn implements Runnable{
 				}
 			}
 			shakeAndMove();
-			thisgame.playerList.get(playerID).updatePlayer();
+			thisgame.playerList.get(playerID).updatePlayer();			
+			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 			interact(thisgame.playerList.get(playerID));
+
 			mGui.setBalance(thisgame, playerID);
 			
 			int equalsCount = 1;
