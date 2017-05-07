@@ -1,12 +1,12 @@
 
 Get 4000 for landing on, or passing Start
 Price = 1200\nRent = 50\nRent w. 1 house = 250\nRent w. 2 houses = 750\nRent w. 3 houses = 2250\nRent w. 4 houses = 4000\nRent w. hotel = 6000
-Try Your Luck
+Draw a Chance card
 Price = 1200\nRent = 50\nRent w. 1 house = 250\nRent w. 2 houses = 750\nRent w. 3 houses = 2250\nRent w. 4 houses = 4000\nRent with hotel = 6000
 Pay 2000
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
 Price = 2000 \nRent = 100\nRent w. 1 house = 600\nRent w. 2 houses = 1800\nRent w. 3 houses = 5400\nRent w. 4 houses = 8000\nRent with hotel = 11000
-Try Your Luck
+Draw a Chance card
 Price = 2000 \nRent = 100\nRent w. 1 house = 600\nRent w. 2 houses = 1800\nRent w. 3 houses = 5400\nRent w. 4 houses = 8000\nRent with hotel = 11000
 Price = 2400 \nRent = 150\nRent w. 1 house = 800\nRent w. 2 houses = 2000\nRent w. 3 houses = 6000\nRent w. 4 houses = 9000\nRent with hotel = 12000
 Jail
@@ -16,12 +16,12 @@ Price = 2800 \nRent = 200\nRent w. 1 house = 1000\nRent w. 2 houses = 3000\nRent
 Price = 3200 \nRent = 250\nRent w. 1 house = 1250\nRent w. 2 houses = 3750\nRent w. 3 houses = 10000\nRent w. 4 houses = 14000\nRent with hotel = 18000
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
 Price = 3600 \nRent = 300\nRent w. 1 house = 1400\nRent w. 2 houses = 4000\nRent w. 3 houses = 11000\nRent w. 4 houses = 15000\nRent w. hotel = 19000
-Try Your Luck
+Draw a Chance card
 Price = 3600 \nRent = 300\nRent w. 1 house = 1400\nRent w. 2 houses = 4000\nRent w. 3 houses = 11000\nRent w. 4 houses = 15000\nRent w. hotel = 19000
 Price = 4000 \nRent = 350\nRent w. 1 house = 1600\nRent w. 2 houses = 4400\nRent w. 3 houses = 12000\nRent w. 4 houses = 16000\nRent w. hotel = 20000
 Take a break for free
 Price = 4400 \nRent = 350\nRent w. 1 house = 1800\nRent w. 2 houses = 5000\nRent w. 3 houses = 14000\nRent w. 4 houses = 17500\nRent w. hotel = 21000
-Try Your Luck
+Draw a Chance card
 Price = 4400 \nRent = 350\nRent w. 1 house = 1800\nRent w. 2 houses = 5000\nRent w. 3 houses = 14000\nRent w. 4 houses = 17500\nRent w. hotel = 21000
 Price = 4800 \nRent = 400\nRent w. 1 house = 2000\nRent w. 2 houses = 6000\nRent w. 3 houses = 15000\nRent w. 4 houses = 18500\nRent w. hotel = 22000
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
@@ -32,10 +32,10 @@ Price = 5600 \nRent = 500\nRent w. 1 house = 2400\nRent w. 2 houses = 7200\nRent
 Go To Jail
 Price = 6000 \nRent = 550\nRent w. 1 house = 2600\nRent w. 2 houses = 7800\nRent w. 3 houses = 18000\nRent w. 4 houses = 22000\nRent w. hotel = 25000
 Price = 6000 \nRent = 550\nRent w. 1 house = 2600\nRent w. 2 houses = 7800\nRent w. 3 houses = 18000\nRent w. 4 houses = 22000\nRent w. hotel = 25000
-Try Your Luck
+Draw a Chance card
 Price = 6400 \nRent = 600\nRent w. 1 house = 3000\nRent w. 2 houses = 9000\nRent w. 3 houses = 20000\nRent w. 4 houses = 24000\nRent w. hotel = 28000
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
-Try Your Luck
+Draw a Chance card
 Price = 7000 \nRent = 700\nRent w. 1 house = 3500\nRent w. 2 houses = 10000\nRent w. 3 houses = 22000\nRent w. 4 houses = 26000\nRent w. hotel = 30000
 Pay 4000 or 10% of your balance
 Price = 8000 \nRent = 1000\nRent w. 1 house = 4000\nRent w. 2 houses = 12000\nRent w. 3 houses = 28000\nRent w. 4 houses = 34000\nRent w. hotel = 40000

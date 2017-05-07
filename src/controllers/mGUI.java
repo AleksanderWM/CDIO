@@ -15,9 +15,10 @@ import entities.Parking;
 import entities.RailRoad;
 import entities.TryYourLuck;
 import entities.Utility;
-import language.Language;
 import entities.Shaker;
 import entities.Text;
+import entities.PercentageTax;
+import entities.FixedTax;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class mGUI {
 					build();
 			Fields[2] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(3).getColour()).
 					setSubText(FieldList.getFieldList().get(3).getTitle()).
+					setDescription(FieldList.getFieldList().get(3).getDescription()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(3)).getTxColour()).
 					build();
 			Fields[3] = new Street.Builder().setBgColor(FieldList.getFieldList().get(4).getColour()).
@@ -69,8 +71,9 @@ public class mGUI {
 					build();
 			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(5).getColour()).
 					setDescription(FieldList.getFieldList().get(5).getDescription()).
-//					setSubtext((entities.Tax) FieldList.getFieldList().get(35)).getSubtext().
-					setTitle(FieldList.getFieldList().get(5).getTitle()).build();
+					setSubText(((FixedTax) FieldList.getFieldList().get(5)).getSubtext()).
+					setTitle(FieldList.getFieldList().get(5).getTitle()).
+					build();
 			Fields[5] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
 					setDescription(FieldList.getFieldList().get(6).getDescription()).
 					setRent(((Ownable) FieldList.getFieldList().get(6)).toString(((Ownable) FieldList.getFieldList().get(6)).getRent())).
@@ -86,6 +89,7 @@ public class mGUI {
 					build();
 			Fields[7] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(8).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(8)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(8).getDescription()).
 					setSubText(FieldList.getFieldList().get(8).getTitle()).
 					build();
 			Fields[8] = new Street.Builder().setBgColor(FieldList.getFieldList().get(9).getColour()).
@@ -146,6 +150,7 @@ public class mGUI {
 					build();
 			Fields[17] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(18).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(18)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(18).getDescription()).
 					setSubText(FieldList.getFieldList().get(18).getTitle()).
 					build();
 			Fields[18] = new Street.Builder().setBgColor(FieldList.getFieldList().get(19).getColour()).
@@ -175,6 +180,7 @@ public class mGUI {
 					build();
 			Fields[22] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(23).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(23)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(23).getDescription()).
 					setSubText(FieldList.getFieldList().get(23).getTitle()).
 					build();
 			Fields[23] = new Street.Builder().setBgColor(FieldList.getFieldList().get(24).getColour()).
@@ -241,6 +247,7 @@ public class mGUI {
 					build();
 			Fields[33] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(34).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(34)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(34).getDescription()).
 					setSubText(FieldList.getFieldList().get(34).getTitle()).
 					build();
 			Fields[34] = new Street.Builder().setBgColor(FieldList.getFieldList().get(35).getColour()).
@@ -258,6 +265,7 @@ public class mGUI {
 					build();
 			Fields[36] = new Chance.Builder().setBgColor(FieldList.getFieldList().get(37).getColour()).
 					setFgColor(((TryYourLuck) FieldList.getFieldList().get(37)).getTxColour()).
+					setDescription(FieldList.getFieldList().get(37).getDescription()).
 					setSubText(FieldList.getFieldList().get(37).getTitle()).
 					build();
 			Fields[37] = new Street.Builder().setBgColor(FieldList.getFieldList().get(38).getColour()).
@@ -268,7 +276,7 @@ public class mGUI {
 					build();
 			Fields[38] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(39).getColour()).
 					setDescription(FieldList.getFieldList().get(39).getDescription()).
-//					setSubtext((entities.Tax) FieldList.getFieldList().get(39)).getSubtext().
+					setSubText(((PercentageTax) FieldList.getFieldList().get(39)).getSubtext()).
 					setTitle(FieldList.getFieldList().get(39).getTitle()).build();
 			Fields[39] = new Street.Builder().setBgColor(FieldList.getFieldList().get(40).getColour()).
 					setDescription(FieldList.getFieldList().get(40).getDescription()).
@@ -370,7 +378,7 @@ public class mGUI {
 		case "LB Ferries":ret = 6;
 		break;
 
-		case "Islington":ret = 8;
+		case "Islington":ret = 7;
 		break;
 
 		case "Euston Road":ret = 9;
@@ -397,7 +405,7 @@ public class mGUI {
 		case "Bow Street":ret = 17;
 		break;
 
-		case "Malborough Street":ret = 18;
+		case "Malborough Street":ret = 19;
 		break;
 
 		case "Vine Street":ret = 20;
@@ -415,7 +423,7 @@ public class mGUI {
 		case "Mols-Line":ret = 26;
 		break;
 
-		case "Leicester Suuare":ret = 26;
+		case "Leicester Suuare":ret = 27;
 		break;
 
 		case "Coventry Street":ret = 28;
