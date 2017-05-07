@@ -5,6 +5,7 @@ import entities.*;
 
 
 public class PlayTurn implements Runnable{
+	// Creates variables and objects for the class PlayTurn
 	mGUI mGui = new mGUI();
 	Shaker shake = new Shaker();
 	DBcreator creator = new DBcreator();
@@ -16,6 +17,7 @@ public class PlayTurn implements Runnable{
 	private int jailed = 41;
 	private boolean wasIJustReleasedFromJail = false;
 	
+	//Creates a constructor for the PlayTurn, giving instances of the current game and board, from game.
 	public PlayTurn(String name, int playid, Game game, GameBoard board){
 		thread = name;
 		playerID = playid;
@@ -24,11 +26,14 @@ public class PlayTurn implements Runnable{
 		
 
 	}
+	//The run method, is the method that is running, when the thread is active and alive.
 	@Override
 	public void run() {
 		
-
+		//Checks that the player has money left, otherwise he is out of the game.
 		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
+			//This is the code that has the thread either go to wait, if the thisgame.id is not matching theirs.
+			//Before the thread waits, it updates its balance in gui.
 			synchronized(thisgame.lock){
 				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
 					try {
@@ -39,6 +44,8 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
+			//checks if player is in jail, and if not, if he was just released from it. 
+			//Was the player just released he sets the boolean wasIJustReleasedFromJail to false
 			amIInJail();
 			if(!wasIJustReleasedFromJail){
 			shakeAndMove();
@@ -54,12 +61,19 @@ public class PlayTurn implements Runnable{
 			
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
+				amIInJail();
+				if(!wasIJustReleasedFromJail){
 				shakeAndMove();
+				}
+				else{
+					wasIJustReleasedFromJail = false;
+				}
+				thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 				interact(thisgame.playerList.get(playerID));
 				equalsCount++;
 			}
 			if(equalsCount == 3){
-				//gotofuckingjailbitch();
+				thisgame.board.FieldList.get(jailed)
 			}
 			
 			
