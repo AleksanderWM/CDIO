@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -17,6 +22,11 @@ public abstract class ChanceCard {
 		this.ID = ID;
 		this.Type = Type;
 		Description = Des;
+		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Des + "');");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getChanceID(){
@@ -43,6 +53,17 @@ public abstract class ChanceCard {
 		connector.Connect("chance");
 		try {
 			connector.doUpdate("chance","UPDATE chance SET chancetype = " + ChanceType + " WHERE ChanceID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setDescription(String des){
+		Description = des;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE chance SET chancetype = " + des + " WHERE ChanceID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,6 +103,38 @@ public abstract class ChanceCard {
 		}
 		return ChanceID;
 	}
+	
+	public String getDescriptionFdb(int ChanceID){
+		connector.Connect("chance");
+		String des = null;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
+		while(rs.next()){
+		des = rs.getString("Description");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return des;
+	}
+	
+	public int getTypeFDB(int ChanceID){
+		connector.Connect("chance");
+		int ChanceType = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
+		while(rs.next()){
+		ChanceType = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ChanceType;
+	}
+
+	
 	
 	public abstract void removeChance(ChanceCard card);
 	

@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -12,6 +17,11 @@ public class Matador extends ChanceCard{
 		super(ID, Type, Des);
 		this.Bonus = Bonus;
 		this.MaxNetworth = Max;
+		try {
+			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Max + "," + Bonus + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 
@@ -94,5 +104,35 @@ public class Matador extends ChanceCard{
 		Bonus = getdbBonus();
 		ID = getdbID();
 		Type = getdbType();
+	}
+	
+	public int getMaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int Max = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT max FROM matador WHERE matadorid = "+ ChanceID +";");
+		while(rs.next()){
+		Max = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Max;
+	}
+	
+	public int getBonusFDB(int ChanceID){
+		connector.Connect("chance");
+		int B = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT bonus FROM Matador WHERE matadorid = "+ ChanceID +";");
+		while(rs.next()){
+		B = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return B;
 	}
 }

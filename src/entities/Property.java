@@ -8,8 +8,8 @@ import controllers.mGUI;
 
 public class Property extends Ownable {
 	
-	private int Houses;
-	private int Hotel;
+	private int Houses = 0;
+	private int Hotel = 0;
 	private int RENT1;
 	private int RENT2;
 	private int RENT3;
@@ -63,7 +63,7 @@ public class Property extends Ownable {
 	
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != game.playerList.get(playerID).getID()){
 			buyProperty(game, gameboard, mui, playerID, boardValue);
 		}
 		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
@@ -123,7 +123,7 @@ public class Property extends Ownable {
 	}
 	
 	public void setHouses(int house){
-		Houses = house;
+		Houses = Houses + house;
 	}
 	
 	public int getHotel(){

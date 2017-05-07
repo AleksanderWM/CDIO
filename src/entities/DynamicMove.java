@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -9,7 +14,12 @@ public class DynamicMove extends ChanceCard{
 
 	public DynamicMove(int ID, int Type, String Des, int Moves) {
 		super(ID, Type, Des);
-	this.Moves = Moves;
+		this.Moves = Moves;
+		try {
+			connector.doUpdate("chance","INSERT into Dynamicmove values(" + ID + "," + Moves + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,6 +65,20 @@ public class DynamicMove extends ChanceCard{
 		return M;
 	}
 	
+	public int getMovesFDB(int ChanceID){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT moves FROM dynamicmove WHERE DynamicmoveID = "+ ChanceID +";");
+		while(rs.next()){
+		M = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
+	}
 	@Override
 	public void loadChance() {
 		// TODO Auto-generated method stub

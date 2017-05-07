@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -12,6 +17,11 @@ public class PropertyTax extends ChanceCard{
 		super(ID, Type, Des);
 		HouseTax = House;
 		HotelTax = Hotel;
+		try {
+			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + House + "," + Hotel + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -86,6 +96,37 @@ public class PropertyTax extends ChanceCard{
 		}
 		return HT;
 	}
+	
+	public int getHouseTaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Housetax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getHoteltaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT hoteltax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
 	@Override
 	public void loadChance() {
 		// TODO Auto-generated method stub

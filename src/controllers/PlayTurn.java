@@ -149,116 +149,190 @@ public class PlayTurn implements Runnable{
 	public void interact(Player thisplayer){
 		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
 			int currentField = mGui.getFieldChoice();
-
-				if (((Ownable) thisboard.FieldList.get(currentField)).getOwner() == thisplayer.getID())
+				if (((Ownable) thisboard.FieldList.get(currentField)).getOwner() == thisplayer.getID()){
 					switch (mGui.get3Buttons("What do you want to do?","Housing","Sell","Mortgage")){
 					case "Housing": {
-						if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
-							for(Field item : thisboard.FieldList)
-							{
-								int propertyInSeries = 0;
-										if((item instanceof Property) && 
-												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
-													propertyInSeries++;
-										}
-								int ownedPropertyInSeries = 0;
-										if((item instanceof Property) && 
-												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
-												(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
-													ownedPropertyInSeries++;
-										}
-								if(propertyInSeries == ownedPropertyInSeries){
-									if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
-										if((item instanceof Property) && 
-											(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
-											(((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
-											((((Property)item).getHouses())+1) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) &&
-											(((Property)thisboard.FieldList.get(currentField)).getHouses()) != 4){
-												((Property)thisboard.FieldList.get(currentField)).setHouses(1);
-												thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
-												mGui.setBalance(thisgame, playerID);
-												mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
-												
-										}
-										else {
-										mGui.showMessage("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
-										mGui.displayMidDescription("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
-										}
-									}
-									else {
-										//intet ligenu
-									}
-								}
-							}
-						}
-						else{
-							
-						}
-					}
+						caseHousing(currentField);
+					}					
 					break;
 					
 					//Selling the field
 					case "Sell": {
-						/**
-						 * The player you want to sell too
-						 */
-						int sellToPlayer = mGui.getUserInt("What player (number) do you want to sell it to?");
-						
-						/**
-						 * The price you want to sell the field for
-						 */
-						int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
-						
-						thisplayer.getID();
-						
-						//Balance check of recieving player
-						if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
-							mGui.showMessage("The player doesn't have enough money");
-						else
-						{
-						//Accept from recieving player if balance check passes
-						if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
-							
-						//Transferral
-								((Ownable) thisboard.FieldList.get(currentField)).setOwner(sellToPlayer);
-								thisgame.playerList.get(playerID).getAccount().addBalance(sellPrice);
-								thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
-						}
+						caseSell(currentField);
 						}
 					break;
 					
 					//Mortgaging
 					case "Mortgage": {
-						//Recheck
-						if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
-							//Is the field mortgaged or unmortgaged
-							if (((Ownable) thisboard.FieldList.get(currentField)).getMortgageState() == true){
-								//Balance check if the player wants to unmortgage
-								if ((thisgame.playerList.get(playerID).getAccount().getBalance() - (((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2) + (((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10) < 0))
-									mGui.showMessage("You don't have enough money");
-								else
-								{
-								//Mortgage state change and transferral
-									((Ownable) thisboard.FieldList.get(currentField)).unmortgage();
-									thisgame.playerList.get(playerID).getAccount().addBalance((int) (-(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2)+(((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10)));
-								}
-							}
-							
-							else
-							{
-							//If the player wants to mortgage, state-change and transferral
-								((Ownable) thisboard.FieldList.get(currentField)).mortgage();
-								thisplayer.getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
-							}
-							}
-							
+						caseMortgage(currentField);
+						}
 					}
-					}
-					
-					
-					
+				}
+			}			
 		}
 	
+	private void caseHousing(int currentField){
+		int propertyInSeries = 0;
+		int ownedPropertyInSeries = 0;	
+		if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
+				for(Field item : thisboard.FieldList)
+				{
+							if((item instanceof Property) && 
+									(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+										propertyInSeries++;
+							}
+							if((item instanceof Property) && 
+									(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
+									(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
+										ownedPropertyInSeries++;
+							}
+							
+				}
+					if(propertyInSeries == ownedPropertyInSeries){
+						int propertyWithHouses = 0;
+						if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
+							for(Field item : thisboard.FieldList){
+								
+								if((item instanceof Property) && 
+										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
+										((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
+											propertyWithHouses++;
+								}
+							}
+							if(ownedPropertyInSeries == propertyWithHouses){
+									((Property)thisboard.FieldList.get(currentField)).setHouses(1);
+									thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
+									mGui.setBalance(thisgame, playerID);
+									mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+									
+							}
+							else {
+							mGui.showMessage("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+							mGui.displayMidDescription("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+							}
+						}
+						else {
+							int propertyWithHotel = 0;
+							for(Field item : thisboard.FieldList){
+								if((item instanceof Property) && 
+										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										((((Property)item).getHouses()) == 4 ||
+										(((Property)item).getHotel()) <= 1)){
+											propertyWithHotel++;
+								}
+						}
+							if(ownedPropertyInSeries == propertyWithHotel && (((Property)thisboard.FieldList.get(currentField)).getHotel()) == 0){
+								((Property)thisboard.FieldList.get(currentField)).setHotel(1);
+								thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
+								mGui.setBalance(thisgame, playerID);
+								mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+							}
+					}
+				}
+			else{
+				mGui.showMessage("You do not own all properties in this range");
+				mGui.displayMidDescription("You do not own all properties in this range");
+				
+			}
+			}
+			else {
+				if (mGui.get2Buttons("Do you want to sell a House or Hotel?","House","Hotel") == true){
+				int propertyWithHouses = 0;
+				for(Field item : thisboard.FieldList){
+					
+					if((item instanceof Property) && 
+							(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+							((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
+							((((Property)item).getHouses())-1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
+								propertyWithHouses++;
+					}
+				}
+				
+				if(propertyWithHouses == propertyInSeries){
+					((Property)thisboard.FieldList.get(currentField)).setHouses(-1);
+					thisgame.playerList.get(playerID).getAccount().addBalance(+(((Property)thisboard.FieldList.get(currentField)).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+				}
+				else{
+					mGui.showMessage("You are not permitted to sell houses on this lot. Check if you have any out houses, or if you have equal amount of houses on the coresponding Propperty");
+					mGui.displayMidDescription("You are not permitted to sell houses on this lot. Check if you have any out houses, or if you have equal amount of houses on the coresponding Propperty");
+				}
+				}
+				else {
+				int propertyWithHotel = 0;
+				for(Field item : thisboard.FieldList){
+					if((item instanceof Property) && 
+							(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+							((((Property)item).getHouses()) == 4 ||
+							(((Property)item).getHotel()) <= 1)){
+								propertyWithHotel++;
+					}
+				}
+				if(ownedPropertyInSeries == propertyWithHotel && (((Property)thisboard.FieldList.get(currentField)).getHotel()) == 1){
+					((Property)thisboard.FieldList.get(currentField)).setHotel(-1);
+					thisgame.playerList.get(playerID).getAccount().addBalance(-(((Property)thisboard.FieldList.get(currentField)).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+					}
+				}
+			}
+	}
+			
+	
+	private void caseSell(int currentField){
+		/**
+		 * The player you want to sell too
+		 */
+		int sellToPlayer = mGui.getUserInt("What player (number) do you want to sell it to?");
+		
+		/**
+		 * The price you want to sell the field for
+		 */
+		int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
+		
+		//Balance check of recieving player
+		if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
+			mGui.showMessage("The player doesn't have enough money");
+		else
+		{
+		//Accept from recieving player if balance check passes
+		if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
+		{
+			
+		//Transferral
+				((Ownable) thisboard.FieldList.get(currentField)).setOwner(sellToPlayer);
+				thisgame.playerList.get(playerID).getAccount().addBalance(sellPrice);
+				thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
+				mGui.setOwner(currentField, thisgame.playerList.get(sellToPlayer).getName());
+		}
+	}
+	}
+	
+	private void caseMortgage(int currentField){
+		//Recheck
+		if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
+			//Is the field mortgaged or unmortgaged
+			if (((Ownable) thisboard.FieldList.get(currentField)).getMortgageState() == true){
+				//Balance check if the player wants to unmortgage
+				if ((thisgame.playerList.get(playerID).getAccount().getBalance() - (((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2) + (((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10) < 0))
+					mGui.showMessage("You don't have enough money");
+				else
+				{
+				//Mortgage state change and transferral
+					((Ownable) thisboard.FieldList.get(currentField)).unmortgage();
+					thisgame.playerList.get(playerID).getAccount().addBalance((int) (-(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2)+(((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10)));
+				}
+			}
+			
+			else
+			{
+			//If the player wants to mortgage, state-change and transferral
+				((Ownable) thisboard.FieldList.get(currentField)).mortgage();
+				thisplayer.getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
+			}
+	}
 	
 	private void shakeAndMove(){
 		mGui.getButton("Press the Button to shake the dies", "Shake");

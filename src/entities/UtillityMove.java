@@ -1,3 +1,8 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
 
 import java.sql.ResultSet;
@@ -10,6 +15,12 @@ public class UtillityMove extends ChanceCard {
 	public UtillityMove(int ID, int Type, String Des, int Multi) {
 		super(ID, Type, Des);
 		Multiplier = Multi;
+		try {
+			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Multi + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getMultiplier(){
@@ -51,6 +62,21 @@ public class UtillityMove extends ChanceCard {
 			e.printStackTrace();
 		}
 		return multi;
+	}
+	
+	public int getMultiFDB(int ChanceID){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT multiplier FROM utillitymove WHERE utillitymoveID = "+ ChanceID +";");
+		while(rs.next()){
+		M = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
 	}
 	
 	@Override
