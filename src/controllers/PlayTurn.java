@@ -102,7 +102,7 @@ public class PlayTurn implements Runnable{
 	if(thisgame.playerList.get(playerID).getPosition() == jailed){
 		if(thisgame.playerList.get(playerID).getOutOfJail() == 0){
 			if(thisgame.playerList.get(playerID).getJailTries() < 3){
-				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
 				else{
@@ -110,7 +110,7 @@ public class PlayTurn implements Runnable{
 				}
 			}
 			else if(thisgame.playerList.get(playerID).getJailTries() == 3) {
-				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
 				else{
@@ -200,12 +200,12 @@ public class PlayTurn implements Runnable{
 		shake.shakeShaker();
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
-		int turnsTried = 1;
-		while(shake.getDice1Value()!=shake.getDice2Value() || turnsTried == 3){
+		int turnsTried = 3;
+		while(shake.getDice1Value()!= shake.getDice2Value() || turnsTried == 0){
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			shake.shakeShaker();
 			mGui.setDice(shake);
-			turnsTried++;
+			turnsTried--;
 		}
 		if(shake.getDice1Value()==shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);
