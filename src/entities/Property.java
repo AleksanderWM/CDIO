@@ -6,8 +6,9 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 /**
- * @author Emil Jørgensen and Aleksander
- *
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
  */
 public class Property extends Ownable {
 	

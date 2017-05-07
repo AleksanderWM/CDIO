@@ -7,7 +7,9 @@ import controllers.*;
 import controllers.mGUI;
 
 /**
- * @author Emil Jørgensen, landOnField by Aleksander
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
  */
 public class FixedTax extends Fee {
 	
