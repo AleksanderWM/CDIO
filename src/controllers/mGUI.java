@@ -63,6 +63,7 @@ public class mGUI {
 					build();
 			Fields[4] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(5).getColour()).
 					setDescription(FieldList.getFieldList().get(5).getDescription()).
+					//setSubtext((entities.Tax) FieldList.getFieldList().get(35)).getSubtext().
 					setTitle(FieldList.getFieldList().get(5).getTitle()).build();
 			Fields[5] = new Shipping.Builder().setBgColor(FieldList.getFieldList().get(6).getColour()).
 					setDescription(FieldList.getFieldList().get(6).getDescription()).
@@ -258,6 +259,7 @@ public class mGUI {
 					build();
 			Fields[38] = new Tax.Builder().setBgColor(FieldList.getFieldList().get(39).getColour()).
 					setDescription(FieldList.getFieldList().get(39).getDescription()).
+					//setSubtext((entities.Tax) FieldList.getFieldList().get(39)).getSubtext().
 					setTitle(FieldList.getFieldList().get(39).getTitle()).build();
 			Fields[39] = new Street.Builder().setBgColor(FieldList.getFieldList().get(40).getColour()).
 					setDescription(FieldList.getFieldList().get(40).getDescription()).
