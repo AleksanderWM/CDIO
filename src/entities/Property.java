@@ -28,6 +28,7 @@ public class Property extends Ownable {
 		RENT5 = rent5;
 	}
 	@Override
+
 	public int getRent(){
 		return super.rent;
 	}
@@ -51,7 +52,14 @@ public class Property extends Ownable {
 	}
 	
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
+			
+		}
+
 	}
 
 	@Override
