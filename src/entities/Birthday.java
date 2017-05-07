@@ -17,6 +17,7 @@ public class Birthday extends ChanceCard{
 		this.Fee = fee;
 		try {
 			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + fee + ");");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

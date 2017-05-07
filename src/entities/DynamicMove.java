@@ -17,6 +17,7 @@ public class DynamicMove extends ChanceCard{
 		this.Moves = Moves;
 		try {
 			connector.doUpdate("chance","INSERT into Dynamicmove values(" + ID + "," + Moves + ");");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
