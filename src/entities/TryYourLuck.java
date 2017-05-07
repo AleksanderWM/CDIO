@@ -5,6 +5,7 @@ import java.awt.Color;
 import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
+import controllers.Chance;
 
 public class TryYourLuck implements Field{
 
@@ -13,12 +14,15 @@ public class TryYourLuck implements Field{
 	private Color Colour = Color.BLACK;
 	private Color TxColour = Color.WHITE;
 	
+	private Chance Chance;
+	
 	public TryYourLuck(String name){
 		Title = name;
 	}
 	
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+		Chance.DrawChance(p);
 	
 	}
 
