@@ -7,6 +7,7 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.*;
 import controllers.mGUI;
 import entities.Shaker;
 
@@ -16,6 +17,7 @@ public interface Field {
 	/**
 	 * Method for the action landing on a field.
 	 */
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake);
 	
 	/**
 	 * Method for getting description
