@@ -178,19 +178,14 @@ public class Player {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
-				String  names = "";
+			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
 				int pos = 0;
 				int gooj = 0;
 				while(rs.next()){
-				names = rs.getString("Name");
 				pos = rs.getInt("position");
 				gooj = rs.getInt("getoutofjail");
 				}
 				connector.close();
-				if(name != names){
-					setName(name);
-				}
 				if(position != pos){
 					setPosition(position);
 				}
