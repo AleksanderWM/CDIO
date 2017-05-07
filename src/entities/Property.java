@@ -1,6 +1,8 @@
 package entities;
 
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import controllers.Game;
 import controllers.GameBoard;
@@ -31,6 +33,12 @@ public class Property extends Ownable {
 		RENT4 = rent4;
 		RENT5 = rent5;
 		Houseprice = hprice;
+	try{
+		connector.doUpdate("game","INSERT into property values(" + id + "," + rent + ", " + RENT2 + "," + RENT3+ ", " + RENT4+ ", " + RENT5+ ", " + Houseprice+ ", " + Houseprice+ ", " + Houses+ ", " + Hotel + " );");  
+	} 
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
 	}
 	@Override
 
@@ -150,6 +158,44 @@ public class Property extends Ownable {
 			Hotel = 0;
 			Houses = 4;
 		}
+	}
+	
+	public int gethouseFDB(){
+		connector.Connect("chance");
+		int H = 0;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT house FROM property WHERE fieldid = "+ FieldID +";");
+		while(rs.next()){
+		H = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return H;
+	}
+	
+	public int gethotelFDB(){
+		connector.Connect("chance");
+		int H = 0;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT hotel FROM property WHERE fieldid = "+ FieldID +";");
+		while(rs.next()){
+		H = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return H;
+	}
+	
+	@Override
+	public void loadfield() {
+		// TODO Auto-generated method stub
+		setHouses(gethouseFDB());
+		setOwner(getOwnerFDB());
+		setHotel(gethotelFDB());
 	}
 	
 

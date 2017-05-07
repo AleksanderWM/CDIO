@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import entities.Field;
+import entities.Ownable;
 import entities.Player;
+import entities.Property;
 
 public class Game {
 static mGUI gui = new mGUI();
@@ -38,6 +40,12 @@ public volatile int id = 1;
 				}
 		}
 		else {
+			for(int i = 1; i <= 40 ; i++){
+				if(board.getField(i) instanceof Ownable){
+					Ownable Ownable = (Ownable)board.getField(i);
+					Ownable.loadfield();
+				}
+			}
 			
 		}
 		board.CreateBoard();
