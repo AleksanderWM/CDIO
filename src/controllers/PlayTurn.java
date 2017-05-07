@@ -37,6 +37,7 @@ public class PlayTurn implements Runnable{
 			synchronized(thisgame.lock){
 				while(thisgame.id!=thisgame.playerList.get(playerID).getID()){
 					try {
+						mGui.setBalance(thisgame, playerID);
 						thisgame.lock.wait();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -53,12 +54,13 @@ public class PlayTurn implements Runnable{
 			else{
 				wasIJustReleasedFromJail = false;
 			}
-			thisgame.playerList.get(playerID).updatePlayer();			
+			//executes the method landOnField method
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
+			//Initiates the Interaction that gives the player choices over what he wants to do.
 			interact(thisgame.playerList.get(playerID));
-
+			//Sets the balance
 			mGui.setBalance(thisgame, playerID);
-			
+			//Check to make sure if the player rolls equals 3 times in a row, that he is put in jail
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
 				amIInJail();
@@ -73,13 +75,15 @@ public class PlayTurn implements Runnable{
 				equalsCount++;
 			}
 			if(equalsCount == 3){
-				thisgame.board.FieldList.get(jailed)
+				thisgame.board.FieldList.get(11).landOnField(thisgame, thisboard, 0, playerID, mGui, shake);
 			}
 			
 			
 			
-			
-			
+			//Updates the player and account values for this player in the database,
+			//Changes the gameID with + 1, to make it the next players turn. 
+			//Sends a notify to stop the wait() on all threads.
+			thisgame.playerList.get(playerID).updatePlayer();	
 			synchronized(thisgame.lock) {
 				thisgame.gameId();
 				thisgame.lock.notifyAll();
@@ -87,6 +91,8 @@ public class PlayTurn implements Runnable{
 			}
 			
 		}
+	//Checks if the player is in jail, and if he is gives him choices wether to roll or pay to get out.
+	//If he has a get out of jail free card, that will be used instantly and he will be placed out of jail.
 	public void amIInJail(){
 	if(thisgame.playerList.get(playerID).getPosition() == jailed){
 		if(thisgame.playerList.get(playerID).getOutOfJail() == 0){
@@ -112,12 +118,12 @@ public class PlayTurn implements Runnable{
 		}
 		else {
 			thisgame.playerList.get(playerID).setOutOfJail(-1);
-			wasIJustReleasedFromJail = false;
+			wasIJustReleasedFromJail = true;
 		}
 	}
 	}
 	
-	
+	//If the player, after his turn is still below 0, this will sell off his stuff automaticly, untill the value is again higher than 0.
 	public void sellOfStuff(){
 		
 		if(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
@@ -131,7 +137,7 @@ public class PlayTurn implements Runnable{
 			}
 		}
 	}
-	
+	//Method to try and roll out of jail.
 	private void rollOutOfJail(){
 		mGui.getButton("Press the Button to shake the dies", "Shake");
 		shake.shakeShaker();
@@ -152,7 +158,7 @@ public class PlayTurn implements Runnable{
 			wasIJustReleasedFromJail = true;
 		}
 	}
-	
+	//Method to pay out of jail.
 	private void payOutOfJail(){
 		thisgame.playerList.get(playerID).getAccount().setBalance(-1000);
 		wasIJustReleasedFromJail = true;
@@ -160,6 +166,7 @@ public class PlayTurn implements Runnable{
 		shakeAndMove();
 		thisgame.playerList.get(playerID).resetJailTries();
 	}
+	//Method for the different options a player can do after he rolls the dices.
 	public void interact(Player thisplayer){
 		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
 			int currentField = mGui.getFieldChoice();
@@ -184,7 +191,9 @@ public class PlayTurn implements Runnable{
 				}
 			}			
 		}
-	
+	//If he chooses Housing this is the method responsible to see if he wants to buy or sell houses/hotels
+	//it ensures that he has enough houses on each property before being able to buy a new one.
+	//He must buy each house, one by one going into every different property each time, and the same with selling.
 	private void caseHousing(int currentField){
 		int propertyInSeries = 0;
 		int ownedPropertyInSeries = 0;	
@@ -294,7 +303,7 @@ public class PlayTurn implements Runnable{
 			}
 	}
 			
-	
+	//Method for selling a property to another player.
 	private void caseSell(int currentField){
 		/**
 		 * The player you want to sell too
@@ -309,8 +318,23 @@ public class PlayTurn implements Runnable{
 		//Balance check of recieving player
 		if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
 			mGui.showMessage("The player doesn't have enough money");
-		else
-		{
+		else{
+			int propertyInSeries = 0;
+			int propertyWithoutHouses = 0;
+			for(Field item : thisboard.FieldList)
+				{
+			if((item instanceof Property) && 
+							(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+								propertyInSeries++;
+					}
+			if((item instanceof Property) && 
+					(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+					(((((Property)item).getHouses()) == 0) ||
+					((((Property)item).getHotel()) == 0))){
+						propertyWithoutHouses++;
+			}
+		}
+		if(propertyWithoutHouses == propertyInSeries){
 		//Accept from recieving player if balance check passes
 		if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
 		{
@@ -321,9 +345,16 @@ public class PlayTurn implements Runnable{
 				thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
 				mGui.setOwner(currentField, thisgame.playerList.get(sellToPlayer).getName());
 		}
+		else{
+			mGui.showMessage("The player rejected the offer");
+		}
+		}
+		else{
+			mGui.showMessage("You need to sell Houses/Hotels before selling a property");
+		}
 	}
 	}
-	
+	//Method for mortgaging property or unmortgaging.
 	private void caseMortgage(int currentField){
 		//Recheck
 		if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
@@ -343,11 +374,31 @@ public class PlayTurn implements Runnable{
 			else
 			{
 			//If the player wants to mortgage, state-change and transferral
+				int propertyInSeries = 0;
+				int propertyWithoutHouses = 0;
+				for(Field item : thisboard.FieldList)
+				{
+					if((item instanceof Property) && 
+									(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+										propertyInSeries++;
+							}
+					if((item instanceof Property) && 
+							(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+							(((((Property)item).getHouses()) == 0) ||
+							((((Property)item).getHotel()) == 0))){
+								propertyWithoutHouses++;
+					}
+				}
+				if(propertyWithoutHouses == propertyInSeries){
 				((Ownable) thisboard.FieldList.get(currentField)).mortgage();
 				thisgame.playerList.get(playerID).getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
+				}
+				else{
+					mGui.showMessage("You need to sell Houses/Hotels before mortgaging");
+				}
 			}
 	}
-	
+	//Method for shaking the dice and moving on the board
 	private void shakeAndMove(){
 		mGui.getButton("Press the Button to shake the dies", "Shake");
 		shake.shakeShaker();
@@ -360,7 +411,7 @@ public class PlayTurn implements Runnable{
 		mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 		
 	}
-
+	//Method that starts the Thread
 	public void start() {
 		// TODO Auto-generated method stub
 		if (t == null){
