@@ -94,6 +94,7 @@ public class mGUI {
 					build();
 			Fields[10] = new Jail.Builder().setBgColor(FieldList.getFieldList().get(11).getColour()).
 					setFgColor(((entities.Jail) FieldList.getFieldList().get(11)).getTxColour()).
+					setTitle(FieldList.getFieldList().get(11).getTitle()).
 					setSubText(((entities.Jail) FieldList.getFieldList().get(11)).getSubtext()).
 					build();
 			Fields[11] = new Street.Builder().setBgColor(FieldList.getFieldList().get(12).getColour()).
