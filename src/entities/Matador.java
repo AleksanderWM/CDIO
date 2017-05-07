@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class Matador extends ChanceCard{
 	
 	protected int MaxNetworth;
@@ -65,8 +67,14 @@ public class Matador extends ChanceCard{
 	}
 
 	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM matador WHERE " + card.getChanceID() +  "= MatadorID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

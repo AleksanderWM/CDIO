@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class ChanceFee extends ChanceCard{
 
 	private int Fee;
@@ -9,12 +11,6 @@ public class ChanceFee extends ChanceCard{
 		
 		this.Fee = Fee;
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -59,5 +55,17 @@ public class ChanceFee extends ChanceCard{
 	
 	public void setFee(int fee){
 		Fee = fee;
+	}
+
+	@Override
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM fee WHERE " + card.getChanceID() +  "= FeeID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

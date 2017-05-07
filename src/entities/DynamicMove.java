@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.SQLException;
+
 public class DynamicMove extends ChanceCard{
 	
 	private int Moves;
@@ -8,12 +10,6 @@ public class DynamicMove extends ChanceCard{
 		super(ID, Type, Des);
 	this.Moves = Moves;
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -60,4 +56,15 @@ public class DynamicMove extends ChanceCard{
 		Moves = moves;
 	}
 
+	@Override
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM dynamicMove WHERE " + card.getChanceID() +  "= dynamicmoveID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

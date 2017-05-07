@@ -454,10 +454,10 @@ public class mGUI {
 		return GUI.getUserInteger(msg);
 	}
 	
-	public void playTurn(Game game, int v, Shaker shaker)
+	public void playTurn(Game game, int v, Shaker shaker, int pos)
 	{
 		removeCar(game, v);
-		setCar(game, v);
+		setCar(pos, v);
 		setDice(shaker);
 	}
 	
@@ -471,10 +471,9 @@ public class mGUI {
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
-	public void setCar(Game game, int v)
+	public void setCar(int pos, int v)
 	{
-		removeCar(game,v);
-		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
+		GUI.setCar(pos, game.playerList.get(v).getName());
 	}
 	
 	/**

@@ -19,11 +19,13 @@ import entities.RailroadMove;
 import entities.Utility;
 import entities.UtillityMove;
 import language.Language;
+import controllers.mGUI;
 
 public class Chance {
 
 		private ArrayList<ChanceCard> ChanceList = new ArrayList<ChanceCard>();
 		private Game game;
+		private mGUI gui;
 		
 		public Chance(){
 			
@@ -62,6 +64,7 @@ public class Chance {
 			ChanceList.add(new ChanceFee(30, 6, Language.toString(26), 1000));
 			ChanceList.add(new ChanceFee(31, 6, Language.toString(27), -1000));
 			ChanceList.add(new ChanceFee(32, 6, Language.toString(28), 200));
+			ShuffleCards();
 		}
 		
 		public void ShuffleCards(){			
@@ -72,9 +75,14 @@ public class Chance {
 			return ChanceList.size() - 1;
 		}
 		
-		public void DrawChance(Player Player){
-		ChanceCard Card = ChanceList.get(ListLength());
-	
+		public void DrawChance(int PlayerID){
+		if(ChanceList.size() == 0){
+			createChance();
+		}
+		ChanceCard Card = ChanceList.get(ChanceList.size()-1);
+		Player Player = game.playerList.get(PlayerID);
+		gui.displayMidDescription(Card.getDescription());
+		
 			switch(Card.getChanceType()){
 			
 //			UtillityMove
@@ -176,7 +184,8 @@ public class Chance {
 
 					
 			}
-//			need to remove the card form the database and the Arraylist
+			Card.removeChance(Card);
+			ChanceList.remove(ChanceList.size());
 		}
 			
 		public void LoadChance(){

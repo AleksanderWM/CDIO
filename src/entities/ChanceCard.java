@@ -1,18 +1,22 @@
 package entities;
 
+import java.sql.SQLException;
+
+import controllers.DBconnector;
+
 public abstract class ChanceCard {
 	
-	protected int ID;
+	protected int ID = 0;
 	protected int Type;
 	protected String Description;
+	
+	DBconnector connector = new DBconnector();
 	
 	public ChanceCard(int ID, int Type, String Des){
 		this.ID = ID;
 		this.Type = Type;
 		Description = Des;
 	}
-	
-	public abstract void Chance();
 
 	public abstract int getChanceID();
 	
@@ -25,4 +29,7 @@ public abstract class ChanceCard {
 	public abstract String getDescription();
 	
 	public abstract void setDescription();
+	
+	public abstract void removeChance(ChanceCard card);
+		
 }
