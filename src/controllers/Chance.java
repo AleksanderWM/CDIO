@@ -81,7 +81,7 @@ public class Chance {
 			ChanceList.add(new ChanceFee(29, 6, ChanceDes[25], 1000));
 			ChanceList.add(new ChanceFee(30, 6, ChanceDes[26], 1000));
 			ChanceList.add(new ChanceFee(31, 6, ChanceDes[27], -1000));
-			ChanceList.add(new ChanceFee(32, 6, ChanceDes[28], 200));
+			ChanceList.add(new ChanceFee(32, 6, ChanceDes[28], -200));
 			ShuffleCards();
 		}
 		
@@ -134,6 +134,7 @@ public class Chance {
 					}
 					else{
 						Player.setPosition(pos);
+						gui.setCar(game, pos);
 					}
 					break;
 					
@@ -160,11 +161,13 @@ public class Chance {
 				case 3 : 
 					FixedMove Fixed = (FixedMove)Card;
 					Player.setPosition(Fixed.getMove());
+					gui.setCar(game, Fixed.getMove());
 					break;
 //			DynamicMove
 				case 4 : 
 					DynamicMove Dyn = (DynamicMove)Card;
 					Player.movePosition(Dyn.getMoves());
+					gui.setCar(game, Player.getPosition());
 					break;
 //			Matador
 				case 5 : 
@@ -183,7 +186,7 @@ public class Chance {
 				case 7 : 
 					Birthday Birthday = (Birthday)Card;
 					int Count = 0;
-					for(int i = 0 ; i <= 6 ; i++){
+					for(int i = 0 ; i <= game.playerList.size() ; i++){
 						if (game.playerList.get(i) != Player || game.playerList.get(i) != null){
 							i++;
 							game.playerList.get(i).getAccount().addBalance(-Birthday.getFee());
@@ -201,12 +204,14 @@ public class Chance {
 					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
 						if(game.board.getField(i) instanceof RailRoad){
 							Player.setPosition(i);
+							gui.setCar(game, Player.getPosition());
 							return;
 						}
 						else{
 							for(int z = 0 ; z <= game.board.getFieldList().size() ; z++){
 								if(game.board.getField(i) instanceof RailRoad){
 									Player.setPosition(i);
+									gui.setCar(game, Player.getPosition());
 									return;
 								}
 							}
