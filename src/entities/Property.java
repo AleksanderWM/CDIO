@@ -8,12 +8,14 @@ import controllers.mGUI;
 
 public class Property extends Ownable {
 	
-	private int Houses = 0;
-	private int Hotel = 0;
+	private int Houses;
+	private int Hotel;
 	
-	public Property(String title, String description, String subText, Color colour, int player,int cost,int rent) 
+	public Property(String title, String description, String subText, Color colour, int player,int cost,int rent,int house,int hotel) 
 	{
 		super(title, description, subText, colour, player, cost, rent);
+		Houses = house;
+		Hotel = hotel;
 	}
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
@@ -61,6 +63,18 @@ public class Property extends Ownable {
 	public int getHouses(){
 		return Houses;
 	}
+	
+	public void setHouses(int house){
+		Houses = house;
+	}
+	
+	public int getHotel(){
+		return Hotel;
+	}
+	
+	public void setHotel(int hotel){
+		Hotel = hotel;
+	}
 	/**
 	 * Only add 1 or -1 House at a time
 	 * @param houses
@@ -77,8 +91,6 @@ public class Property extends Ownable {
 		}
 	}
 	
-	public int getHotel(){
-		return Hotel;
-	}
+
 
 }
