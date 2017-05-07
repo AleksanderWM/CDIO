@@ -72,10 +72,9 @@ public class Chance {
 			return ChanceList.size() - 1;
 		}
 		
-		public void DrawChance(int PlayerID){
+		public void DrawChance(Player Player){
 		ChanceCard Card = ChanceList.get(ListLength());
-		Player Player = game.playerList.get(PlayerID);
-		
+	
 			switch(Card.getChanceType()){
 			
 //			UtillityMove

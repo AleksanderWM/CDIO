@@ -2,11 +2,6 @@ package entities;
 
 import java.awt.Color;
 
-import controllers.Game;
-import controllers.GameBoard;
-import controllers.mGUI;
-import controllers.Chance;
-
 public class TryYourLuck implements Field{
 
 	private String Title;
@@ -14,14 +9,12 @@ public class TryYourLuck implements Field{
 	private Color Colour = Color.BLACK;
 	private Color TxColour = Color.WHITE;
 	
-	private Chance Chance;
-	
 	public TryYourLuck(String name){
 		Title = name;
 	}
 	
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		Chance.DrawChance(p);
+	@Override
+	public void landOnField() {
 	}
 
 	@Override
@@ -69,12 +62,6 @@ public class TryYourLuck implements Field{
 	
 	public void setTxColour(Color colour){
 		TxColour = colour;
-	}
-
-	@Override
-	public void landOnField() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
