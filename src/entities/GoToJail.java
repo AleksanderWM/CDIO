@@ -2,6 +2,10 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
 public class GoToJail implements Field {
 
 	private String Title;
@@ -16,7 +20,7 @@ public class GoToJail implements Field {
 	}
 	
 	@Override
-	public void landOnField() {
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
 	}
 
 	@Override
@@ -67,6 +71,12 @@ public class GoToJail implements Field {
 	
 	public String getSubtext(){
 		return Subtext;
+	}
+
+	@Override
+	public void setNumber(int numb) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

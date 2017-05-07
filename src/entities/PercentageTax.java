@@ -2,22 +2,34 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
 public class PercentageTax extends Fee{
 
-	private int Percentage;
+	private double Percentage;
 	private Color Colour = Color.GRAY;
 	
 	public PercentageTax() {
 		super();
 		Title = "Luxary Tax";
-		Fee = 1000;
-		Percentage = 10;
+		Fee = -1000;
+		Percentage = 0.10;
 		Description = "Betal " + Fee + ", eller " + Percentage + "% af din balance.";
 	}
 	
 	@Override
-	public void landOnField() {
-		super.landOnField();
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+		boolean taxChoice = mui.get2Buttons(Description, "4000", "10%");
+		if (!taxChoice)
+		{
+			game.playerList.get(p).getAccount().addBalance((int) -(game.playerList.get(p).getAccount().getBalance()*Percentage));
+		}
+		else
+		{
+			game.playerList.get(p).getAccount().addBalance(Fee);
+		}
 	}
 
 	@Override

@@ -7,13 +7,15 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.mGUI;
+import entities.Shaker;
+
 public interface Field {
 
 //METHODS
 	/**
 	 * Method for the action landing on a field.
 	 */
-	public void landOnField();
 	
 	/**
 	 * Method for getting description
