@@ -94,35 +94,37 @@ public abstract class ChanceCard {
 		return ChanceID;
 	}
 	
-	public boolean dbExist(int ID){
+	public String getDescriptionFdb(int ChanceID){
 		connector.Connect("chance");
-		boolean exist = false;
+		String des = null;
 		try {
-		ResultSet rs = connector.doQuery("chance","SELECT ChanceID FROM Chance WHERE EXISTS (SELECT ChanceID FROM chance WHERE ChanceID = "+ ID +";");
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
 		while(rs.next()){
-		exist = rs.getBoolean("chanceID");
+		des = rs.getString("Description");
 		}
 		connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return exist;
+		return des;
 	}
 	
-	public int getdbID(int i){
+	public int getTypeFDB(int ChanceID){
 		connector.Connect("chance");
-		int ChanceID = 0;
+		int ChanceType = 0;
 		try {
-		ResultSet rs = connector.doQuery("chance","SELECT ChanceID FROM Chance WHERE ChanceID = "+ i +";");
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ChanceID +";");
 		while(rs.next()){
-		ChanceID = rs.getInt("chanceID");
+		ChanceType = rs.getInt("chancetype");
 		}
 		connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ChanceID;
-	}	
+		return ChanceType;
+	}
+
+	
 	
 	public abstract void removeChance(ChanceCard card);
 	

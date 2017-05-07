@@ -1,5 +1,7 @@
 package controllers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -29,6 +31,7 @@ public class Chance {
 		private Game game;
 		private mGUI gui;
 		private Shaker shake;
+		private DBconnector connector;
 		
 		public Chance(){
 			
@@ -204,18 +207,62 @@ public class Chance {
 			ChanceList.remove(ChanceList.size());
 		}
 			
+		@SuppressWarnings("null")
 		public void LoadChance(){
-			ChanceCard Card;
+			connector.Connect("chance");
+			int count = 0;
 			for(int i = 0; i <= 32 ; i++){
-				if(Card.dbExist(i)){
-				Switch()	
-				}
-				
-				Card.loadChance();
-
+			boolean exist = false;
+			try {
+			ResultSet rs = connector.doQuery("chance","SELECT ChanceID FROM Chance WHERE EXISTS (SELECT ChanceID FROM chance WHERE ChanceID = "+ i +";");
+			while(rs.next()){
+			exist = rs.getBoolean("chanceID");
 			}
-		}
-		
-			
+			connector.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			ChanceCard Card = null;
+				if(exist){
+					switch(Card.getTypeFDB(i)){
+						case 1: 
+							UtillityMove UM = (UtillityMove)Card;
+							ChanceList.add(new UtillityMove(count++, 1, Card.getDescriptionFdb(i),UM.getdbMulti() ));
+							break;
+						case 2:
+							PropertyTax PT = (PropertyTax)Card;
+							ChanceList.add(new PropertyTax(count++, 2, Card.getDescriptionFdb(i),PT.getHouseTaxFDB(i), PT.getHoteltaxFDB(i)));
+							break;
+						case 3:
+							FixedMove FM = (FixedMove)Card;
+							ChanceList.add(new ChanceFee(count++, 3, Card.getDescriptionFdb(i), FM.getMoveFDB(i)));
+							break;
+						case 4:
+							DynamicMove DM = (DynamicMove)Card;
+							ChanceList.add(new DynamicMove(count++, 4, Card.getDescriptionFdb(i),DM.getMovesFDB(i)));
+							break;
+						case 5:
+							Matador M = (Matador)Card;
+							ChanceList.add(new Matador(count++, 5, Card.getDescriptionFdb(i),M.getMaxFDB(i),M.getBonusFDB(i)));
+							break;
+						case 6:
+							ChanceFee F = (ChanceFee)Card;
+							ChanceList.add(new ChanceFee(count++, 6, Card.getDescriptionFdb(i), F.getFeeFDB(i)));
+							break;
+						case 7:
+							Birthday B = (Birthday)Card;
+							ChanceList.add(new Birthday(count++, 7, Card.getDescriptionFdb(i), B.getFeeFDB(i)));
+							break;
+						case 8:
+							ChanceList.add(new GetOutOfJail(count++, 8, Card.getDescriptionFdb(i)));
+							break;
+						case 9:
+							ChanceList.add(new RailroadMove(count++, 9, Card.getDescriptionFdb(i)));
+							break;
+					}
+				}
+			}
+			ShuffleCards();	
+		}	
 	}	
 		

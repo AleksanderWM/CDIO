@@ -155,14 +155,14 @@ public boolean checkDB(String dbName){
 		   public void tbCreatorChance(){
 			   //CREATION of tables
 			   try {
-				GameConnector.doUpdate("Chance","CREATE TABLE UtillityMove(UtillityMoveID INTEGER(1), Multiplier VARCHAR(2), PRIMARY KEY ( UtillityMoveID ));");
+				GameConnector.doUpdate("Chance","CREATE TABLE UtillityMove(UtillityMoveID INTEGER(1), Multiplier INTEGER(2), PRIMARY KEY ( UtillityMoveID ));");
 				GameConnector.doUpdate("Chance","CREATE TABLE PropertyTax(PropertyTaxID INTEGER(1), HouseTax INTEGER(5), HotelTax INTEGER(5), PRIMARY KEY ( PropertyTaxID ));");
-				GameConnector.doUpdate("Chance","CREATE TABLE FixedMove(FixedMoveID INTEGER(2), Move VARCHAR(2), PRIMARY KEY ( FixedMoveID ));");
+				GameConnector.doUpdate("Chance","CREATE TABLE FixedMove(FixedMoveID INTEGER(2), Move INTEGER(2), PRIMARY KEY ( FixedMoveID ));");
 				GameConnector.doUpdate("Chance","CREATE TABLE DynamicMove(DynamicMoveID INTEGER(2), moves INTEGER(2), PRIMARY KEY( DynamicMoveID ));");
 				GameConnector.doUpdate("Chance","CREATE TABLE Matador(MatadorID INTEGER(2), Max INTEGER(5), Bonus INTEGER(5), PRIMARY KEY ( MatadorID ));");
 				GameConnector.doUpdate("Chance","CREATE TABLE Fee(FeeID INTEGER(2), Fee INTEGER(5), PRIMARY KEY ( FeeID ));");
 				GameConnector.doUpdate("Chance","CREATE TABLE Birthday(BirthdayID INTEGER(2), Fee INTEGER(5), PRIMARY KEY ( BirthdayID ));");
-				GameConnector.doUpdate("Chance","CREATE TABLE Chance(ChanceID INTEGER(2), ChanceTypr INTEGER(2),PRIMARY KEY ( ChanceID ));");
+				GameConnector.doUpdate("Chance","CREATE TABLE Chance(ChanceID INTEGER(2), ChanceTypr INTEGER(2), Description VARCHAR(100), PRIMARY KEY ( ChanceID ));");
 				System.out.println("Tables in Chance created successfully...");
 			   		}catch (SQLException e) {
 			   			e.printStackTrace();

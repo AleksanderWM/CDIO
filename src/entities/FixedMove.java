@@ -55,6 +55,21 @@ public class FixedMove extends ChanceCard{
 		return M;
 	}
 	
+	public int getMoveFDB(int ChanceID){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Fixedmove FROM fixedmove WHERE fixedmoveID = "+ ChanceID +";");
+		while(rs.next()){
+		M = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
+	}
+	
 	@Override
 	public void loadChance() {
 		// TODO Auto-generated method stub
