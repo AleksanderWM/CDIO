@@ -14,6 +14,7 @@ public class PlayTurn implements Runnable{
 	private Thread t;
 	private String thread;
 	private int jailed = 41;
+	private boolean wasIJustReleasedFromJail = false;
 	
 	public PlayTurn(String name, int playid, Game game, GameBoard board){
 		thread = name;
@@ -38,8 +39,12 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
-			
+			if(!wasIJustReleasedFromJail){
 			shakeAndMove();
+			}
+			else{
+				wasIJustReleasedFromJail = false;
+			}
 			thisgame.playerList.get(playerID).updatePlayer();			
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 			interact(thisgame.playerList.get(playerID));
@@ -69,25 +74,28 @@ public class PlayTurn implements Runnable{
 		}
 	public void amIInPrison(){
 		if(thisgame.playerList.get(playerID).getPosition() == jailed){
-			if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
-				thisgame.playerList.get(playerID).getAccount().setBalance(-1000);
+			if(thisgame.playerList.get(playerID).getJailTries() < 3){
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+					payOutOfJail();
+				}
+				else{
+					rollOutOfJail();
+				}
 			}
-			else{
-				mGui.getButton("Press the Button to shake the dies", "Shake");
-				shake.shakeShaker();
-				int shakeValue = shake.getShake();
-				mGui.setDice(shake);
-				int turnsTried = 1;
-				while(shake.getDice1Value()!=shake.getDice2Value() || turnsTried == 3){
-					mGui.getButton("Press the Button to shake the dies", "Shake");
-					shake.shakeShaker();
-					int shakeValue1 = shake.getShake();
-					mGui.setDice(shake);
-					turnsTried++;
+			else if(thisgame.playerList.get(playerID).getJailTries() == 3) {
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+					payOutOfJail();
+				}
+				else{
+					rollOutOfJail();
+				}
+				if(!wasIJustReleasedFromJail){
+					payOutOfJail();
 				}
 			}
 		}
 		
+		wasIJustReleasedFromJail = true;
 	}
 	
 	
@@ -103,6 +111,35 @@ public class PlayTurn implements Runnable{
 				}
 			}
 		}
+	}
+	
+	private void rollOutOfJail(){
+		mGui.getButton("Press the Button to shake the dies", "Shake");
+		shake.shakeShaker();
+		int shakeValue = shake.getShake();
+		mGui.setDice(shake);
+		int turnsTried = 1;
+		while(shake.getDice1Value()!=shake.getDice2Value() || turnsTried == 3){
+			mGui.getButton("Press the Button to shake the dies", "Shake");
+			shake.shakeShaker();
+			int shakeValue1 = shake.getShake();
+			mGui.setDice(shake);
+			turnsTried++;
+		}
+		if(shake.getDice1Value()==shake.getDice2Value()){
+			thisgame.playerList.get(playerID).setPosition(11);
+			thisgame.playerList.get(playerID).movePosition(shakeValue);
+			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
+			wasIJustReleasedFromJail = true;
+		}
+	}
+	
+	private void payOutOfJail(){
+		thisgame.playerList.get(playerID).getAccount().setBalance(-1000);
+		wasIJustReleasedFromJail = true;
+		thisgame.playerList.get(playerID).setPosition(11);
+		shakeAndMove();
+		thisgame.playerList.get(playerID).resetJailTries();
 	}
 	public void interact(Player thisplayer){
 		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
