@@ -70,13 +70,13 @@ public class Account {
 	 * adds the difference to net worth
 	 */
 	public void setBalance(int balance){
-		int dif = balance - money;
-		networth = networth + dif;
+//		int dif = balance - money;
+//		networth = networth + dif;
 		money = balance;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID EQUALS " + ID + ");");
-			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + networth + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID = " + ID + ";");
+//			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + networth + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,6 +92,26 @@ public class Account {
 			return money > price;
 		
 	}
+
+	public void updateAccount(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE PlayerID = "+ ID +";");
+				int Balance = rs.getInt("money");
+				int NW = rs.getInt("networth");
+				connector.close();
+				if(money != Balance){
+					setBalance(money);
+				}
+				if(networth != NW){
+					setNetworth(networth);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}}
+		
+
 	
 	public int getNetworth(){
 		return networth;
@@ -99,5 +119,6 @@ public class Account {
 	
 	public void setNetworth(int networth){
 		this.networth = networth;
+
 	}
 }
