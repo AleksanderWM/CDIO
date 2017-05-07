@@ -10,42 +10,6 @@ public class RailroadMove extends ChanceCard{
 	}
 
 	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void removeChance(ChanceCard card) {
 		connector.Connect("chance");
 		try {
@@ -54,5 +18,13 @@ public class RailroadMove extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		
 	}
 }

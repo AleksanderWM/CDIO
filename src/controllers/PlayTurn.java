@@ -154,7 +154,42 @@ public class PlayTurn implements Runnable{
 					switch (mGui.get3Buttons("What do you want to do?","Housing","Sell","Mortgage")){
 					case "Housing": {
 						if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
-							
+							for(Field item : thisboard.FieldList)
+							{
+								int propertyInSeries = 0;
+										if((item instanceof Property) && 
+												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+													propertyInSeries++;
+										}
+								int ownedPropertyInSeries = 0;
+										if((item instanceof Property) && 
+												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
+												(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
+													ownedPropertyInSeries++;
+										}
+								if(propertyInSeries == ownedPropertyInSeries){
+									if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
+										if((item instanceof Property) && 
+											(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+											(((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
+											((((Property)item).getHouses())+1) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) &&
+											(((Property)thisboard.FieldList.get(currentField)).getHouses()) != 4){
+												((Property)thisboard.FieldList.get(currentField)).setHouses(1);
+												thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
+												mGui.setBalance(thisgame, playerID);
+												mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+												
+										}
+										else {
+										mGui.showMessage("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+										mGui.displayMidDescription("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+										}
+									}
+									else {
+										//intet ligenu
+									}
+								}
+							}
 						}
 						else{
 							

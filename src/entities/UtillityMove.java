@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtillityMove extends ChanceCard {
@@ -11,49 +12,20 @@ public class UtillityMove extends ChanceCard {
 		Multiplier = Multi;
 	}
 
-	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public int getMultiplier(){
 		return Multiplier;
 	}
 	
-	public void setMultiplier(){
+	public void setMutliplier(int ChanceMulti){
+		Multiplier = ChanceMulti;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE UtillityMove SET multiplier = " + ChanceMulti + " WHERE UtillityMove = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
 	@Override
 	public void removeChance(ChanceCard card) {
 		connector.Connect("chance");
@@ -64,5 +36,28 @@ public class UtillityMove extends ChanceCard {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMulti(){
+		connector.Connect("chance");
+		int multi = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT multiplier FROM UtillityMove WHERE UtillityMoveID = "+ ID +";");
+		while(rs.next()){
+		multi = rs.getInt("multiplier");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return multi;
+	}
+	
+	@Override
+	public void loadChance() {
+		ID = getdbID();
+		Type = getdbType();
+		Multiplier = getdbMulti();
+		
 	}
 }

@@ -7,15 +7,17 @@ import entities.Birthday;
 import entities.ChanceCard;
 import entities.ChanceFee;
 import entities.DynamicMove;
-import entities.Fee;
+import entities.Field;
 import entities.FixedMove;
 import entities.GetOutOfJail;
 import entities.Matador;
+import entities.Ownable;
 import entities.Player;
 import entities.Property;
 import entities.PropertyTax;
 import entities.RailRoad;
 import entities.RailroadMove;
+import entities.Shaker;
 import entities.Utility;
 import entities.UtillityMove;
 import language.Language;
@@ -26,6 +28,7 @@ public class Chance {
 		private ArrayList<ChanceCard> ChanceList = new ArrayList<ChanceCard>();
 		private Game game;
 		private mGUI gui;
+		private Shaker shake;
 		
 		public Chance(){
 			
@@ -87,7 +90,6 @@ public class Chance {
 			
 //			UtillityMove
 				case 1 : 
-//					if owned by an other player pay double
 					int pos;
 					if(Player.getPosition() < 12 && Player.getPosition() > 28){
 						pos = 28;
@@ -96,8 +98,22 @@ public class Chance {
 						pos = 12;
 					}
 					Utility Utility = (Utility)game.board.getField(pos);
+					UtillityMove UtillityMove = (UtillityMove)Card;
 					if(Utility.getOwner() != Player.getID()){
-//						Mangler en get rent
+						{
+							gui.getButton("Press to shake the dice", "Shake");
+							shake.setShake();
+							gui.setDice(shake);
+							int ownedUtility = 0;
+							for(Field item : game.board.FieldList)
+							{
+								if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)game.board.FieldList.get(pos)).getOwner()).getID()))
+								{
+								ownedUtility++;
+								}
+							}
+							Utility.payRent(game, Player.getID(), game.board, pos, Utility.getRent()*shake.getShake()*ownedUtility*UtillityMove.getdbMulti());
+							}	
 					}
 					else{
 						Player.setPosition(pos);
@@ -189,7 +205,11 @@ public class Chance {
 		}
 			
 		public void LoadChance(){
-			
+			for(ChanceCard Card : ChanceList){
+				
+				Card.loadChance();
+
+			}
 		}
 		
 			
