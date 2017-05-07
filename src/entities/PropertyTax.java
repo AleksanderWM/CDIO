@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PropertyTax extends ChanceCard{
@@ -54,5 +55,43 @@ public class PropertyTax extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbHouseTax(){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT housetax FROM propertytax WHERE propertytaxID = "+ ID +";");
+		while(rs.next()){
+		HT = rs.getInt("housetax");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getdbHotelTax(){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT hoteltax FROM propertytax WHERE propertytaxID = "+ ID +";");
+		while(rs.next()){
+		HT = rs.getInt("hoteltax");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		HotelTax = getdbHotelTax();
+		HouseTax = getdbHouseTax();
 	}
 }

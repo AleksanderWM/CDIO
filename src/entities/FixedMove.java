@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FixedMove extends ChanceCard{
@@ -37,5 +38,29 @@ public class FixedMove extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMove(){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT move FROM fixedmove WHERE fixedmoveid = "+ ID +";");
+		while(rs.next()){
+		M = rs.getInt("Move");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
+	}
+	
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		Move = getdbMove();
+		
 	}
 }

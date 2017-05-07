@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtillityMove extends ChanceCard {
@@ -35,5 +36,28 @@ public class UtillityMove extends ChanceCard {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMulti(){
+		connector.Connect("chance");
+		int multi = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT multiplier FROM UtillityMove WHERE UtillityMoveID = "+ ID +";");
+		while(rs.next()){
+		multi = rs.getInt("multiplier");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return multi;
+	}
+	
+	@Override
+	public void loadChance() {
+		ID = getdbID();
+		Type = getdbType();
+		Multiplier = getdbMulti();
+		
 	}
 }

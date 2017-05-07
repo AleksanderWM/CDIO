@@ -19,4 +19,12 @@ public class RailroadMove extends ChanceCard{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		
+	}
 }

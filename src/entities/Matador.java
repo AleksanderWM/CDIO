@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Matador extends ChanceCard{
@@ -55,5 +56,43 @@ public class Matador extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMax(){
+		connector.Connect("chance");
+		int Max = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT max FROM Matador WHERE MatadorID = "+ ID +";");
+		while(rs.next()){
+		Max = rs.getInt("Max");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Max;
+	}
+	
+	public int getdbBonus(){
+		connector.Connect("chance");
+		int B = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT bonus FROM Matador WHERE MatadorID = "+ ID +";");
+		while(rs.next()){
+		B = rs.getInt("bonus");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return B;
+	}
+
+	@Override
+	public void loadChance() {
+		MaxNetworth = getdbMax();
+		Bonus = getdbBonus();
+		ID = getdbID();
+		Type = getdbType();
 	}
 }

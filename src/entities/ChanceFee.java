@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ChanceFee extends ChanceCard{
@@ -38,5 +39,29 @@ public class ChanceFee extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbFee(){
+		connector.Connect("chance");
+		int fee = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT fee FROM fee WHERE feeID = "+ ID +";");
+		while(rs.next()){
+		fee = rs.getInt("Fee");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fee;
+	}
+	
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		Fee = getdbFee();
+		
 	}
 }

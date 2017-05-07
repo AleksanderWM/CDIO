@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DynamicMove extends ChanceCard{
@@ -37,5 +38,29 @@ public class DynamicMove extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMoves(){
+		connector.Connect("chance");
+		int M = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT moves FROM dynamicmove WHERE dynamicmoveID = "+ ID +";");
+		while(rs.next()){
+		M = rs.getInt("moves");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return M;
+	}
+	
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		Moves = getdbMoves();
+		
 	}
 }

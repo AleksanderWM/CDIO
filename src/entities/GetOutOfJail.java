@@ -19,4 +19,12 @@ public class GetOutOfJail extends ChanceCard{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void loadChance() {
+		ID = getdbID();
+		Type = getdbID();
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -188,7 +188,11 @@ public class Chance {
 		}
 			
 		public void LoadChance(){
-			
+			for(ChanceCard Card : ChanceList){
+				
+				Card.loadChance();
+
+			}
 		}
 		
 			
