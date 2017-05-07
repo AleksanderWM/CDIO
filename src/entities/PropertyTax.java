@@ -19,6 +19,7 @@ public class PropertyTax extends ChanceCard{
 		HotelTax = Hotel;
 		try {
 			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + House + "," + Hotel + ");");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

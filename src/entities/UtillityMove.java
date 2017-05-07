@@ -17,6 +17,7 @@ public class UtillityMove extends ChanceCard {
 		Multiplier = Multi;
 		try {
 			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Multi + ");");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -17,6 +17,7 @@ public class FixedMove extends ChanceCard{
 		this.Move = Move;
 		try {
 			connector.doUpdate("chance","INSERT into FixedMove values(" + ID + "," + Move + ");");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

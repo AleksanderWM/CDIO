@@ -24,6 +24,7 @@ public abstract class ChanceCard {
 		Description = Des;
 		try {
 			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Des + "');");
+			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
