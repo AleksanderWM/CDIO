@@ -50,10 +50,10 @@ public class Account {
 	/**
 	 * add a given amount of money to the balance and net worth
 	 */
-	public void addBalance(int money){
+	public void addBalance(int addmoney){
 		connector.Connect("game");
-		int newBalance = this.money + money;
-		int newNetworth = networth + money;
+		int newBalance = this.money + addmoney;
+		int newNetworth = networth + addmoney;
 		money = newBalance;
 		networth = newNetworth;
 		try {
