@@ -172,9 +172,9 @@ public class PlayTurn implements Runnable{
 		}
 	
 	private void caseHousing(int currentField){
-			if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
-				int propertyInSeries = 0;
-				int ownedPropertyInSeries = 0;
+		int propertyInSeries = 0;
+		int ownedPropertyInSeries = 0;	
+		if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
 				for(Field item : thisboard.FieldList)
 				{
 							if((item instanceof Property) && 
@@ -193,13 +193,12 @@ public class PlayTurn implements Runnable{
 						if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
 							for(Field item : thisboard.FieldList){
 								
-							if((item instanceof Property) && 
-								(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
-								(((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
-								((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses())){
-									propertyWithHouses++;
-							
-							}
+								if((item instanceof Property) && 
+										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
+										((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
+											propertyWithHouses++;
+								}
 							}
 							if(ownedPropertyInSeries == propertyWithHouses){
 									((Property)thisboard.FieldList.get(currentField)).setHouses(1);
@@ -214,13 +213,73 @@ public class PlayTurn implements Runnable{
 							}
 						}
 						else {
-							//intet ligenu
+							int propertyWithHotel = 0;
+							for(Field item : thisboard.FieldList){
+								if((item instanceof Property) && 
+										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										((((Property)item).getHouses()) == 4 ||
+										(((Property)item).getHotel()) <= 1)){
+											propertyWithHotel++;
+								}
 						}
+							if(ownedPropertyInSeries == propertyWithHotel && (((Property)thisboard.FieldList.get(currentField)).getHotel()) == 0){
+								((Property)thisboard.FieldList.get(currentField)).setHotel(1);
+								thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
+								mGui.setBalance(thisgame, playerID);
+								mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+							}
 					}
 				}
 			else{
+				mGui.showMessage("You do not own all properties in this range");
+				mGui.displayMidDescription("You do not own all properties in this range");
+				
+			}
+			}
+			else {
+				if (mGui.get2Buttons("Do you want to sell a House or Hotel?","House","Hotel") == true){
+				int propertyWithHouses = 0;
+				for(Field item : thisboard.FieldList){
+					
+					if((item instanceof Property) && 
+							(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+							((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
+							((((Property)item).getHouses())-1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
+								propertyWithHouses++;
+					}
+				}
+				
+				if(propertyWithHouses == propertyInSeries){
+					((Property)thisboard.FieldList.get(currentField)).setHouses(-1);
+					thisgame.playerList.get(playerID).getAccount().addBalance(+(((Property)thisboard.FieldList.get(currentField)).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+				}
+				else{
+					mGui.showMessage("You are not permitted to sell houses on this lot. Check if you have any out houses, or if you have equal amount of houses on the coresponding Propperty");
+					mGui.displayMidDescription("You are not permitted to sell houses on this lot. Check if you have any out houses, or if you have equal amount of houses on the coresponding Propperty");
+				}
+				}
+				else {
+				int propertyWithHotel = 0;
+				for(Field item : thisboard.FieldList){
+					if((item instanceof Property) && 
+							(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+							((((Property)item).getHouses()) == 4 ||
+							(((Property)item).getHotel()) <= 1)){
+								propertyWithHotel++;
+					}
+				}
+				if(ownedPropertyInSeries == propertyWithHotel && (((Property)thisboard.FieldList.get(currentField)).getHotel()) == 1){
+					((Property)thisboard.FieldList.get(currentField)).setHotel(-1);
+					thisgame.playerList.get(playerID).getAccount().addBalance(-(((Property)thisboard.FieldList.get(currentField)).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+					}
+				}
 			}
 	}
+			
 	
 	private void caseSell(int currentField){
 		/**
@@ -233,8 +292,6 @@ public class PlayTurn implements Runnable{
 		 */
 		int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
 		
-		thisplayer.getID();
-		
 		//Balance check of recieving player
 		if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
 			mGui.showMessage("The player doesn't have enough money");
@@ -242,12 +299,15 @@ public class PlayTurn implements Runnable{
 		{
 		//Accept from recieving player if balance check passes
 		if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
+		{
 			
 		//Transferral
 				((Ownable) thisboard.FieldList.get(currentField)).setOwner(sellToPlayer);
 				thisgame.playerList.get(playerID).getAccount().addBalance(sellPrice);
 				thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
+				mGui.setOwner(currentField, thisgame.playerList.get(sellToPlayer).getName());
 		}
+	}
 	}
 	
 	private void caseMortgage(int currentField){

@@ -8,8 +8,8 @@ import controllers.mGUI;
 
 public class Property extends Ownable {
 	
-	private int Houses;
-	private int Hotel;
+	private int Houses = 0;
+	private int Hotel = 0;
 	private int RENT1;
 	private int RENT2;
 	private int RENT3;
@@ -123,7 +123,7 @@ public class Property extends Ownable {
 	}
 	
 	public void setHouses(int house){
-		Houses = house;
+		Houses = Houses + house;
 	}
 	
 	public int getHotel(){
