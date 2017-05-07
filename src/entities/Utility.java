@@ -6,14 +6,31 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * 
+ * @author Aleksander and Emil Jørgensen
+ *
+ */
 public class Utility extends Ownable{
 	
 	private Color TxColour = Color.WHITE;
 	
+	/**
+	 * The constructor for a Utility field
+	 * @param title
+	 * @param description
+	 * @param subText
+	 * @param player
+	 * @param cost
+	 * @param rent
+	 */
 	public Utility(String title,String description, String subText, int player, int cost, int rent) {
 		super(title,description, subText, new Color(6,76,30), player, cost, rent);
 	}
 
+	/**
+	 *Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
 		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == owned){
@@ -76,13 +93,7 @@ public class Utility extends Ownable{
 	public Color getColour() {
 		return super.Colour;
 	}
-	public String getPicture() {
-		return Picture;
-	}
 
-	public void setPicture(String url){
-		Picture = url;
-	}
 	
 	public Color getTxColour(){
 		return TxColour;

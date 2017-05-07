@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import entities.Player;
-import language.Language;
 
 public class Game {
 static mGUI gui = new mGUI();

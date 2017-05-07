@@ -20,7 +20,6 @@ public class FixedMove extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int getMove(){
