@@ -189,8 +189,60 @@ public class PlayTurn implements Runnable{
 						}
 					}
 				}
-			}			
+				if (((Ownable) thisboard.FieldList.get(currentField)).getOwner() == 0){
+					mGui.showMessage("This Field has no actions yet");
+					mGui.displayMidDescription("This Field has no actions yet");
+				}
+				if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
+					if (mGui.get2Buttons("What would you like to do?","Make Offer","Abort") == true){
+						/**
+						 * The price you want to pay for the field
+						 */
+						int buyPrice = mGui.getUserInt("What price do you want to buy it for?");
+						int owner = ((Ownable)thisboard.FieldList.get(currentField)).getOwner();
+						
+						//Balance check of recieving player
+						if (thisgame.playerList.get(playerID).getAccount().getBalance() - buyPrice < 0)
+							mGui.showMessage("You don't have enough money");
+						else{
+							int propertyInSeries = 0;
+							int propertyWithoutHouses = 0;
+							for(Field item : thisboard.FieldList)
+								{
+							if((item instanceof Property) && 
+											(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+												propertyInSeries++;
+									}
+							if((item instanceof Property) && 
+									(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+									(((((Property)item).getHouses()) == 0) ||
+									((((Property)item).getHotel()) == 0))){
+										propertyWithoutHouses++;
+							}
+								}
+							if(propertyWithoutHouses == propertyInSeries){
+								//Accept from recieving player if balance check passes
+								if (mGui.get2Buttons("Player " + owner + ", do you accept this deal?","Yes","No") == true)
+								{
+									
+								//Transferral
+										((Ownable) thisboard.FieldList.get(currentField)).setOwner(playerID);
+										thisgame.playerList.get(playerID).getAccount().addBalance(buyPrice);
+										thisgame.playerList.get(owner).getAccount().addBalance(-buyPrice);
+										mGui.setOwner(currentField, thisgame.playerList.get(playerID).getName());
+								}
+								else{
+									mGui.showMessage("The player rejected the offer");
+								}
+								}
+								else{
+									mGui.showMessage("You need to sell Houses/Hotels before selling a property");
+								}
+						}
+					}			
+				}
 		}
+	}
 	//If he chooses Housing this is the method responsible to see if he wants to buy or sell houses/hotels
 	//it ensures that he has enough houses on each property before being able to buy a new one.
 	//He must buy each house, one by one going into every different property each time, and the same with selling.
