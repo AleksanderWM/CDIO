@@ -22,22 +22,26 @@ public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
-
+		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
+		String answer = scan.nextLine();
+		if(answer == "Yes"){
+			dbc.DeleteDBTemp("game", connector);
+			if(dbc.checkDB("game") == false){
+				dbc.CreateGame();
+				dbc.tbCreatorGame();
+			}
+				dbc.DeleteDBTemp("Chance", connector);
+				if(dbc.checkDB("chance") == false){
+				dbc.CreateChance();
+				dbc.tbCreatorChance();
+				chance.createChance();
+				}
+		}
+		else {
+			
+		}
 		board.CreateBoard();
 		playerList.add(null);
-		dbc.DeleteDBTemp("game", connector);
-		if(dbc.checkDB("game") == false){
-			dbc.CreateGame();
-			dbc.tbCreatorGame();
-		}
-			dbc.DeleteDBTemp("Chance", connector);
-			if(dbc.checkDB("chance") == false){
-			dbc.CreateChance();
-			dbc.tbCreatorChance();
-			chance.createChance();
-			}
-
-		board.CreateBoard();
 		gui.CreateBoard();
 
 		enterPlayers();
