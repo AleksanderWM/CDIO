@@ -459,7 +459,7 @@ public class mGUI {
 	public void playTurn(Game game, int v, Shaker shaker, int pos)
 	{
 		removeCar(game, v);
-		setCar(pos, v);
+		setCar(game, v);
 		setDice(shaker);
 	}
 	
