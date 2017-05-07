@@ -267,7 +267,9 @@ public class PlayTurn implements Runnable{
 		mGui.setDice(shake);
 		thisgame.playerList.get(playerID).movePosition(shakeValue);
 		System.out.println(thisgame.playerList.get(playerID).getID());
-		mGui.setCar(thisgame.playerList.get(playerID).getPosition(), thisgame.playerList.get(playerID).getID());
+		System.out.println(thisgame.playerList.get(playerID).getPosition());
+		mGui.removeCar(thisgame, playerID);
+		mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 		
 	}
 

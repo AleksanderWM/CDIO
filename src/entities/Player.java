@@ -179,14 +179,14 @@ public class Player {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail, Jailtrys FROM PLAYER WHERE PlayerID = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
 				int pos = 0;
 				int gooj = 0;
 				int Jailtried = 0;
 				while(rs.next()){
 				pos = rs.getInt("position");
 				gooj = rs.getInt("getoutofjail");
-				Jailtried = rs.getInt("jailtrys");
+				Jailtried = rs.getInt("jailtries");
 				}
 				connector.close();
 				if(position != pos){
