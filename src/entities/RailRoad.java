@@ -7,8 +7,9 @@ import controllers.GameBoard;
 import controllers.mGUI;
 
 /**
- * @author Aleksander and Emil Jørgensen
- *
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
  */
 public class RailRoad extends Ownable{
 
