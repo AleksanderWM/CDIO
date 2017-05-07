@@ -30,11 +30,11 @@ public volatile int id = 1;
 			dbc.CreateGame();
 			dbc.tbCreatorGame();
 		}
-		if(dbc.checkDB("chance") == false){
+			dbc.DeleteDBTemp("Chance", connector);
 			dbc.CreateChance();
 			dbc.tbCreatorChance();
 			chance.createChance();
-		}
+		
 		board.CreateBoard();
 		gui.CreateBoard();
 
