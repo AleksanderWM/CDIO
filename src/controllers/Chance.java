@@ -105,7 +105,7 @@ public class Chance {
 		ChanceCard Card = ChanceList.get(ChanceList.size()-1);
 		Player Player = game.playerList.get(PlayerID);
 		gui.displayMidDescription(Card.getDescription());
-		
+		gui.getButton(Card.getDescription(), "Move on");
 			switch(Card.getChanceType()){
 			
 //			UtillityMove
