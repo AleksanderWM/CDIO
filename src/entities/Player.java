@@ -23,6 +23,7 @@ public class Player {
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
+	private int Jailtrys;
 	private String name;
 	
 	private int maxfields = 40;
@@ -178,12 +179,14 @@ public class Player {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail, Jailtrys FROM PLAYER WHERE PlayerID = "+ ID +";");
 				int pos = 0;
 				int gooj = 0;
+				int Jailtrys = 0;
 				while(rs.next()){
 				pos = rs.getInt("position");
 				gooj = rs.getInt("getoutofjail");
+				Jailtrys = rs.getInt("jailtrys");
 				}
 				connector.close();
 				if(position != pos){
@@ -192,11 +195,30 @@ public class Player {
 				if(getOutOfJail != gooj){
 					setOutOfJail(getOutOfJail);
 				}
+				if(this.Jailtrys != Jailtrys){
+					setJailtrys(this.Jailtrys);
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		Account.updateAccount();
 		
+		}
+	
+	
+	public int getJailtrys(){
+		return Jailtrys;
+	}
+	
+	public void setJailtrys(int trys){
+		Jailtrys = trys;
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE Player SET jailtrys = " + Jailtrys + " WHERE PlayerID EQUALS " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
 
