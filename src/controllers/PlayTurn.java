@@ -13,6 +13,7 @@ public class PlayTurn implements Runnable{
 	Game thisgame;
 	private Thread t;
 	private String thread;
+	private int jailed = 41;
 	
 	public PlayTurn(String name, int playid, Game game, GameBoard board){
 		thread = name;
@@ -37,6 +38,7 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
+			
 			shakeAndMove();
 			thisgame.playerList.get(playerID).updatePlayer();			
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
@@ -65,8 +67,43 @@ public class PlayTurn implements Runnable{
 			}
 			
 		}
+	public void amIInPrison(){
+		if(thisgame.playerList.get(playerID).getPosition() == jailed){
+			if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+				thisgame.playerList.get(playerID).getAccount().setBalance(-1000);
+			}
+			else{
+				mGui.getButton("Press the Button to shake the dies", "Shake");
+				shake.shakeShaker();
+				int shakeValue = shake.getShake();
+				mGui.setDice(shake);
+				int turnsTried = 1;
+				while(shake.getDice1Value()!=shake.getDice2Value() || turnsTried == 3){
+					mGui.getButton("Press the Button to shake the dies", "Shake");
+					shake.shakeShaker();
+					int shakeValue1 = shake.getShake();
+					mGui.setDice(shake);
+					turnsTried++;
+				}
+			}
+		}
+		
+	}
 	
-
+	
+	public void sellOfStuff(){
+		
+		if(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+			
+			for(Field item : thisboard.FieldList)
+			{
+				if((item instanceof Ownable) && (((Ownable)item).getOwner() == thisgame.playerList.get(playerID).getID()))
+				{
+				
+				}
+			}
+		}
+	}
 	public void interact(Player thisplayer){
 		if (mGui.get2Buttons("What would you like to do?","Action","End Turn") == true){
 			int currentField = mGui.getFieldChoice();
@@ -144,6 +181,7 @@ public class PlayTurn implements Runnable{
 					
 					
 		}
+	
 	
 	private void shakeAndMove(){
 		mGui.getButton("Press the Button to shake the dies", "Shake");
