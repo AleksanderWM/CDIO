@@ -31,7 +31,9 @@ public class GameBoard {
 	private String[] SubtextList = null;
 	private int noOwner = 0;
 
-	
+	/**
+	 * Creates the Array of boards
+	 */
 	public void CreateBoard(){
 		try {
 			TitleList = TitleFile.OpenFile();
@@ -83,10 +85,18 @@ public class GameBoard {
 		FieldList.add(new Property(TitleList[40],DescriptionList[40],SubtextList[40],new Color(150,53,150),noOwner,8000,4000,1000, 4000, 12000, 28000, 34000, 40000, 0, 0));
 	}
 	
+	/**
+	 * Returns the array of board. CreateBoard must be called before this
+	 * @return the arraylist of fields
+	 */
 	public ArrayList<Field> getFieldList(){
 		return FieldList;
 	}
-	
+	/**
+	 * Gets a single field from the arraylist, createBoard must be called before this
+	 * @param index the number of the field
+	 * @return
+	 */
 	public Field getField(int index){
 		return FieldList.get(index);
 	}
