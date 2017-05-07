@@ -15,8 +15,11 @@ public class Utility extends Ownable{
 	}
 
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p)
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID)
 		{
 			mui.getButton("Press to shake the dice", "Shake");
 			shake.setShake();
@@ -24,12 +27,12 @@ public class Utility extends Ownable{
 			int ownedUtility = 0;
 			for(Field item : gameboard.FieldList)
 			{
-				if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(boardValue)).getOwner()).getID()))
 				{
 				ownedUtility++;
 				}
 			}
-			payRent(game, p, gameboard, b, rent*shake.getShake()*ownedUtility);
+			payRent(game, playerID, gameboard, boardValue, rent*shake.getShake()*ownedUtility);
 			}		
 		}
 
