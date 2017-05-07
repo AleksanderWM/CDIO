@@ -12,48 +12,19 @@ public class DynamicMove extends ChanceCard{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public int getMoves(){
 		return Moves;
 	}
 	
-	public void setMoves(int moves){
-		Moves = moves;
+	public void setMoves(int ChanceMove){
+		Moves = ChanceMove;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE dynamicMove SET moves = " + ChanceMove + " WHERE DynamicMoveID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

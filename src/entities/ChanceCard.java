@@ -18,17 +18,39 @@ public abstract class ChanceCard {
 		Description = Des;
 	}
 
-	public abstract int getChanceID();
+	public int getChanceID(){
+	return ID;
+	}
+
+	public void setChanceID(int ChanceID){
+			connector.Connect("chance");
+			try {
+				connector.doUpdate("chance","UPDATE chance SET ChanceID = " + ChanceID + " WHERE ChanceID = " + ID + ";");
+				ID = ChanceID;
+					connector.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
 	
-	public abstract void setChanceID();
+	public int getChanceType(){
+		return Type;
+	}
 	
-	public abstract int getChanceType();
+	public void setChanceType(int ChanceType){
+		Type = ChanceType;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE chance SET chancetype = " + ChanceType + " WHERE ChanceID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public abstract void setChanceType();
-	
-	public abstract String getDescription();
-	
-	public abstract void setDescription();
+	public String getDescription(){
+		return Description;
+	}
 	
 	public abstract void removeChance(ChanceCard card);
 		
