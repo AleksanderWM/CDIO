@@ -29,8 +29,8 @@ public class RailRoad extends Ownable{
 	 * @param cost
 	 * @param rent
 	 */
-	public RailRoad(String title, String description, String subText, Color color, int player, int cost, int rent) {
-		super(title,description, subText, color, player, cost, rent);
+	public RailRoad(int id, String title, String description, String subText, Color color, int player, int cost, int rent) {
+		super(id, title,description, subText, color, player, cost, rent);
 		super.Colour = Color.WHITE;
 	}
 

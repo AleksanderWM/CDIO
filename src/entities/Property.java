@@ -20,9 +20,9 @@ public class Property extends Ownable {
 	private int RENT5;
 	private int Houseprice;
 	
-	public Property(String title, String description, String subText, Color colour, int player,int cost,int hprice,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
+	public Property(int id,String title, String description, String subText, Color colour, int player,int cost,int hprice,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
 	{
-		super(title, description, subText, colour, player, cost, rent0);
+		super(id,title, description, subText, colour, player, cost, rent0);
 		Houses = house;
 		Hotel = hotel;
 		RENT1 = rent1;

@@ -31,6 +31,7 @@ public abstract class Ownable implements Field {
 	protected int owner;
 	protected Color Colour;
 	protected boolean mortgage = false;
+	protected int FieldID;
 	
 	/**
 	 * Abstract constructor for an ownable field
@@ -42,8 +43,9 @@ public abstract class Ownable implements Field {
 	 * @param cost
 	 * @param rent
 	 */
-	public Ownable(String title, String description, String subText, Color color, int playerID, int cost, int rent)
+	public Ownable(int fieldID,String title, String description, String subText, Color color, int playerID, int cost, int rent)
 	{
+		FieldID = fieldID;
 		Title = title;
 		Description = description;
 		SubText = subText;
