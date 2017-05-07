@@ -2,12 +2,40 @@ package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /** @author Emil Jørgensen */
 public class DBcreator extends aDB {
 	   
+public boolean checkDB(String dbName){
+		Connection conn = null;
+		
+		try{
+	       Class.forName("com.mysql.jdbc.Driver"); //Register JDBC Driver
+	       
+	       System.out.println("Creating a connection...");
+	       conn = DriverManager.getConnection(DB_URL, USER, PASS); //Open a connection
+
+	       ResultSet resultSet = conn.getMetaData().getCatalogs();
+
+	        while (resultSet.next()) {
+
+	          String databaseName = resultSet.getString(1);
+	            if(databaseName.equals(dbName)){
+	                return true;
+	            }
+	        }
+	        resultSet.close();
+
+	    }
+	    catch(Exception e){
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
 	   /**
 	    * Creation of database GAME
 	    */
@@ -50,7 +78,7 @@ public class DBcreator extends aDB {
 	   /**
 	    * Creation of database CHANCE
 	    */
-	   public static void CreateChance() {
+	   public void CreateChance() {
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try{
@@ -60,9 +88,9 @@ public class DBcreator extends aDB {
 	      
 	      		//CREATION
 	      			stmt = conn.createStatement();
-	      			String sql = "CREATE DATABASE Chance";
+	      			String sql = "CREATE DATABASE chance";
 	      			stmt.executeUpdate(sql);
-	      			System.out.println("Database Chance created successfully...");
+	      			System.out.println("Database chance created successfully...");
 		
 	   }catch(SQLException se){
 	      //Creation errors
@@ -98,8 +126,8 @@ public class DBcreator extends aDB {
 		   public void tbCreatorGame(){
 			   //CREATION of tables
 			   try {
-				GameConnector.doUpdate("Game","CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Colour VARCHAR(10), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
-				GameConnector.doUpdate("Game","CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(1), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
+				GameConnector.doUpdate("Game","CREATE TABLE Player(PlayerID INTEGER(1), Name VARCHAR(20), Position INTEGER(2), GetOutOfJail INTEGER(1), PRIMARY KEY ( PlayerID ));");
+				GameConnector.doUpdate("Game","CREATE TABLE Account(PlayerID INTEGER(1), Money INTEGER(10), Networth INTEGER(10), PRIMARY KEY ( PlayerID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Field(FieldID INTEGER(2), Name VARCHAR(20), Description VARCHAR(140), PRIMARY KEY ( FieldID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Ownable(FieldID INTEGER(2), Owner INTEGER(2), Price INTEGER(2), Mortgage INTEGER(4), PRIMARY KEY( FieldID ), FOREIGN KEY ( Owner ) REFERENCES Player( PlayerID ));");
 				GameConnector.doUpdate("Game","CREATE TABLE Property(FieldID INTEGER(2), Rent INTEGER(4), Rent1 INTEGER(4), Rent2 INTEGER(4), Rent3 INTEGER(4), Rent4 INTEGER(4), HotelRent INTEGER(5), HousePrice INTEGER(4), House INTEGER(1), Hotel INTEGER(1), PRIMARY KEY ( FieldID ));");

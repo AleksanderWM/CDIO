@@ -1,3 +1,9 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
+
 package entities;
 
 import java.sql.ResultSet;
@@ -9,7 +15,21 @@ public class Account {
 	
 	DBconnector connector = new DBconnector();
 
+	/**
+	 * Account attributes
+	 */
+	int ID;
+	int money;
+	int networth;
+	
+	/**
+	 * Account constructor
+	 * @param Money and net worth predefined as 30000
+	 */
 	public Account(int ID){
+		this.ID = ID;
+		this.money = 30000;
+		this.networth = 30000;
 		try{
 		connector.doUpdate("game","INSERT into ACCOUNT values(" + ID + "," + 30000 + "," + 30000 + ");");
 		}
@@ -18,57 +38,91 @@ public class Account {
 			}
 	}
 	
-	public int getMoney(int ID){
-		connector.Connect("game");
-		int Moneys = 0;
-		try {
-			ResultSet rs = connector.doQuery("Game","SELECT Money FROM ACCOUNT WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				int Money = rs.getInt("Money");
-				connector.close();
-				Moneys = Money;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return Moneys;
+
+	/**
+	 * @return money
+	 */
+
+	public int getBalance(){
+		return money;
 	}
 	
-	public void addBalance(int ID, int money){
+	/**
+	 * add a given amount of money to the balance and net worth
+	 */
+	public void addBalance(int addmoney){
 		connector.Connect("game");
-		int newBalance = money + getMoney(ID);
+		int newBalance = this.money + addmoney;
+		int newNetworth = networth + addmoney;
+		money = newBalance;
+		networth = newNetworth;
 		try {
-			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID EQUALS " + ID + ");");
-				connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void setBalance(int ID, int balance){
-		connector.Connect("game");
-		try {
-			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID = " + ID + ";");
+			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + newNetworth + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public boolean enoughMoney(int ID, int price){
-			connector.Connect("game");
-			int Moneys = 0;
-			try {
-				ResultSet rs = connector.doQuery("Game","SELECT Money FROM ACCOUNT WHERE "+ ID +"EQUALS PlayerID");
-				while(rs.next()){
-					int Money = rs.getInt("Money");
-					connector.close();
-					Moneys = Money;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return Moneys > price;
+	/**
+	 * sets the balance to a specific amount
+	 * adds the difference to net worth
+	 */
+	public void setBalance(int balance){
+//		int dif = balance - money;
+//		networth = networth + dif;
+		money = balance;
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID = " + ID + ";");
+//			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + networth + " WHERE PlayerID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * @param Checks if the player has enough money to purchase something at a given price
+	 * @return boolean,  false if the player can't pay the price
+	 */
+	public boolean enoughMoney(int price){
+			return money > price;
 		
+	}
+
+	public void updateAccount(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE PlayerID = "+ ID +";");
+			int Balance = 0;
+			int NW = 0;
+			while(rs.next()){
+				Balance = rs.getInt("money");
+				NW = rs.getInt("networth");
+			}
+				connector.close();
+				if(money != Balance){
+					setBalance(money);
+				}
+				if(networth != NW){
+					setNetworth(networth);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}}
+		
+
+	
+	public int getNetworth(){
+		return networth;
+	}
+	
+	public void setNetworth(int networth){
+		this.networth = networth;
+
 	}
 }

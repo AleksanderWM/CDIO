@@ -10,7 +10,7 @@ public abstract class aDB {
 	   public static final String DB_URL = "jdbc:mysql://localhost?useSSL=false";
 	   public static final String USER = "root";
 	   public static String DATABASE = "";
-	   public static final String PASS = "sql123";
+	   public static final String PASS = "Kemikaze4evers";
 	   public static final String HOST = "localhost";
 	   public static final int PORT = 3306;
 

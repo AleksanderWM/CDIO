@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import controllers.DBconnector;
 import entities.Account;
+import javafx.scene.paint.Color;
 
 public class Player {
 
@@ -18,7 +19,7 @@ public class Player {
 	 * The Players attributes
 	 * @param position and getOutOfJail start values predefined
 	 */
-	private int position = 0;
+	private int position = 1;
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
@@ -37,11 +38,10 @@ public class Player {
 			this.ID = ID;
 			this.name = name;
 		try {
-			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name +"', " + position + ", " + getOutOfJail +");");
+			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name + "', " + position + ", " + getOutOfJail +");");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 	/**
 	 * @return name
@@ -58,7 +58,7 @@ public class Player {
 		this.name = name;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,7 +83,7 @@ public class Player {
 		int goojNow = getOutOfJail + Amount;
 		getOutOfJail = goojNow;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET GetOutOfJail = " + goojNow + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET GetOutOfJail = " + goojNow + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class Player {
 		connector.Connect("game");
 		position = newPosition;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,7 +126,7 @@ public class Player {
 		}
 		position = newPosition;
 		try {
-			connector.doUpdate("Game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID EQUALS " + ID + ");");
+			connector.doUpdate("game","UPDATE Player SET Position = " + newPosition + " WHERE PlayerID = " + ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -161,7 +161,7 @@ public class Player {
 		this.ID = ID;
 		connector.Connect("game");
 		try {
-			connector.doUpdate("Game","UPDATE Player SET PlayerID = " + ID + " WHERE PlayerID EQUALS " + this.ID + ");");
+			connector.doUpdate("Game","UPDATE Player SET PlayerID = " + ID + " WHERE PlayerID EQUALS " + this.ID + ";");
 				connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -169,33 +169,33 @@ public class Player {
 	}
 	
 	/**
-	 * updatePlayer takes the name, position and getOutOfJail attributes from the database
+	 * loadPlayer takes the name, position and getOutOfJail attributes from the database
 	 * and checks if the attributes are the same as the java attributes
 	 * if not, the java attributes are set to match the database attributes
+	 * And call the updateAccount method
 	 */
 	public void updatePlayer(){
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE "+ ID +"EQUALS PlayerID");
-			while(rs.next()){
-				String names = rs.getString("Name");
-				int pos = rs.getInt("position");
-				int gooj = rs.getInt("getoutofjail");
-				connector.close();
-				if(name != names){
-					name = names;
+			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
+				int pos = 0;
+				int gooj = 0;
+				while(rs.next()){
+				pos = rs.getInt("position");
+				gooj = rs.getInt("getoutofjail");
 				}
+				connector.close();
 				if(position != pos){
-					position = pos;
+					setPosition(position);
 				}
 				if(getOutOfJail != gooj){
-					getOutOfJail = gooj;
+					setOutOfJail(getOutOfJail);
 				}
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		Account.updateAccount();
 		
 	}
 }

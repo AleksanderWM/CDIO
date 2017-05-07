@@ -1,19 +1,20 @@
+Dansk
 Start
 Rodovrevej
 Try Your Luck
 Hvidovrevej
 Income Tax
-LB Ferries
+LB Færger
 Roskildevej
 Try Your Luck
 Valby Langgade
 Allégade
 Jail
-Frederiksberggade
-Carlsberg
+Frederiksberg Allé
+Tuborg
 Bülowsgade
 Gl. Kongevej
-M/S Denmaark
+DSB Færge
 Bernstorfsvej
 Try Your Luck
 Hellerupvej
@@ -23,17 +24,17 @@ Trianglen
 Try Your Luck
 Oesterbrogade
 Groenningen
-Mols-linien A/S
+Mols-linien
 Bredgade
 Kgs. Nytorv
-Coca-Cola
+Carlsberg
 Oestergade
 Go To Jail
 Amagertorv
 Vimmelskaftet
 Try Your Luck
 Nygade
-Skandinavisk Linietrafik A/S
+Scandlines
 Try Your Luck
 Frederiksberggade
 Luxary Tax

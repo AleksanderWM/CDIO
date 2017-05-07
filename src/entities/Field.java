@@ -5,13 +5,19 @@
  */
 package entities;
 
+import java.awt.Color;
+
+import controllers.*;
+import controllers.mGUI;
+import entities.Shaker;
+
 public interface Field {
 
 //METHODS
 	/**
 	 * Method for the action landing on a field.
 	 */
-	public void landOnField();
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake);
 	
 	/**
 	 * Method for getting description
@@ -43,4 +49,14 @@ public interface Field {
 	 */
 	public void setNumber(int numb);
 	
+	/**
+	 * Method for setting the Colour of a field
+	 * @param colour the Java.awt.Color
+	 */
+	public void setColour(Color colour);
+	
+	/**
+	 * Method for getting the Colour of a field
+	 */
+	public Color getColour();
 }

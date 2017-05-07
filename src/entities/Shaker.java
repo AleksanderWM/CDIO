@@ -54,7 +54,7 @@ public class Shaker {
 	
 	public void setShake() {
 
-
+	
 	}
 
 	}

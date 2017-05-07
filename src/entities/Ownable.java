@@ -7,29 +7,32 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
 	protected String Title;
-	protected String Description;
+	protected String Description = "";
 	protected String SubText;
 	protected String Picture;
 	protected Color bgColor;
 	protected Text file = new Text("BuyProperty.txt");
 	protected String[] TxtList = null;
-	protected int owned = 10;
+	protected int owned = 0;
 	protected int price;
 	protected int rent;
-	protected Player owner;
-	boolean mortgage;
+	protected int owner;
+	protected Color Colour;
+	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String description, String subText, Color color, Player player, int cost, int rent)
+	public Ownable(String title, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
-		Description = description;
 		SubText = subText;
-		bgColor = color;
-		owner = player;
+		Colour = color;
+		owner = playerID;
 		price = cost;
 	}
 	//METHODS
@@ -89,22 +92,26 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the owner of the field to an integer, corresponding to the player number (int) of the player owning the field
 	 */
-	public void setOwner(){
-		
+	public void setOwner(int ID){
+		owner = ID;
 	}
 	
 	/**
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
-	public void getOwner(){
+	public int getOwner(){
+		
+		return owner;
 		
 	}
 	
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
 	 */
-	public void payRent(){
-		
+	public void payRent(Game game, int p, GameBoard gameboard, int b, int rent){
+		game.playerList.get(p).getAccount().addBalance(-rent);
+		game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getAccount().addBalance(rent);
+
 	}
 	
 	/**
@@ -120,14 +127,14 @@ public abstract class Ownable implements Field {
 	 * Sets a field to a mortgaged state
 	 */
 	public void mortgage(){
-		
+		mortgage = true;
 	}
 	
 	/**
 	 * Sets a field to an unmortgaged state
 	 */
 	public void unmortgage(){
-		
+		mortgage = false;
 	}
 	
 	/**
@@ -136,6 +143,31 @@ public abstract class Ownable implements Field {
 	 */
 	public boolean getMortgageState(){
 		return mortgage;
-		
 	}
+	
+	/**
+	 * Gets the subtext of a  field
+	 * @return Subtext
+	 */
+	public String getSub(){
+		return SubText;
+	
+	}
+
+	/**
+	 * Sets the subtext ofa field
+	 */
+	public void setSub(String sub){
+		SubText = sub;
+	}
+	
+	/**
+	 * 
+	 */
+	public String toString(int value)
+	{
+		String ret = "" + value;
+		return ret;
+	}
+	
 }
