@@ -50,6 +50,7 @@ public abstract class Ownable implements Field {
 		Colour = color;
 		owner = playerID;
 		price = cost;
+		this.rent = rent;
 		
 	}
 	//METHODS

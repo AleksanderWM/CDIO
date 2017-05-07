@@ -19,7 +19,6 @@ public class Matador extends ChanceCard{
 		this.MaxNetworth = Max;
 		try {
 			connector.doUpdate("chance","INSERT into matador values(" + ID + "," + Max + "," + Bonus + ");");
-
 			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

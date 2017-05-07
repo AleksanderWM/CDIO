@@ -36,7 +36,7 @@ public volatile int id = 1;
 			dbc.tbCreatorChance();
 			chance.createChance();
 			}
-			
+
 		board.CreateBoard();
 		gui.CreateBoard();
 
