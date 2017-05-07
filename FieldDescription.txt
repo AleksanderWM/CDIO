@@ -11,7 +11,7 @@ Price = 2000 \nRent = 100\nRent w. 1 house = 600\nRent w. 2 houses = 1800\nRent 
 Price = 2400 \nRent = 150\nRent w. 1 house = 800\nRent w. 2 houses = 2000\nRent w. 3 houses = 6000\nRent w. 4 houses = 9000\nRent with hotel = 12000
 Jail
 Price = 2800 \nRent = 200\nRent w. 1 house = 1000\nRent w. 2 houses = 3000\nRent w. 3 houses = 9000\nRent w. 4 houses = 12500\nRent with hotel = 15000
-Price = 3000 \nRent w. 1 brewwery = \n     100 * roll\nRent w. 2 brewweries = \n     200 * roll
+Price = 3000 \nRent w. 1 brewery = \n     100 * roll\nRent w. 2 breweries = \n     200 * roll
 Price = 2800 \nRent = 200\nRent w. 1 house = 1000\nRent w. 2 houses = 3000\nRent w. 3 houses = 9000\nRent w. 4 houses = 12500\nRent with hotel = 15000
 Price = 3200 \nRent = 250\nRent w. 1 house = 1250\nRent w. 2 houses = 3750\nRent w. 3 houses = 10000\nRent w. 4 houses = 14000\nRent with hotel = 18000
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
@@ -27,7 +27,7 @@ Price = 4800 \nRent = 400\nRent w. 1 house = 2000\nRent w. 2 houses = 6000\nRent
 Price = 4000\nRent w. 1 ferry = 500\nRent w. 2 ferries = 1000\nRent w. 3 ferries = 2000\nRent w. 4 ferries = 4000
 Price = 5200 \nRent = 450\nRent w. 1 house = 2200\nRent w. 2 houses = 6600\nRent w. 3 houses = 16000\nRent w. 4 houses = 19500\nRent w. hotel = 23000
 Price = 5200 \nRent = 450\nRent w. 1 house = 2200\nRent w. 2 houses = 6600\nRent w. 3 houses = 16000\nRent w. 4 houses = 19500\nRent w. hotel = 23000
-Price = 3000 \nRent w. 1 brewwery = \n     100 * roll\nRent w. 2 brewweries = \n     200 * roll
+Price = 3000 \nRent w. 1 brewery = \n     100 * roll\nRent w. 2 breweries = \n     200 * roll
 Price = 5600 \nRent = 500\nRent w. 1 house = 2400\nRent w. 2 houses = 7200\nRent w. 3 houses = 17000\nRent w. 4 houses = 20500\nRent w. hotel = 24000
 Go To Jail
 Price = 6000 \nRent = 550\nRent w. 1 house = 2600\nRent w. 2 houses = 7800\nRent w. 3 houses = 18000\nRent w. 4 houses = 22000\nRent w. hotel = 25000
