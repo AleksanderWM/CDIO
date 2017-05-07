@@ -134,7 +134,7 @@ public class PlayTurn implements Runnable{
 		if(shake.getDice1Value()==shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
-			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
+			mGui.setCar(thisgame.playerList.get(playerID).getPosition(), thisgame.playerList.get(playerID).getID());
 			wasIJustReleasedFromJail = true;
 		}
 	}
@@ -232,7 +232,7 @@ public class PlayTurn implements Runnable{
 		mGui.setDice(shake);
 		thisgame.playerList.get(playerID).movePosition(shakeValue);
 		System.out.println(thisgame.playerList.get(playerID).getID());
-		mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
+		mGui.setCar(thisgame.playerList.get(playerID).getPosition(), thisgame.playerList.get(playerID).getID());
 		
 	}
 
