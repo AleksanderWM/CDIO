@@ -22,6 +22,7 @@ public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
+		dbc.CreateChance();
 		chance.createChance();
 		board.CreateBoard();
 		playerList.add(null);
