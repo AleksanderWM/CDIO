@@ -27,13 +27,15 @@ public abstract class Ownable implements Field {
 	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String subText, Color color, int playerID, int cost, int rent)
+	public Ownable(String title, String description, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
+		Description = description;
 		SubText = subText;
 		Colour = color;
 		owner = playerID;
 		price = cost;
+		
 	}
 	//METHODS
 	

@@ -11,9 +11,9 @@ public class Property extends Ownable {
 	private int Houses = 0;
 	private int Hotel = 0;
 	
-	public Property(String title, String subText, Color colour, int player,int cost,int rent) 
+	public Property(String title, String description, String subText, Color colour, int player,int cost,int rent) 
 	{
-		super(title, subText, colour, player, cost, rent);
+		super(title, description, subText, colour, player, cost, rent);
 	}
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {

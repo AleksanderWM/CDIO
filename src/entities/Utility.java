@@ -10,8 +10,8 @@ public class Utility extends Ownable{
 	
 	private Color TxColour = Color.WHITE;
 	
-	public Utility(String title, String subText, int player, int cost, int rent) {
-		super(title, subText, new Color(6,76,30), player, cost, rent);
+	public Utility(String title,String description, String subText, int player, int cost, int rent) {
+		super(title,description, subText, new Color(6,76,30), player, cost, rent);
 	}
 
 	@Override
