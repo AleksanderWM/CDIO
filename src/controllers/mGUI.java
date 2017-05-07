@@ -473,9 +473,10 @@ public class mGUI {
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
-	public void setCar(int pos, int v)
+	public void setCar(Game game, int v)
 	{
-		GUI.setCar(pos, game.playerList.get(v).getName());
+		removeCar(game,v);
+		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
 	}
 	
 	/**
