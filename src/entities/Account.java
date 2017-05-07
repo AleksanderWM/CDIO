@@ -125,4 +125,22 @@ public class Account {
 		this.networth = networth;
 
 	}
+	
+	public void loadPlayer(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT money,networth FROM Account WHERE PlayerID = "+ ID +";");
+
+				while(rs.next()){
+				money = rs.getInt("position");
+				networth = rs.getInt("getoutofjail");
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+}
 }

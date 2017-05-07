@@ -225,6 +225,41 @@ public class Player {
 			e.printStackTrace();
 		}
 	}
+	
+	public int countplayerinDB(){
+		connector.Connect("chance");
+		int count = 0;
+		try {
+		ResultSet rs = connector.doQuery("game"," SELECT COUNT * FROM Player;");
+		while(rs.next()){
+		count = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public void loadPlayer(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
+
+				while(rs.next()){
+				name = rs.getString("name");
+				position = rs.getInt("position");
+				getOutOfJail = rs.getInt("getoutofjail");
+				Jailtries = rs.getInt("jailtries");
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Account.loadAccount();
+		
+		}
 }
 
 
