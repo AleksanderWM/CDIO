@@ -378,7 +378,7 @@ public class mGUI {
 		case "LB Ferries":ret = 6;
 		break;
 
-		case "Islington":ret = 8;
+		case "Islington":ret = 7;
 		break;
 
 		case "Euston Road":ret = 9;
@@ -405,7 +405,7 @@ public class mGUI {
 		case "Bow Street":ret = 17;
 		break;
 
-		case "Malborough Street":ret = 18;
+		case "Malborough Street":ret = 19;
 		break;
 
 		case "Vine Street":ret = 20;
@@ -423,7 +423,7 @@ public class mGUI {
 		case "Mols-Line":ret = 26;
 		break;
 
-		case "Leicester Suuare":ret = 26;
+		case "Leicester Suuare":ret = 27;
 		break;
 
 		case "Coventry Street":ret = 28;
