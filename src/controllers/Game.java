@@ -23,6 +23,7 @@ public volatile int id = 1;
 
 	public void gameStart(){
 		dbc.CreateChance();
+		dbc.tbCreatorChance();
 		chance.createChance();
 		board.CreateBoard();
 		playerList.add(null);
