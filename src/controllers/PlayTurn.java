@@ -158,57 +158,13 @@ public class PlayTurn implements Runnable{
 					
 					//Selling the field
 					case "Sell": {
-						/**
-						 * The player you want to sell too
-						 */
-						int sellToPlayer = mGui.getUserInt("What player (number) do you want to sell it to?");
-						
-						/**
-						 * The price you want to sell the field for
-						 */
-						int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
-						
-						thisplayer.getID();
-						
-						//Balance check of recieving player
-						if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
-							mGui.showMessage("The player doesn't have enough money");
-						else
-						{
-						//Accept from recieving player if balance check passes
-						if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
-							
-						//Transferral
-								((Ownable) thisboard.FieldList.get(currentField)).setOwner(sellToPlayer);
-								thisgame.playerList.get(playerID).getAccount().addBalance(sellPrice);
-								thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
-						}
+						caseSell(currentField);
 						}
 					break;
 					
 					//Mortgaging
 					case "Mortgage": {
-						//Recheck
-						if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
-							//Is the field mortgaged or unmortgaged
-							if (((Ownable) thisboard.FieldList.get(currentField)).getMortgageState() == true){
-								//Balance check if the player wants to unmortgage
-								if ((thisgame.playerList.get(playerID).getAccount().getBalance() - (((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2) + (((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10) < 0))
-									mGui.showMessage("You don't have enough money");
-								else
-								{
-								//Mortgage state change and transferral
-									((Ownable) thisboard.FieldList.get(currentField)).unmortgage();
-									thisgame.playerList.get(playerID).getAccount().addBalance((int) (-(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2)+(((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10)));
-								}
-							}
-							
-							else
-							{
-							//If the player wants to mortgage, state-change and transferral
-								((Ownable) thisboard.FieldList.get(currentField)).mortgage();
-								thisplayer.getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
-							}
+						caseMortgage(currentField);
 						}
 					}
 				}
@@ -263,9 +219,59 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			else{
-				
 			}
+	}
+	
+	private void caseSell(int currentField){
+		/**
+		 * The player you want to sell too
+		 */
+		int sellToPlayer = mGui.getUserInt("What player (number) do you want to sell it to?");
 		
+		/**
+		 * The price you want to sell the field for
+		 */
+		int sellPrice = mGui.getUserInt("What price do you want to sell it for?");
+		
+		thisplayer.getID();
+		
+		//Balance check of recieving player
+		if (thisgame.playerList.get(sellToPlayer).getAccount().getBalance() - sellPrice < 0)
+			mGui.showMessage("The player doesn't have enough money");
+		else
+		{
+		//Accept from recieving player if balance check passes
+		if (mGui.get2Buttons("Player " + sellToPlayer + ", do you accept this deal?","Yes","No") == true)
+			
+		//Transferral
+				((Ownable) thisboard.FieldList.get(currentField)).setOwner(sellToPlayer);
+				thisgame.playerList.get(playerID).getAccount().addBalance(sellPrice);
+				thisgame.playerList.get(sellToPlayer).getAccount().addBalance(-sellPrice);
+		}
+	}
+	
+	private void caseMortgage(int currentField){
+		//Recheck
+		if(mGui.get2Buttons("Do you want to change the mortgage status?","Yes","No") == true)
+			//Is the field mortgaged or unmortgaged
+			if (((Ownable) thisboard.FieldList.get(currentField)).getMortgageState() == true){
+				//Balance check if the player wants to unmortgage
+				if ((thisgame.playerList.get(playerID).getAccount().getBalance() - (((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2) + (((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10) < 0))
+					mGui.showMessage("You don't have enough money");
+				else
+				{
+				//Mortgage state change and transferral
+					((Ownable) thisboard.FieldList.get(currentField)).unmortgage();
+					thisgame.playerList.get(playerID).getAccount().addBalance((int) (-(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2)+(((Ownable) thisboard.FieldList.get(currentField)).getPrice()*0.10)));
+				}
+			}
+			
+			else
+			{
+			//If the player wants to mortgage, state-change and transferral
+				((Ownable) thisboard.FieldList.get(currentField)).mortgage();
+				thisplayer.getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
+			}
 	}
 	
 	private void shakeAndMove(){
