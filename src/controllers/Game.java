@@ -2,30 +2,61 @@ package controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import entities.Player;
+import language.Language;
 
 public class Game {
 static mGUI gui = new mGUI();
 GameBoard board = new GameBoard();
+DBcreator dbc = new DBcreator();
+Scanner scan = new Scanner(System.in);
+DBconnector connector = new DBconnector();
+public final Object lock = new Object();
+public ArrayList<Player> playerList = new ArrayList<Player>();
 
-int numberOfPlayers = 0;
-PlayTurn thread = new PlayTurn();
+public int numberOfPlayers = 20;
 public volatile int id = 1;
 
-	public void start(){
+	public void gameStart(){
+		board.CreateBoard();
+		playerList.add(null);
+		dbc.DeleteDBTemp("game", connector);
+		if(dbc.checkDB("game") == false){
+			dbc.CreateGame();
+			dbc.tbCreatorGame();
+		}
+		if(dbc.checkDB("chance") == false){
+			dbc.CreateChance();
+		}
+		System.out.println("Choose Language (Dansk/English)");
+		Language.chooseLanguage(scan.nextLine());
+		board.CreateBoard();
+		gui.CreateBoard();
+
 		enterPlayers();
 	}
 
 	public void enterPlayers()
 	{
-		while (numberOfPlayers < 2 && numberOfPlayers > 6)
+		while (numberOfPlayers < 2 || numberOfPlayers > 6)
 		{
 			//Message shown to user, to clarify that he needs to put in the correct value of players between 2 and 6.
-			
-			//code to mgui for entering an INT ammount
+			numberOfPlayers = gui.getUserInt("Enter Ammount of Players between 2 and 6");
 		}
 		
-		this.createPlayerThreads(numberOfPlayers);
-		
+		for(int x = 0; x < numberOfPlayers; x++){
+			String name = gui.getUserString("Enter a name");
+			Player player = new Player(name, id);
+			playerList.add(player);
+			gui.addPlayer(this, id);
+			gui.setCarOnStart(this, id);
+			id++;
+
+		}
+				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
 	 * Creates the different threads for the game.
@@ -33,14 +64,30 @@ public volatile int id = 1;
 	 */
 	public void createPlayerThreads(int playersInGame)
 	{
-		while (id != numberOfPlayers+1)
-		{
-		PlayTurn thread = new PlayTurn();
-		thread.run();
-		id++;
+			for(int x = 1; x <= playersInGame; x++){
+		synchronized(lock){
+			
+		}
+		PlayTurn thread = new PlayTurn("x", playerList.get(x).getID(), this, this.board);
+		thread.start();
+			}
+			synchronized(lock){
+			
+			id = 1;
+			lock.notifyAll();
+			}
 		}
 
-	}
 	
+	
+
+	
+	public int gameId(){
+		if(id == numberOfPlayers){
+			id = 1;
+		}
+		else id++;
+		return id;
+	}
 
 }

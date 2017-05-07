@@ -1,13 +1,12 @@
 package controllers;
 
-public class Main {
+import language.Language;
 
-	static mGUI gui = new mGUI();
-	static GameBoard board = new GameBoard();
+public class Main {
 	
 	public static void main(String[] args) {
-			board.CreateBoard();
-			gui.getButton("test","test");
+		Game start = new Game();	
+		start.gameStart();
 	}
 
 }

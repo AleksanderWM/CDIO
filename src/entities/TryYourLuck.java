@@ -2,19 +2,24 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
 public class TryYourLuck implements Field{
 
-	private String Title = "Try Your Luck";
+	private String Title;
 	private String Description = "Draw a 'Try Your Luck' card";
 	private Color Colour = Color.BLACK;
 	private Color TxColour = Color.WHITE;
 	
-	public TryYourLuck(){
-
+	public TryYourLuck(String name){
+		Title = name;
 	}
 	
 	@Override
-	public void landOnField() {
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+	
 	}
 
 	@Override
@@ -28,12 +33,12 @@ public class TryYourLuck implements Field{
 
 	@Override
 	public String getTitle() {
-		
-		return null;
+		return Title;
 	}
 
 	@Override
 	public void setTitle(String titl) {
+		Title = titl;
 	}
 
 	@Override

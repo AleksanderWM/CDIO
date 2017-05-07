@@ -7,6 +7,9 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
 	protected String Title;
@@ -16,20 +19,20 @@ public abstract class Ownable implements Field {
 	protected Color bgColor;
 	protected Text file = new Text("BuyProperty.txt");
 	protected String[] TxtList = null;
-	protected int owned = 10;
+	protected int owned = 0;
 	protected int price;
 	protected int rent;
-	protected Player owner;
+	protected int owner;
 	protected Color Colour;
 	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String subText, Color color, Player player, int cost, int rent)
+	public Ownable(String title, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
 		SubText = subText;
 		Colour = color;
-		owner = player;
+		owner = playerID;
 		price = cost;
 	}
 	//METHODS
@@ -89,22 +92,26 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the owner of the field to an integer, corresponding to the player number (int) of the player owning the field
 	 */
-	public void setOwner(){
-		
+	public void setOwner(int ID){
+		owner = ID;
 	}
 	
 	/**
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
-	public void getOwner(){
+	public int getOwner(){
+		
+		return owner;
 		
 	}
 	
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
 	 */
-	public void payRent(){
-		
+	public void payRent(Game game, int p, GameBoard gameboard, int b, int rent){
+		game.playerList.get(p).getAccount().addBalance(-rent);
+		game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getAccount().addBalance(rent);
+
 	}
 	
 	/**

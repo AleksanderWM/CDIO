@@ -1,18 +1,24 @@
 package entities;
 
+import java.awt.Color;
+
+import controllers.*;
+import controllers.mGUI;
+
 public class Tax extends Fee {
 	
 	public Tax() {
 		super();
-		Title = "Income Tax";
-		Fee = 1000;
-		Description = "Pay " + Fee;
+		Title = "Indkomst skat";
+		Fee = -1000;
+		Description = "Betal " + Fee;
+		Colour = Color.GRAY;
 		
 	}
 
 	@Override
-	public void landOnField() {
-		super.landOnField();
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+		game.playerList.get(p).getAccount().addBalance(Fee);
 	}
 
 	@Override
@@ -43,6 +49,17 @@ public class Tax extends Fee {
 	@Override
 	public void setNumber(int numb) {
 		super.setNumber(numb);
+	}
+
+	@Override
+	public void setColour(Color colour) {
+		Colour = colour;
+		
+	}
+
+	@Override
+	public Color getColour() {
+		return Colour;
 	}
 	
 }

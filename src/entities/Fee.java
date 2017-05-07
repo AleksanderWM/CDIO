@@ -1,5 +1,11 @@
 package entities;
 
+import java.awt.Color;
+
+import controllers.Game;
+import controllers.GameBoard;
+import controllers.mGUI;
+
 public abstract class Fee implements Field {
 	//ATTRIBUTES
 	
@@ -8,13 +14,14 @@ public abstract class Fee implements Field {
 	String Title;
 	int Number;
 	String Subtext;
+	Color Colour;
 
 	public Fee(){
 		
 	}
 	
 	@Override
-	public void landOnField() {
+	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
 
 	}
 
