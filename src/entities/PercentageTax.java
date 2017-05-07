@@ -6,11 +6,21 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * @author Emil Jørgensen
+ *
+ */
 public class PercentageTax extends Fee{
 
 	private double Percentage;
 	private Color Colour = Color.GRAY;
 	
+	/**
+	 * Constructor for a PercentageTax field
+	 * @param title
+	 * @param description
+	 * @param subtext
+	 */
 	public PercentageTax(String title,String description, String subtext) {
 		super();
 		Title = title;
@@ -22,6 +32,9 @@ public class PercentageTax extends Fee{
 		
 	}
 	
+	/**
+	 * 	 * Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
 		boolean taxChoice = mui.get2Buttons(Description, "1000", "10%");
