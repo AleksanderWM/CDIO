@@ -5,14 +5,15 @@ import java.awt.Color;
 import controllers.*;
 import controllers.mGUI;
 
-public class Tax extends Fee {
+public class FixedTax extends Fee {
 	
-	public Tax(String title,String description, String subtext) {
+	public FixedTax(String title,String description, String subtext) {
 		super();
 		Title = title;
 		Fee = 4000;
 		Description = description;
 		Colour = Color.GRAY;
+		Subtext = subtext;
 		
 	}
 
@@ -23,7 +24,7 @@ public class Tax extends Fee {
 
 	@Override
 	public String getDescription() {
-		return super.getDescription();
+		return Description;
 	}
 
 	@Override
@@ -62,5 +63,8 @@ public class Tax extends Fee {
 		return Colour;
 	}
 	
+	public String getSubtext(){
+		return Subtext;
+	}
 }
 

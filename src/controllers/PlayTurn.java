@@ -330,7 +330,7 @@ public class PlayTurn implements Runnable{
 			{
 			//If the player wants to mortgage, state-change and transferral
 				((Ownable) thisboard.FieldList.get(currentField)).mortgage();
-				thisplayer.getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
+				thisgame.playerList.get(playerID).getAccount().addBalance(((Ownable) thisboard.FieldList.get(currentField)).getPrice()/2);
 			}
 	}
 	

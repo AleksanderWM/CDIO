@@ -74,4 +74,8 @@ public class PercentageTax extends Fee{
 	public Color getColour() {
 		return Colour;
 	}
+	
+	public String getSubtext(){
+		return Subtext;
+	}
 }
