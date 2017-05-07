@@ -15,6 +15,7 @@ public class PercentageTax extends Fee{
 		super();
 		Title = title;
 		Fee = 4000;
+		super.Subtext = subtext;
 		Percentage = 0.10;
 		Description = description;
 		Colour = Color.GRAY;

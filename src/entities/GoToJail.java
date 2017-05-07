@@ -9,14 +9,15 @@ import controllers.mGUI;
 public class GoToJail implements Field {
 
 	private String Title;
-	private String Description = "Move to Jail";
-	private String Picture = "";
+	private String Description ;
 	private Color TxColour = Color.BLACK;
 	private Color Colour = Color.GRAY;
-	private String Subtext = "Gaa i faengsel";
+	private String Subtext;
 	
-	public GoToJail(String name){
+	public GoToJail(String name,String description,String subtext){
+		Description = description;
 		Title = name;
+		Subtext = subtext;
 	}
 	
 	@Override
