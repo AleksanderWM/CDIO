@@ -8,15 +8,16 @@ import controllers.mGUI;
 
 public class Jail implements Field {
 
-	private String Title = "Jail";
-	private String Description = "Where criminals stay";
-	private String Picture = "";
+	private String Title;
+	private String Description;
 	private Color TxColour = Color.BLACK;
 	private Color Colour = Color.GRAY;
 	private String Subtext;
 	
-	public Jail(String desc){
+	public Jail(String title,String desc,String subtext){
+		Title = title;
 		Description = desc;
+		Subtext = subtext;
 		
 	}
 	@Override
