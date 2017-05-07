@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,10 +26,12 @@ import entities.PropertyTax;
 import entities.RailRoad;
 import entities.RailroadMove;
 import entities.Shaker;
+import entities.Text;
 import entities.Utility;
 import entities.UtillityMove;
 import language.Language;
 import controllers.mGUI;
+import entities.Text;
 
 public class Chance {
 
@@ -36,6 +39,9 @@ public class Chance {
 		private Game game;
 		private mGUI gui;
 		private Shaker shake;
+		private Text ChanceFile = new Text("ChanceDescription.txt");
+		private String[] ChanceDes = null;
+
 
 		private DBconnector connector;
 
@@ -45,38 +51,43 @@ public class Chance {
 		}
 		
 		public void createChance(){
-			ChanceList.add(new ChanceFee(1, 6, Language.toString(2), -1000));
-			ChanceList.add(new FixedMove(2, 3, Language.toString(5), 0));
-			ChanceList.add(new FixedMove(3, 3, Language.toString(3), 10));
-			ChanceList.add(new FixedMove(4, 3, Language.toString(3), 10));
-			ChanceList.add(new ChanceFee(5, 6, Language.toString(4), -200));
-			ChanceList.add(new ChanceFee(6, 6, Language.toString(6), -2000));
-			ChanceList.add(new ChanceFee(7, 6, Language.toString(7), 1000));
-			ChanceList.add(new ChanceFee(8, 6, Language.toString(8), 1000));
-			ChanceList.add(new Birthday(9, 7, Language.toString(9), 200));
-			ChanceList.add(new ChanceFee(10, 6, Language.toString(10), 200));
-			ChanceList.add(new ChanceFee(11, 6, Language.toString(11), -1000));
-			ChanceList.add(new PropertyTax(12, 2, Language.toString(12), 800, 2300));
-			ChanceList.add(new FixedMove(13, 3, Language.toString(13), 24));
-			ChanceList.add(new UtillityMove(14, 1, Language.toString(14), 2));
-			ChanceList.add(new UtillityMove(15, 1, Language.toString(14), 2));
-			ChanceList.add(new RailroadMove(16, 9, Language.toString(15)));
-			ChanceList.add(new GetOutOfJail(17, 8, Language.toString(16)));
-			ChanceList.add(new GetOutOfJail(18, 8, Language.toString(16)));
-			ChanceList.add(new ChanceFee(19, 6, Language.toString(17), 1000));
-			ChanceList.add(new FixedMove(20, 3, Language.toString(18), 11));
-			ChanceList.add(new ChanceFee(21, 6, Language.toString(19), 500));
-			ChanceList.add(new FixedMove(22, 3, Language.toString(20), 39));
-			ChanceList.add(new DynamicMove(23, 4, Language.toString(21), -3));
-			ChanceList.add(new PropertyTax(24, 2, Language.toString(22), 500, 2000));
-			ChanceList.add(new ChanceFee(25, 6, Language.toString(23), -3000));
-			ChanceList.add(new ChanceFee(26, 6, Language.toString(23), -3000));
-			ChanceList.add(new Matador(27, 5, Language.toString(24), 15000, 40000));
-			ChanceList.add(new ChanceFee(28, 6, Language.toString(25), 3000));
-			ChanceList.add(new ChanceFee(29, 6, Language.toString(26), 1000));
-			ChanceList.add(new ChanceFee(30, 6, Language.toString(26), 1000));
-			ChanceList.add(new ChanceFee(31, 6, Language.toString(27), -1000));
-			ChanceList.add(new ChanceFee(32, 6, Language.toString(28), 200));
+			try {
+				ChanceDes = ChanceFile.OpenFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			ChanceList.add(new ChanceFee(1, 6, ChanceDes[2], -1000));
+			ChanceList.add(new FixedMove(2, 3, ChanceDes[5], 0));
+			ChanceList.add(new FixedMove(3, 3, ChanceDes[3], 11));
+			ChanceList.add(new FixedMove(4, 3, ChanceDes[3], 11));
+			ChanceList.add(new ChanceFee(5, 6, ChanceDes[4], -200));
+			ChanceList.add(new ChanceFee(6, 6, ChanceDes[6], -2000));
+			ChanceList.add(new ChanceFee(7, 6, ChanceDes[7], 1000));
+			ChanceList.add(new ChanceFee(8, 6, ChanceDes[8], 1000));
+			ChanceList.add(new Birthday(9, 7, ChanceDes[9], 200));
+			ChanceList.add(new ChanceFee(10, 6, ChanceDes[10], 200));
+			ChanceList.add(new ChanceFee(11, 6, ChanceDes[11], -1000));
+			ChanceList.add(new PropertyTax(12, 2, ChanceDes[12], 800, 2300));
+			ChanceList.add(new FixedMove(13, 3, ChanceDes[13], 25));
+			ChanceList.add(new UtillityMove(14, 1, ChanceDes[14], 2));
+			ChanceList.add(new UtillityMove(15, 1, ChanceDes[14], 2));
+			ChanceList.add(new RailroadMove(16, 9, ChanceDes[15]));
+			ChanceList.add(new GetOutOfJail(17, 8, ChanceDes[16]));
+			ChanceList.add(new GetOutOfJail(18, 8, ChanceDes[16]));
+			ChanceList.add(new ChanceFee(19, 6, ChanceDes[17], 1000));
+			ChanceList.add(new FixedMove(20, 3, ChanceDes[18], 12));
+			ChanceList.add(new ChanceFee(21, 6, ChanceDes[19], 500));
+			ChanceList.add(new FixedMove(22, 3, ChanceDes[20], 40));
+			ChanceList.add(new DynamicMove(23, 4, ChanceDes[21], -3));
+			ChanceList.add(new PropertyTax(24, 2, ChanceDes[22], 500, 2000));
+			ChanceList.add(new ChanceFee(25, 6, ChanceDes[23], -3000));
+			ChanceList.add(new ChanceFee(26, 6, ChanceDes[23], -3000));
+			ChanceList.add(new Matador(27, 5, ChanceDes[24], 15000, 40000));
+			ChanceList.add(new ChanceFee(28, 6, ChanceDes[25], 3000));
+			ChanceList.add(new ChanceFee(29, 6, ChanceDes[25], 1000));
+			ChanceList.add(new ChanceFee(30, 6, ChanceDes[26], 1000));
+			ChanceList.add(new ChanceFee(31, 6, ChanceDes[27], -1000));
+			ChanceList.add(new ChanceFee(32, 6, ChanceDes[28], 200));
 			ShuffleCards();
 		}
 		
@@ -101,11 +112,11 @@ public class Chance {
 //			UtillityMove
 				case 1 : 
 					int pos;
-					if(Player.getPosition() < 12 && Player.getPosition() > 28){
-						pos = 28;
+					if(Player.getPosition() < 13 && Player.getPosition() > 29){
+						pos = 29;
 					}
 					else{
-						pos = 12;
+						pos = 13;
 					}
 					Utility Utility = (Utility)game.board.getField(pos);
 					UtillityMove UtillityMove = (UtillityMove)Card;
