@@ -129,7 +129,7 @@ public class Chance {
 								ownedUtility++;
 								}
 							}
-							Utility.payRent(game, Player.getID(), game.board, pos, Utility.getRent()*shake.getShake()*ownedUtility*UtillityMove.getdbMulti());
+							Utility.payRent(game, Player.getID(), game.board, pos, Utility.getRent()*shake.getShake()*ownedUtility*UtillityMove.getdbMulti(), gui);
 							}	
 					}
 					else{

@@ -32,7 +32,7 @@ public class FixedTax extends Fee {
 	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		game.playerList.get(p).getAccount().addBalance(Fee);
+		game.playerList.get(p).getAccount().addBalance(-Fee);
 	}
 
 	@Override
