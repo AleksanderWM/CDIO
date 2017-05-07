@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Matador extends ChanceCard{
@@ -14,56 +15,35 @@ public class Matador extends ChanceCard{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public int getMaxNetworth(){
 		return MaxNetworth;
 	}
 
-	public void setMaxNetworth(){
-		
+	public void setMaxNW(int max){
+		MaxNetworth = max;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE Matador SET max = " + max + " WHERE matadorID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getBonus(){
 		return Bonus;
 	}
 	
-	public void setBonus(){
-		
+	public void setBonus(int bonus){
+		Bonus = bonus;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE Matador SET bonus = " + bonus + " WHERE matadorID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -76,5 +56,43 @@ public class Matador extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getdbMax(){
+		connector.Connect("chance");
+		int Max = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT max FROM Matador WHERE MatadorID = "+ ID +";");
+		while(rs.next()){
+		Max = rs.getInt("Max");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Max;
+	}
+	
+	public int getdbBonus(){
+		connector.Connect("chance");
+		int B = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT bonus FROM Matador WHERE MatadorID = "+ ID +";");
+		while(rs.next()){
+		B = rs.getInt("bonus");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return B;
+	}
+
+	@Override
+	public void loadChance() {
+		MaxNetworth = getdbMax();
+		Bonus = getdbBonus();
+		ID = getdbID();
+		Type = getdbType();
 	}
 }

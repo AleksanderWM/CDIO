@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.DBconnector;
@@ -18,18 +19,72 @@ public abstract class ChanceCard {
 		Description = Des;
 	}
 
-	public abstract int getChanceID();
+	public int getChanceID(){
+	return ID;
+	}
+
+	public void setChanceID(int ChanceID){
+			connector.Connect("chance");
+			try {
+				connector.doUpdate("chance","UPDATE chance SET ChanceID = " + ChanceID + " WHERE ChanceID = " + ID + ";");
+				ID = ChanceID;
+					connector.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
 	
-	public abstract void setChanceID();
+	public int getChanceType(){
+		return Type;
+	}
 	
-	public abstract int getChanceType();
+	public void setChanceType(int ChanceType){
+		Type = ChanceType;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE chance SET chancetype = " + ChanceType + " WHERE ChanceID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public abstract void setChanceType();
+	public String getDescription(){
+		return Description;
+	}
 	
-	public abstract String getDescription();
+	public int getdbType(){
+		connector.Connect("chance");
+		int ChanceType = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceType FROM Chance WHERE ChanceID = "+ ID +";");
+		while(rs.next()){
+		ChanceType = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ChanceType;
+	}
 	
-	public abstract void setDescription();
+	public int getdbID(){
+		connector.Connect("chance");
+		int ChanceID = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT ChanceID FROM Chance WHERE ChanceID = "+ ID +";");
+		while(rs.next()){
+		ChanceID = rs.getInt("chanceID");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ChanceID;
+	}
 	
 	public abstract void removeChance(ChanceCard card);
+	
+	public abstract void loadChance();
 		
 }

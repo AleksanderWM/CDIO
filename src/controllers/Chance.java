@@ -7,7 +7,6 @@ import entities.Birthday;
 import entities.ChanceCard;
 import entities.ChanceFee;
 import entities.DynamicMove;
-import entities.Fee;
 import entities.FixedMove;
 import entities.GetOutOfJail;
 import entities.Matador;
@@ -189,7 +188,11 @@ public class Chance {
 		}
 			
 		public void LoadChance(){
-			
+			for(ChanceCard Card : ChanceList){
+				
+				Card.loadChance();
+
+			}
 		}
 		
 			
