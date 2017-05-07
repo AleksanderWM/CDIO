@@ -154,26 +154,35 @@ public class PlayTurn implements Runnable{
 					switch (mGui.get3Buttons("What do you want to do?","Housing","Sell","Mortgage")){
 					case "Housing": {
 						if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
+							int propertyInSeries = 0;
+							int ownedPropertyInSeries = 0;
 							for(Field item : thisboard.FieldList)
 							{
-								int propertyInSeries = 0;
 										if((item instanceof Property) && 
 												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
 													propertyInSeries++;
 										}
-								int ownedPropertyInSeries = 0;
 										if((item instanceof Property) && 
 												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
 												(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
 													ownedPropertyInSeries++;
 										}
+										
+							}
 								if(propertyInSeries == ownedPropertyInSeries){
+									int propertyWithHouses = 0;
 									if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
+										for(Field item : thisboard.FieldList){
+											
 										if((item instanceof Property) && 
 											(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
 											(((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
-											((((Property)item).getHouses())+1) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) &&
-											(((Property)thisboard.FieldList.get(currentField)).getHouses()) != 4){
+											((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses())){
+												propertyWithHouses++;
+										
+										}
+										}
+										if(ownedPropertyInSeries == propertyWithHouses){
 												((Property)thisboard.FieldList.get(currentField)).setHouses(1);
 												thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
 												mGui.setBalance(thisgame, playerID);
@@ -190,7 +199,6 @@ public class PlayTurn implements Runnable{
 									}
 								}
 							}
-						}
 						else{
 							
 						}

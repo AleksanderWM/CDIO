@@ -31,7 +31,9 @@ public class Chance {
 		private Game game;
 		private mGUI gui;
 		private Shaker shake;
+
 		private DBconnector connector;
+
 		
 		public Chance(){
 			
