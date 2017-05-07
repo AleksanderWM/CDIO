@@ -16,7 +16,7 @@ public class PercentageTax extends Fee{
 		Title = "Luxary Tax";
 		Fee = -1000;
 		Percentage = 0.10;
-		Description = "Betal " + Fee + ", eller " + Percentage + "% af din balance.";
+		Description = "" + Fee + ", eller " + Percentage + "% af din balance.";
 	}
 	
 	@Override

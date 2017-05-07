@@ -16,22 +16,25 @@ public class RailRoad extends Ownable{
 	private int RENT_3 = 2000;
 	private int RENT_4 = 4000;
 	
-	public RailRoad(String title, String subText, Color color, int player, int cost, int rent) {
-		super(title, subText, color, player, cost, rent);
+	public RailRoad(String title, String description, String subText, Color color, int player, int cost, int rent) {
+		super(title,description, subText, color, player, cost, rent);
 		super.Colour = Color.WHITE;
 	}
 
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p){
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
 			for(Field item : gameboard.FieldList)
 			{
-				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(boardValue)).getOwner()).getID()))
 				{
 				ownedRailRoads++;
 				}
 			}
-			payRent(game, p, gameboard, b, rent);
+			payRent(game, playerID, gameboard, boardValue, rent);
 		}
 	}
 	

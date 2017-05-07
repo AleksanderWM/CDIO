@@ -8,15 +8,65 @@ import controllers.mGUI;
 
 public class Property extends Ownable {
 	
-	private int Houses = 0;
-	private int Hotel = 0;
+	private int Houses;
+	private int Hotel;
+	private int RENT1;
+	private int RENT2;
+	private int RENT3;
+	private int RENT4;
+	private int RENT5;
 	
-	public Property(String title, String subText, Color colour, int player,int cost,int rent) 
+	public Property(String title, String description, String subText, Color colour, int player,int cost,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
 	{
-		super(title, subText, colour, player, cost, rent);
+		super(title, description, subText, colour, player, cost, rent0);
+		Houses = house;
+		Hotel = hotel;
+		RENT1 = rent1;
+		RENT2 = rent2;
+		RENT3 = rent3;
+		RENT4 = rent4;
+		RENT5 = rent5;
 	}
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+
+	public int getRent(){
+		return super.rent;
+	}
+	
+	public int getRent(int value){
+		int ret = super.rent;
+		switch(value){
+		case 0: ret = super.rent;
+		break;
+		case 1: ret = RENT1;
+		break;
+		case 2: ret = RENT2;
+		break;
+		case 3: ret = RENT3;
+		break;
+		case 4: ret = RENT4;
+		break;
+		case 5: ret = RENT5;
+		}
+		return ret;
+	}
+	
+	@Override
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == game.playerList.get(playerID).getID()){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
+			if(((Property) gameboard.FieldList.get(boardValue)).getHotel() == 1){
+				int rentToPay = getRent(5);
+				payRent(game, playerID, gameboard, boardValue, rentToPay);
+			}
+			else {
+				int rentToPay = getRent(((Property)gameboard.FieldList.get(boardValue)).getHouses());
+				payRent(game, playerID, gameboard, boardValue, rentToPay);
+			}
+		}
+
 	}
 
 	@Override
@@ -61,6 +111,18 @@ public class Property extends Ownable {
 	public int getHouses(){
 		return Houses;
 	}
+	
+	public void setHouses(int house){
+		Houses = house;
+	}
+	
+	public int getHotel(){
+		return Hotel;
+	}
+	
+	public void setHotel(int hotel){
+		Hotel = hotel;
+	}
 	/**
 	 * Only add 1 or -1 House at a time
 	 * @param houses
@@ -77,8 +139,6 @@ public class Property extends Ownable {
 		}
 	}
 	
-	public int getHotel(){
-		return Hotel;
-	}
+
 
 }

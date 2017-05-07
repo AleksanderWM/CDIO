@@ -6,9 +6,11 @@
 package entities;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import controllers.Game;
 import controllers.GameBoard;
+import controllers.mGUI;
 
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
@@ -27,13 +29,15 @@ public abstract class Ownable implements Field {
 	protected boolean mortgage = false;
 	
 	
-	public Ownable(String title, String subText, Color color, int playerID, int cost, int rent)
+	public Ownable(String title, String description, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
+		Description = description;
 		SubText = subText;
 		Colour = color;
 		owner = playerID;
 		price = cost;
+		
 	}
 	//METHODS
 	
@@ -168,6 +172,17 @@ public abstract class Ownable implements Field {
 	{
 		String ret = "" + value;
 		return ret;
+	}
+	
+	public	void buyProperty(Game game, GameBoard gameboard, mGUI mui, int playerID, int boardValue)
+	{
+		boolean buyPropperty = mui.get2Buttons("Do you want to buy this propperty?", "Buy", "Do nothing");
+		if (buyPropperty){
+	
+			game.playerList.get(playerID).getAccount().addBalance(-(((Ownable) gameboard.FieldList.get(boardValue)).getPrice()));
+			((Ownable) gameboard.FieldList.get(boardValue)).setOwner(playerID);
+			mui.setOwner(boardValue, game.playerList.get(playerID).getName());
+		}
 	}
 	
 }
