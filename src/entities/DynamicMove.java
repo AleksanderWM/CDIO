@@ -21,6 +21,11 @@ public class DynamicMove extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 

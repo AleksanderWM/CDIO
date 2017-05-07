@@ -39,10 +39,10 @@ public class RailRoad extends Ownable{
 	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == owned){
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == 0){
 			buyProperty(game, gameboard, mui, playerID, boardValue);
 		}
-		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
 			for(Field item : gameboard.FieldList)
 			{
 				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(boardValue)).getOwner()).getID()))

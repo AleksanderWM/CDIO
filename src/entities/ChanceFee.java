@@ -16,8 +16,10 @@ public class ChanceFee extends ChanceCard{
 		super(ID, Type, Des);
 		this.Fee = Fee;
 		try {
+
 			connector.doUpdate("chance","INSERT into ChanceFee values(" + ID + "," + Fee + ");");
 			connector.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

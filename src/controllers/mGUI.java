@@ -578,7 +578,14 @@ public class mGUI {
 	 * @param field
 	 * @param value The boolean value, true for hotel, false for none.
 	 */
-	public void setHotel(int field,boolean value){
+	public void setHotel(int field, int hotel){
+		boolean value;
+		if(hotel == 1){
+			value = true;
+		}
+		else {
+			value = false;
+		}
 		GUI.setHotel(field, value);
 	}
 	

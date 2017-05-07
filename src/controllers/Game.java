@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entities.Field;
 import entities.Player;
 
 public class Game {
@@ -29,11 +30,11 @@ public volatile int id = 1;
 			dbc.CreateGame();
 			dbc.tbCreatorGame();
 		}
-		if(dbc.checkDB("chance") == false){
+			dbc.DeleteDBTemp("Chance", connector);
 			dbc.CreateChance();
 			dbc.tbCreatorChance();
 			chance.createChance();
-		}
+		
 		board.CreateBoard();
 		gui.CreateBoard();
 
@@ -80,7 +81,11 @@ public volatile int id = 1;
 		}
 
 	
-	
+	public void gameWinner(){
+		for(Player item : playerList){
+			
+		}
+	}
 
 	
 	public int gameId(){

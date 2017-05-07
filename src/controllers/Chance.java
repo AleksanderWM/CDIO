@@ -34,7 +34,7 @@ import entities.Text;
 
 public class Chance {
 
-		private ArrayList<ChanceCard> ChanceList = new ArrayList<ChanceCard>();
+		private static ArrayList<ChanceCard> ChanceList = new ArrayList<ChanceCard>();
 		private Game game;
 		private mGUI gui;
 		private Shaker shake;
@@ -43,11 +43,6 @@ public class Chance {
 
 
 		private DBconnector connector;
-
-		
-		public Chance(){
-			
-		}
 		
 		public void createChance(){
 			try {
@@ -98,14 +93,16 @@ public class Chance {
 			return ChanceList.size();
 		}
 		
-		public void DrawChance(int PlayerID){
+		public void DrawChance(int PlayerID,Game game, mGUI gui){
 		if(ChanceList.size() == 0){
 			createChance();
 		}
+		
 		ChanceCard Card = ChanceList.get(ChanceList.size()-1);
+		System.out.println("" + Card.getDescription());
 		Player Player = game.playerList.get(PlayerID);
 		gui.displayMidDescription(Card.getDescription());
-		
+		gui.getButton(Card.getDescription(), "Move on");
 			switch(Card.getChanceType()){
 			
 //			UtillityMove
@@ -221,7 +218,7 @@ public class Chance {
 					
 			}
 			Card.removeChance(Card);
-			ChanceList.remove(ChanceList.size());
+			ChanceList.remove(ChanceList.size()-1);
 		}
 			
 		@SuppressWarnings("null")
@@ -280,6 +277,7 @@ public class Chance {
 				}
 			}
 			ShuffleCards();	
-		}	
+		}
+
 	}	
 		

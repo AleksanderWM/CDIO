@@ -14,7 +14,7 @@ public class TryYourLuck implements Field{
 	private Color Colour = Color.BLACK;
 	private Color TxColour = Color.WHITE;
 	
-	private Chance Chance;
+	private Chance Chance = new Chance();
 	
 	public TryYourLuck(String name,String description){
 		Description = description;
@@ -23,7 +23,7 @@ public class TryYourLuck implements Field{
 	
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		Chance.DrawChance(p);
+		Chance.DrawChance(p,game, mui);
 	
 	}
 

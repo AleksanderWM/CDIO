@@ -79,7 +79,12 @@ public class PlayTurn implements Runnable{
 			}
 			
 			
-			
+			if(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+				sellOfStuff();
+			}
+			if(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+				changeAllOwner();
+			}
 			//Updates the player and account values for this player in the database,
 			//Changes the gameID with + 1, to make it the next players turn. 
 			//Sends a notify to stop the wait() on all threads.
@@ -97,7 +102,7 @@ public class PlayTurn implements Runnable{
 	if(thisgame.playerList.get(playerID).getPosition() == jailed){
 		if(thisgame.playerList.get(playerID).getOutOfJail() == 0){
 			if(thisgame.playerList.get(playerID).getJailTries() < 3){
-				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
 				else{
@@ -105,7 +110,7 @@ public class PlayTurn implements Runnable{
 				}
 			}
 			else if(thisgame.playerList.get(playerID).getJailTries() == 3) {
-				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
+				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
 				else{
@@ -122,17 +127,69 @@ public class PlayTurn implements Runnable{
 		}
 	}
 	}
+	//Changes all the players owned properties back to the bank
+	public void changeAllOwner(){
+		for(Field item : thisboard.FieldList){
+			while((item instanceof Ownable) && ((Ownable)item).getOwner() == thisgame.playerList.get(playerID).getID()){
+				((Ownable)item).unmortgage();
+				((Ownable)item).setOwner(0);
+			}
+		}
+	}
+	
+	public void haveIWon(){
+		int remainingPlayers = 0;
+			for(Player item : thisgame.playerList){
+				while(item.getAccount().getBalance() <= 0){
+					remainingPlayers++;
+				}
+			}
+			if(remainingPlayers == 1){
+				for(Player item : thisgame.playerList){
+					if(item.getAccount().getBalance() > 0){
+						
+						mGui.displayMidDescription("Player" + item.getName() + "Won the game!!");
+						mGui.getButton("Player" + item.getName() + "Won", "Exit");
+						System.exit(0);
+					}
+				}
+			}
+		
+			
+	}
 	
 	//If the player, after his turn is still below 0, this will sell off his stuff automaticly, untill the value is again higher than 0.
 	public void sellOfStuff(){
 		
-		if(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+		while(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
 			
 			for(Field item : thisboard.FieldList)
 			{
-				if((item instanceof Ownable) && (((Ownable)item).getOwner() == thisgame.playerList.get(playerID).getID()))
-				{
-				
+				while((item instanceof Property) && (((Property)item).getOwner() == thisgame.playerList.get(playerID).getID()) &&
+						(((Property)item).getHotel() == 1) &&
+						thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+					((Property)item).setHotel(-1);
+					((Property)item).setHouses(4);
+					thisgame.playerList.get(playerID).getAccount().addBalance((((Property)thisboard.FieldList.get(item.getNumber())).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(item.getNumber(), ((Property)thisboard.FieldList.get(item.getNumber())).getHouses());
+					mGui.setHotel(item.getNumber(), ((Property)thisboard.FieldList.get(item.getNumber())).getHotel());
+					
+				}
+				while((item instanceof Property) && (((Property)item).getOwner() == thisgame.playerList.get(playerID).getID()) &&
+						(((Property)item).getHouses() <= 4) &&
+						(((Property)item).getHouses() != 0) &&
+						thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+					((Property)item).setHouses(-1);
+					thisgame.playerList.get(playerID).getAccount().addBalance((((Property)thisboard.FieldList.get(item.getNumber())).getHousePrice()/2));
+					mGui.setBalance(thisgame, playerID);
+					mGui.setHouse(item.getNumber(), ((Property)thisboard.FieldList.get(item.getNumber())).getHouses());
+				}
+				while((item instanceof Ownable) && (((Ownable)item).getOwner() == thisgame.playerList.get(playerID).getID()) &&
+						(((Ownable)item).getMortgageState() == false) &&
+						thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+					((Ownable) thisboard.FieldList.get(item.getNumber())).mortgage();
+					thisgame.playerList.get(playerID).getAccount().addBalance(((Ownable) thisboard.FieldList.get(item.getNumber())).getPrice()/2);
 				}
 			}
 		}
@@ -143,13 +200,12 @@ public class PlayTurn implements Runnable{
 		shake.shakeShaker();
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
-		int turnsTried = 1;
-		while(shake.getDice1Value()!=shake.getDice2Value() || turnsTried == 3){
+		int turnsTried = 3;
+		while(shake.getDice1Value()!= shake.getDice2Value() || turnsTried == 0){
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			shake.shakeShaker();
-			int shakeValue1 = shake.getShake();
 			mGui.setDice(shake);
-			turnsTried++;
+			turnsTried--;
 		}
 		if(shake.getDice1Value()==shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);
@@ -189,8 +245,60 @@ public class PlayTurn implements Runnable{
 						}
 					}
 				}
-			}			
+				if (((Ownable) thisboard.FieldList.get(currentField)).getOwner() == 0){
+					mGui.showMessage("This Field has no actions yet");
+					mGui.displayMidDescription("This Field has no actions yet");
+				}
+				if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
+					if (mGui.get2Buttons("What would you like to do?","Make Offer","Abort") == true){
+						/**
+						 * The price you want to pay for the field
+						 */
+						int buyPrice = mGui.getUserInt("What price do you want to buy it for?");
+						int owner = ((Ownable)thisboard.FieldList.get(currentField)).getOwner();
+						
+						//Balance check of recieving player
+						if (thisgame.playerList.get(playerID).getAccount().getBalance() - buyPrice < 0)
+							mGui.showMessage("You don't have enough money");
+						else{
+							int propertyInSeries = 0;
+							int propertyWithoutHouses = 0;
+							for(Field item : thisboard.FieldList)
+								{
+							if((item instanceof Property) && 
+											(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+												propertyInSeries++;
+									}
+							if((item instanceof Property) && 
+									(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+									(((((Property)item).getHouses()) == 0) ||
+									((((Property)item).getHotel()) == 0))){
+										propertyWithoutHouses++;
+							}
+								}
+							if(propertyWithoutHouses == propertyInSeries && ((Ownable)thisboard.FieldList.get(currentField)).getMortgageState() == false){
+								//Accept from recieving player if balance check passes
+								if (mGui.get2Buttons("Player " + owner + ", do you accept this deal?","Yes","No") == true)
+								{
+									
+								//Transferral
+										((Ownable) thisboard.FieldList.get(currentField)).setOwner(playerID);
+										thisgame.playerList.get(playerID).getAccount().addBalance(buyPrice);
+										thisgame.playerList.get(owner).getAccount().addBalance(-buyPrice);
+										mGui.setOwner(currentField, thisgame.playerList.get(playerID).getName());
+								}
+								else{
+									mGui.showMessage("The player rejected the offer");
+								}
+								}
+								else{
+									mGui.showMessage("There is either houses/hotel or the property is mortgaged");
+								}
+						}
+					}			
+				}
 		}
+	}
 	//If he chooses Housing this is the method responsible to see if he wants to buy or sell houses/hotels
 	//it ensures that he has enough houses on each property before being able to buy a new one.
 	//He must buy each house, one by one going into every different property each time, and the same with selling.
@@ -218,6 +326,7 @@ public class PlayTurn implements Runnable{
 								
 								if((item instanceof Property) && 
 										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										((Property)item).getHouses() < 5 &&
 										((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
 										((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
 											propertyWithHouses++;
@@ -247,9 +356,11 @@ public class PlayTurn implements Runnable{
 						}
 							if(ownedPropertyInSeries == propertyWithHotel && (((Property)thisboard.FieldList.get(currentField)).getHotel()) == 0){
 								((Property)thisboard.FieldList.get(currentField)).setHotel(1);
+								((Property)thisboard.FieldList.get(currentField)).setHouses(-4);
 								thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
 								mGui.setBalance(thisgame, playerID);
 								mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
+								mGui.setHotel(currentField, ((Property)thisboard.FieldList.get(currentField)).getHotel());
 							}
 					}
 				}

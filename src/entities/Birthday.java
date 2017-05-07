@@ -21,6 +21,7 @@ public class Birthday extends ChanceCard{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		// TODO Auto-generated constructor stub
 	}
 	
