@@ -57,7 +57,14 @@ public class Property extends Ownable {
 			buyProperty(game, gameboard, mui, playerID, boardValue);
 		}
 		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
-			
+			if(((Property) gameboard.FieldList.get(boardValue)).getHotel() == 1){
+				int rentToPay = getRent(5);
+				payRent(game, playerID, gameboard, boardValue, rentToPay);
+			}
+			else {
+				int rentToPay = getRent(((Property)gameboard.FieldList.get(boardValue)).getHouses());
+				payRent(game, playerID, gameboard, boardValue, rentToPay);
+			}
 		}
 
 	}
