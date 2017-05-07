@@ -49,7 +49,7 @@ public class Utility extends Ownable{
 				ownedUtility++;
 				}
 			}
-			payRent(game, playerID, gameboard, boardValue, rent*shake.getShake()*ownedUtility);
+			payRent(game, playerID, gameboard, boardValue, rent*shake.getShake()*ownedUtility, mui);
 			}		
 		}
 

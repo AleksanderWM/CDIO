@@ -41,6 +41,7 @@ public class RailRoad extends Ownable{
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
 		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == 0){
 			buyProperty(game, gameboard, mui, playerID, boardValue);
+			mui.setBalance(game, playerID);
 		}
 		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
 			for(Field item : gameboard.FieldList)
@@ -50,7 +51,7 @@ public class RailRoad extends Ownable{
 				ownedRailRoads++;
 				}
 			}
-			payRent(game, playerID, gameboard, boardValue, rent);
+			payRent(game, playerID, gameboard, boardValue, rent, mui);
 		}
 	}
 	
