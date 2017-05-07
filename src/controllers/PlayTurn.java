@@ -134,7 +134,7 @@ public class PlayTurn implements Runnable{
 		if(shake.getDice1Value()==shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
-			mGui.setCar(thisgame.playerList.get(playerID).getPosition(), thisgame.playerList.get(playerID).getID());
+			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 			wasIJustReleasedFromJail = true;
 		}
 	}
@@ -157,20 +157,36 @@ public class PlayTurn implements Runnable{
 							for(Field item : thisboard.FieldList)
 							{
 								int propertyInSeries = 0;
-										if((item instanceof Property) && (((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
-											propertyInSeries++;
+										if((item instanceof Property) && 
+												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+													propertyInSeries++;
 										}
 								int ownedPropertyInSeries = 0;
-										if((item instanceof Property) && (((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && (((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
-											ownedPropertyInSeries++;
+										if((item instanceof Property) && 
+												(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
+												(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
+													ownedPropertyInSeries++;
 										}
 								if(propertyInSeries == ownedPropertyInSeries){
-									if((item instanceof Property) && 
+									if (mGui.get2Buttons("Do you want to buy a House or Hotel?","House","Hotel") == true){
+										if((item instanceof Property) && 
 											(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
 											(((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
-											((((Property)item).getHouses())+1) == (((Property)thisboard.FieldList.get(currentField)).getHouses())){
-										
+											((((Property)item).getHouses())+1) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) &&
+											(((Property)thisboard.FieldList.get(currentField)).getHouses()) != 4){
+												((Property)thisboard.FieldList.get(currentField)).setHouses(1);
+												thisgame.playerList.get(playerID).getAccount().addBalance(-((Property)thisboard.FieldList.get(currentField)).getHousePrice());
+												mGui.setBalance(thisgame, playerID);
+												mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
 												
+										}
+										else {
+										mGui.showMessage("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+										mGui.displayMidDescription("You are not permitted to buy houses on this lot. Check if you have maxed out houses, or if you have equal amount of houses on the coresponding Propperty");
+										}
+									}
+									else {
+										//intet ligenu
 									}
 								}
 							}
@@ -251,7 +267,9 @@ public class PlayTurn implements Runnable{
 		mGui.setDice(shake);
 		thisgame.playerList.get(playerID).movePosition(shakeValue);
 		System.out.println(thisgame.playerList.get(playerID).getID());
-		mGui.setCar(thisgame.playerList.get(playerID).getPosition(), thisgame.playerList.get(playerID).getID());
+		System.out.println(thisgame.playerList.get(playerID).getPosition());
+		mGui.removeCar(thisgame, playerID);
+		mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 		
 	}
 

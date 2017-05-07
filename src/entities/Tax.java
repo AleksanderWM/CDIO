@@ -7,11 +7,11 @@ import controllers.mGUI;
 
 public class Tax extends Fee {
 	
-	public Tax() {
+	public Tax(String title,String description, String subtext) {
 		super();
-		Title = "Indkomst skat";
-		Fee = -1000;
-		Description = "Betal " + Fee;
+		Title = title;
+		Fee = 4000;
+		Description = description;
 		Colour = Color.GRAY;
 		
 	}

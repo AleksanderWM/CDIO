@@ -13,9 +13,10 @@ public class Jail implements Field {
 	private String Picture = "";
 	private Color TxColour = Color.BLACK;
 	private Color Colour = Color.GRAY;
-	private String Subtext = "Faengelsbesog";
+	private String Subtext;
 	
-	public Jail(){
+	public Jail(String desc){
+		Description = desc;
 		
 	}
 	@Override
