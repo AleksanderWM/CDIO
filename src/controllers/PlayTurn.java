@@ -39,6 +39,7 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
+			amIInJail();
 			if(!wasIJustReleasedFromJail){
 			shakeAndMove();
 			}
@@ -72,7 +73,7 @@ public class PlayTurn implements Runnable{
 			}
 			
 		}
-	public void amIInPrison(){
+	public void amIInJail(){
 		if(thisgame.playerList.get(playerID).getPosition() == jailed){
 			if(thisgame.playerList.get(playerID).getJailTries() < 3){
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Roll Dice") == true){
