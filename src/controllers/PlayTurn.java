@@ -38,6 +38,7 @@ public class PlayTurn implements Runnable{
 				}
 			}
 			shakeAndMove();
+			thisgame.playerList.get(playerID).updatePlayer();
 			interact(thisgame.playerList.get(playerID));
 			
 			int equalsCount = 1;

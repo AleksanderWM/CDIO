@@ -98,8 +98,12 @@ public class Account {
 	
 		try {
 			ResultSet rs = connector.doQuery("Game","SELECT money, networth FROM ACCOUNT WHERE PlayerID = "+ ID +";");
-				int Balance = rs.getInt("money");
-				int NW = rs.getInt("networth");
+			int Balance = 0;
+			int NW = 0;
+			while(rs.next()){
+				Balance = rs.getInt("money");
+				NW = rs.getInt("networth");
+			}
 				connector.close();
 				if(money != Balance){
 					setBalance(money);

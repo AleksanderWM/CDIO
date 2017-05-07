@@ -179,9 +179,14 @@ public class Player {
 	
 		try {
 			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
-				String names = rs.getString("Name");
-				int pos = rs.getInt("position");
-				int gooj = rs.getInt("getoutofjail");
+				String  names = "";
+				int pos = 0;
+				int gooj = 0;
+				while(rs.next()){
+				names = rs.getString("Name");
+				pos = rs.getInt("position");
+				gooj = rs.getInt("getoutofjail");
+				}
 				connector.close();
 				if(name != names){
 					setName(name);
