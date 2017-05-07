@@ -6,7 +6,10 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
-
+/**
+ * @author Aleksander and Emil Jørgensen
+ *
+ */
 public class RailRoad extends Ownable{
 
 	private Color TxColour = Color.BLACK;
@@ -16,11 +19,24 @@ public class RailRoad extends Ownable{
 	private int RENT_3 = 2000;
 	private int RENT_4 = 4000;
 	
+	/**
+	 * The constructor for a Railroad field
+	 * @param title
+	 * @param description
+	 * @param subText
+	 * @param color
+	 * @param player
+	 * @param cost
+	 * @param rent
+	 */
 	public RailRoad(String title, String description, String subText, Color color, int player, int cost, int rent) {
 		super(title,description, subText, color, player, cost, rent);
 		super.Colour = Color.WHITE;
 	}
 
+	/**
+	 *Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
 		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == owned){

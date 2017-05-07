@@ -96,7 +96,7 @@ public class Chance {
 		}
 		
 		public int ListLength(){
-			return ChanceList.size() - 1;
+			return ChanceList.size();
 		}
 		
 		public void DrawChance(int PlayerID){

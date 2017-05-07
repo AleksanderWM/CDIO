@@ -12,6 +12,10 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * @author Emil Jørgensen
+ *
+ */
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
 	protected String Title;
@@ -28,7 +32,16 @@ public abstract class Ownable implements Field {
 	protected Color Colour;
 	protected boolean mortgage = false;
 	
-	
+	/**
+	 * Abstract constructor for an ownable field
+	 * @param title
+	 * @param description
+	 * @param subText
+	 * @param color
+	 * @param playerID
+	 * @param cost
+	 * @param rent
+	 */
 	public Ownable(String title, String description, String subText, Color color, int playerID, int cost, int rent)
 	{
 		Title = title;
@@ -174,9 +187,17 @@ public abstract class Ownable implements Field {
 		return ret;
 	}
 	
+	/**
+	 * Handles buying the property
+	 * @param game
+	 * @param gameboard
+	 * @param mui
+	 * @param playerID
+	 * @param boardValue
+	 */
 	public	void buyProperty(Game game, GameBoard gameboard, mGUI mui, int playerID, int boardValue)
 	{
-		boolean buyPropperty = mui.get2Buttons("Do you want to buy this propperty?", "Buy", "Do nothing");
+		boolean buyPropperty = mui.get2Buttons("Do you want to buy this property?", "Buy", "Do nothing");
 		if (buyPropperty){
 	
 			game.playerList.get(playerID).getAccount().addBalance(-(((Ownable) gameboard.FieldList.get(boardValue)).getPrice()));

@@ -27,9 +27,8 @@ import desktop_codebehind.Car;
 import desktop_board.Board;
 import entities.Property;
 
-/**s
+/**
  * @author Emil Jørgensen
- *
  */
 public class mGUI {
 	
@@ -37,13 +36,12 @@ public class mGUI {
 	GameBoard FieldList = new GameBoard();
 	private String[] TitleList = null;
 	Game game;
+	
 	/**
 	 * Creates the board 
-	 * NEEDS EXTENSION
 	 */
 	public void CreateBoard(){
 		{
-			//Board.destroy();
 			FieldList.CreateBoard();
 			Field[] Fields = new Field[40];
 			
@@ -287,6 +285,7 @@ public class mGUI {
 				GUI.create(Fields);
 			}
 	}
+	
 	/**
 	 * Creates a color for the car. Allows six players
 	 * @param c
@@ -310,6 +309,7 @@ public class mGUI {
 		}
 		return color;
 	}
+	
 	/**
 	 * Adds a player, with car, to the board
 	 * @param game
@@ -454,6 +454,7 @@ public class mGUI {
 		}
 		return ret;
 	}
+	
 	/**
 	 * Shows a message prompt to the player
 	 * @param msg The message
@@ -483,6 +484,13 @@ public class mGUI {
 		return GUI.getUserInteger(msg);
 	}
 	
+	/**
+	 * Plays a turn in the gui
+	 * @param game
+	 * @param v
+	 * @param shaker
+	 * @param pos
+	 */
 	public void playTurn(Game game, int v, Shaker shaker, int pos)
 	{
 		removeCar(game, v);
@@ -497,6 +505,7 @@ public class mGUI {
 	{
 		GUI.setDice(shaker.getDice1Value(), shaker.getDice2Value());
 	}
+	
 	/**
 	 * Sets a car on a given field position (-1) on the board
 	 */
@@ -520,6 +529,13 @@ public class mGUI {
 	public void setCarOnStart(Game game, int v)
 	{
 		GUI.setCar(1, game.playerList.get(v).getName());
+	}
+	
+	/**
+	 * Sets the car on jail
+	 */
+	public void setCarOnJail(Game game, int v){
+		GUI.setCar(11,game.playerList.get(v).getName());
 	}
 	
 	/**

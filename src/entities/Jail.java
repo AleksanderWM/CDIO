@@ -6,6 +6,10 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * @author Emil Jørgensen
+ *
+ */
 public class Jail implements Field {
 
 	private String Title;
@@ -14,6 +18,12 @@ public class Jail implements Field {
 	private Color Colour = Color.GRAY;
 	private String Subtext;
 	
+	/**
+	 * Constructor for a Jail field
+	 * @param title
+	 * @param desc
+	 * @param subtext
+	 */
 	public Jail(String title,String desc,String subtext){
 		Title = title;
 		Description = desc;

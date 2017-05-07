@@ -5,7 +5,10 @@ import java.awt.Color;
 import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
-
+/**
+ * @author Emil Jørgensen and Aleksander
+ *
+ */
 public class Property extends Ownable {
 	
 	private int Houses = 0;

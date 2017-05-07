@@ -1,7 +1,5 @@
 /**
- * @author Aleksander & Emil
- * Gruppe 
- * 02362 Projekt i software-udvikling 
+ * @author Emil Jørgensen, editet by Aleksander
  */
 package entities;
 

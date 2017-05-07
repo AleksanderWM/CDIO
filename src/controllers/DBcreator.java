@@ -8,7 +8,12 @@ import java.sql.Statement;
 
 /** @author Emil Jørgensen */
 public class DBcreator extends aDB {
-	   
+	   DBconnector GameConnector = new DBconnector();
+	/**
+	 * Checks if a database exists
+	 * @param dbName The name of the database
+	 * @return True if the database exists, false if not
+	 */
 public boolean checkDB(String dbName){
 		Connection conn = null;
 		
@@ -112,12 +117,7 @@ public boolean checkDB(String dbName){
 	         se.printStackTrace();
 	      }
 	   }
-	}
-	   /**
-	    * @author Emil Jørgensen
-	    */
-		   
-		   DBconnector GameConnector = new DBconnector();
+	   }
 		  
 		   /**
 		    * Creation of database Game's Tables
@@ -176,6 +176,11 @@ public boolean checkDB(String dbName){
 			      }
 		   }     
 	   
+		   /**
+		    * Deletes a database
+		    * @param DB The name of the databse
+		    * @param Connector
+		    */
 	   public void DeleteDBTemp(String DB, DBconnector Connector) {
 			   try {
 				Connector.doUpdate(DB,"DROP DATABASE " + DB +";");

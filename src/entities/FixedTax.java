@@ -1,3 +1,4 @@
+
 package entities;
 
 import java.awt.Color;
@@ -5,8 +6,17 @@ import java.awt.Color;
 import controllers.*;
 import controllers.mGUI;
 
+/**
+ * @author Emil Jørgensen, landOnField by Aleksander
+ */
 public class FixedTax extends Fee {
 	
+	/**
+	 * Constructer for at FixedTax field
+	 * @param title
+	 * @param description
+	 * @param subtext
+	 */
 	public FixedTax(String title,String description, String subtext) {
 		super();
 		Title = title;
@@ -17,6 +27,9 @@ public class FixedTax extends Fee {
 		
 	}
 
+	/**
+	 * Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
 		game.playerList.get(p).getAccount().addBalance(Fee);
@@ -57,7 +70,6 @@ public class FixedTax extends Fee {
 		Colour = colour;
 		
 	}
-
 	@Override
 	public Color getColour() {
 		return Colour;
