@@ -205,7 +205,11 @@ public class Chance {
 		}
 			
 		public void LoadChance(){
-			for(ChanceCard Card : ChanceList){
+			ChanceCard Card;
+			for(int i = 0; i <= 32 ; i++){
+				if(Card.dbExist(i)){
+				Switch()	
+				}
 				
 				Card.loadChance();
 
