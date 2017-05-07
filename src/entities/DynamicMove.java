@@ -9,7 +9,12 @@ public class DynamicMove extends ChanceCard{
 
 	public DynamicMove(int ID, int Type, String Des, int Moves) {
 		super(ID, Type, Des);
-	this.Moves = Moves;
+		this.Moves = Moves;
+		try {
+			connector.doUpdate("chance","INSERT into Dynamicmove values(" + ID + "," + Moves + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 

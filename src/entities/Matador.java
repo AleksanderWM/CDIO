@@ -12,6 +12,11 @@ public class Matador extends ChanceCard{
 		super(ID, Type, Des);
 		this.Bonus = Bonus;
 		this.MaxNetworth = Max;
+		try {
+			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Max + "," + Bonus + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 

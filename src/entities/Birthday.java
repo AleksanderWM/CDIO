@@ -10,6 +10,11 @@ public class Birthday extends ChanceCard{
 	public Birthday(int ID, int Type, String Des, int fee) {
 		super(ID, Type, Des);
 		this.Fee = fee;
+		try {
+			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + fee + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 	

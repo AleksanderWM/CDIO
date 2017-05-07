@@ -10,6 +10,11 @@ public class FixedMove extends ChanceCard{
 	public FixedMove(int ID, int Type, String Des, int Move) {
 		super(ID, Type, Des);
 		this.Move = Move;
+		try {
+			connector.doUpdate("chance","INSERT into FixedMove values(" + ID + "," + Move + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 	
