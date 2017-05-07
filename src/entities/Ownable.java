@@ -7,6 +7,9 @@ package entities;
 
 import java.awt.Color;
 
+import controllers.Game;
+import controllers.GameBoard;
+
 public abstract class Ownable implements Field {
 	//ATTRIBUTES
 	protected String Title;
@@ -16,7 +19,7 @@ public abstract class Ownable implements Field {
 	protected Color bgColor;
 	protected Text file = new Text("BuyProperty.txt");
 	protected String[] TxtList = null;
-	protected int owned = 10;
+	protected int owned = 0;
 	protected int price;
 	protected int rent;
 	protected int owner;
@@ -105,8 +108,10 @@ public abstract class Ownable implements Field {
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
 	 */
-	public void payRent(){
-		
+	public void payRent(Game game, int p, GameBoard gameboard, int b, int rent){
+		game.playerList.get(p).getAccount().addBalance(-rent);
+		game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getAccount().addBalance(rent);
+
 	}
 	
 	/**

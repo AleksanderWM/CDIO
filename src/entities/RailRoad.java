@@ -23,24 +23,15 @@ public class RailRoad extends Ownable{
 
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != 10 && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p){
-			int ownerRailRoads = ((Ownable)gameboard.FieldList.get(b)).getOwner();
-
-			if(ownerRailRoads == ((Ownable)gameboard.FieldList.get(7)).getOwner()){
+		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p){
+			for(Field item : gameboard.FieldList)
+			{
+				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				{
 				ownedRailRoads++;
+				}
 			}
-			if(ownerRailRoads == ((Ownable)gameboard.FieldList.get(17)).getOwner()){
-				ownedRailRoads++;
-			}
-			if(ownerRailRoads == ((Ownable)gameboard.FieldList.get(27)).getOwner()){
-				ownedRailRoads++;
-			}
-			if(ownerRailRoads == ((Ownable)gameboard.FieldList.get(37)).getOwner()){
-				ownedRailRoads++;
-			}
-			game.playerList.get(p).getAccount().addBalance(-rent);
-			game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getAccount().addBalance(rent);
-			
+			payRent(game, p, gameboard, b, rent);
 		}
 	}
 	

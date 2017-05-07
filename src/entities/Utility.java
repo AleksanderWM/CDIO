@@ -16,7 +16,24 @@ public class Utility extends Ownable{
 
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-	}
+		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p)
+		{
+			mui.getButton("Press to shake the dice", "Shake");
+			shake.setShake();
+			mui.setDice(shake);
+			int ownedUtility = 0;
+			for(Field item : gameboard.FieldList)
+			{
+				if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				{
+				ownedUtility++;
+				}
+			}
+			payRent(game, p, gameboard, b, rent*shake.getShake()*ownedUtility);
+			}		
+		}
+
+	
 
 	@Override
 	public String getDescription() {
