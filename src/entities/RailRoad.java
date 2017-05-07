@@ -127,4 +127,9 @@ public class RailRoad extends Ownable{
 	public void setTxColour(Color colour){
 		TxColour = colour;
 	}
+	
+	public void loadfield() {
+		// TODO Auto-generated method stub
+		setOwner(getOwnerFDB());
+	}
 }

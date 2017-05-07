@@ -7,7 +7,10 @@ package entities;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import controllers.DBconnector;
 import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
@@ -32,6 +35,7 @@ public abstract class Ownable implements Field {
 	protected Color Colour;
 	protected boolean mortgage = false;
 	protected int FieldID;
+	protected DBconnector connector;
 	
 	/**
 	 * Abstract constructor for an ownable field
@@ -53,7 +57,27 @@ public abstract class Ownable implements Field {
 		owner = playerID;
 		price = cost;
 		this.rent = rent;
+		try {
+			connector.doUpdate("game","INSERT into ownable values(" + fieldID + "," + playerID + ", " + cost + "," + false + " );");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+	}
+	
+	public int getOwnerFDB(){
+		connector.Connect("chance");
+		int O = 0;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT owner FROM ownable WHERE fieldID = "+ FieldID +";");
+		while(rs.next()){
+		O = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return O;
 	}
 	//METHODS
 	
@@ -136,15 +160,6 @@ public abstract class Ownable implements Field {
 	}
 	
 	/**
-	 * Tages senere
-	 * @return
-	 */
-//	public int playerOwned(){
-//		return (tages senere) ;
-//		
-//	}
-	
-	/**
 	 * Sets a field to a mortgaged state
 	 */
 	public void mortgage(){
@@ -209,5 +224,7 @@ public abstract class Ownable implements Field {
 			mui.setOwner(boardValue, game.playerList.get(playerID).getName());
 		}
 	}
+	
+	public abstract void loadfield();
 	
 }
