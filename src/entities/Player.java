@@ -38,6 +38,9 @@ public class Player {
 			this.Account = new Account(ID);
 			this.ID = ID;
 			this.name = name;
+	}
+	
+	public void savePlayerDB(){
 		try {
 			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name + "', " + position + ", " + getOutOfJail +" , " + 0 + ");");
 		} catch (SQLException e) {

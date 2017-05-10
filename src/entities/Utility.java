@@ -24,8 +24,8 @@ public class Utility extends Ownable{
 	 * @param cost
 	 * @param rent
 	 */
-	public Utility(int id, String title,String description, String subText, int player, int cost, int rent) {
-		super(id, title,description, subText, new Color(6,76,30), player, cost, rent);
+	public Utility(int id, String title,String description, String subText, int player, int cost, int rent, boolean mortgageState) {
+		super(id, title,description, subText, new Color(6,76,30), player, cost, rent, mortgageState);
 	}
 
 	/**

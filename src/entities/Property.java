@@ -23,9 +23,9 @@ public class Property extends Ownable {
 	private int RENT5;
 	private int Houseprice;
 	
-	public Property(int id,String title, String description, String subText, Color colour, int player,int cost,int hprice,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel) 
+	public Property(int id,String title, String description, String subText, Color colour, int player,int cost,int hprice,int rent0,int rent1, int rent2, int rent3, int rent4, int rent5, int house,int hotel, boolean mortgageState) 
 	{
-		super(id,title, description, subText, colour, player, cost, rent0);
+		super(id,title, description, subText, colour, player, cost, rent0, mortgageState);
 		Houses = house;
 		Hotel = hotel;
 		RENT1 = rent1;
@@ -34,12 +34,15 @@ public class Property extends Ownable {
 		RENT4 = rent4;
 		RENT5 = rent5;
 		Houseprice = hprice;
-	try{
-		connector.doUpdate("game","INSERT into property values(" + id + "," + rent + ", " + RENT2 + "," + RENT3+ ", " + RENT4+ ", " + RENT5+ ", " + Houseprice+ ", " + Houseprice+ ", " + Houses+ ", " + Hotel + " );");  
-	} 
-	catch (SQLException e) {
-		e.printStackTrace();
 	}
+	
+	public void savePropertyDB(int fieldNumber){
+		try{
+			connector.doUpdate("game","INSERT into property values(" + fieldNumber + "," + rent + ", " + RENT2 + "," + RENT3+ ", " + RENT4+ ", " + RENT5+ ", " + Houseprice+ ", " + Houseprice+ ", " + Houses+ ", " + Hotel + " );");  
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 

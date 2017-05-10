@@ -35,7 +35,7 @@ public abstract class Ownable implements Field {
 	protected Color Colour;
 	protected boolean mortgage = false;
 	protected int FieldID;
-	protected DBconnector connector;
+	DBconnector connector = new DBconnector();
 	
 	/**
 	 * Abstract constructor for an ownable field
@@ -47,31 +47,50 @@ public abstract class Ownable implements Field {
 	 * @param cost
 	 * @param rent
 	 */
-	public Ownable(int fieldID,String title, String description, String subText, Color color, int playerID, int cost, int rent)
+	public Ownable(int fieldNumber,String title, String description, String subText, Color color, int playerID, int cost, int rent, boolean mortgageState)
 	{
-		FieldID = fieldID;
+		FieldID = fieldNumber;
 		Title = title;
 		Description = description;
 		SubText = subText;
 		Colour = color;
 		owner = playerID;
 		price = cost;
+		mortgage = mortgageState;
 		this.rent = rent;
-		try {
-			connector.doUpdate("game","INSERT into ownable values(" + fieldID + "," + playerID + ", " + cost + "," + false + " );");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 	}
 	
+	public void saveOwnableDB(int fieldNumber, int playerID, int cost, int mortgageState){
+		try {
+			connector.doUpdate("game","INSERT into OWNABLE values(" + fieldNumber + ", " + playerID + ", " + cost + ", " + mortgageState + " );");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int getOwnerFDB(){
-		connector.Connect("chance");
+		connector.Connect("game");
 		int O = 0;
 		try {
 		ResultSet rs = connector.doQuery("game","SELECT owner FROM ownable WHERE fieldID = "+ FieldID +";");
 		while(rs.next()){
-		O = rs.getInt("chancetype");
+		O = rs.getInt("owner");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return O;
+	}
+	
+	public boolean getMortgageStateFDB(){
+		connector.Connect("game");
+		boolean O = false;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT mortgage FROM ownable WHERE fieldID = "+ FieldID +";");
+		while(rs.next()){
+		O = rs.getBoolean("mortgage");
 		}
 		connector.close();
 		} catch (SQLException e) {
@@ -166,6 +185,16 @@ public abstract class Ownable implements Field {
 		mortgage = true;
 	}
 	
+	
+	public int setMortgageDB(boolean mortgage){
+		if(mortgage){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+	
 	/**
 	 * Sets a field to an unmortgaged state
 	 */
@@ -177,8 +206,13 @@ public abstract class Ownable implements Field {
 	 * Gets the current mortgage state of a field
 	 * @return The mortgage state of the field (boolean)
 	 */
-	public boolean getMortgageState(){
-		return mortgage;
+	public boolean getMortgageStateDB(int b){
+		if(b == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/**
@@ -226,5 +260,15 @@ public abstract class Ownable implements Field {
 	}
 	
 	public abstract void loadfield();
+
+	public boolean getMortgageState() {
+		return mortgage;
+	}
+	
+
+	public int getFieldID(){
+		return FieldID;
+		
+	}
 	
 }

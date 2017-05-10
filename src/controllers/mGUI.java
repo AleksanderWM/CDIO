@@ -42,7 +42,7 @@ public class mGUI {
 	 */
 	public void CreateBoard(){
 		{
-			FieldList.CreateBoard();
+			FieldList.CreateBoardFromTextFile();
 			Field[] Fields = new Field[40];
 			
 			Fields[0] = new Start.Builder().
