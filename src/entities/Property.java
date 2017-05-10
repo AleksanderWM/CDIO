@@ -178,13 +178,26 @@ public class Property extends Ownable {
 //		return H;
 //	}
 	
-	public void saveHouseDB(int FieldID){
+	public void saveHouseDB(){
 		int HousesToSave = getHouses();
 		try {
-			connector.doUpdate("game", "UPDATE Property SET House = " + HousesToSave + ", WHERE FieldID = " + FieldID + ";");
+			connector.doUpdate("game", "UPDATE Property SET House = " + HousesToSave + " WHERE FieldID = " + FieldID + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getHouseFDB(){
+		int HousesFDB = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select House FROM Property WHERE FieldID = " + FieldID + ";");
+			if(rs.next()){
+			HousesFDB = rs.getInt("House");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HousesFDB;
 	}
 	
 	public int gethotelFDB(){

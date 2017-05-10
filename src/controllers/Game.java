@@ -62,6 +62,11 @@ public volatile int id = 1;
 				playerList.add(player);
 				board.CreateBoardFromTextFile();
 				gui.CreateBoard();
+				saveDB();
+				((Property)board.FieldList.get(2)).addHouses(3);
+				((Property)board.FieldList.get(2)).saveHouseDB();
+				System.out.println(((Property)board.FieldList.get(2)).getHouseFDB());
+				
 
 		enterPlayers();
 	}
