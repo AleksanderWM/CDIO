@@ -31,7 +31,6 @@ public volatile int id = 1;
 
 	public void gameStart(){
 //		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
-
 //		int answer = scan.nextInt();
 //		if(answer == 1){
 //			dbc.DeleteDBTemp("game", connector);
@@ -41,7 +40,11 @@ public volatile int id = 1;
 ////			}
 				dbc.DeleteDBTemp("game", connector);
 				dbc.DeleteDBTemp("Chance", connector);
-
+				dbc.CreateGame();
+				dbc.tbCreatorGame();
+				dbc.CreateChance();
+				dbc.tbCreatorChance();
+				chance.createChance();
 
 //				}
 //		}
@@ -49,7 +52,6 @@ public volatile int id = 1;
 //			for(int i = 1; i <= 40 ; i++){
 //				if(board.getField(i) instanceof Ownable){
 //					Ownable Ownable = (Ownable)board.getField(i);
-
 //					Ownable.loadfield();
 //				}
 //			}

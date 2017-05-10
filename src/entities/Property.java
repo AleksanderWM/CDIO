@@ -34,7 +34,6 @@ public class Property extends Ownable {
 		RENT4 = rent4;
 		RENT5 = rent5;
 		Houseprice = hprice;
-
 	}
 	
 	public void savePropertyDB(int fieldNumber){
