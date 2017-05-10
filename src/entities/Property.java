@@ -34,7 +34,7 @@ public class Property extends Ownable {
 		RENT4 = rent4;
 		RENT5 = rent5;
 		Houseprice = hprice;
-<<<<<<< Updated upstream
+
 	}
 	
 	public void savePropertyDB(int fieldNumber){
@@ -44,14 +44,7 @@ public class Property extends Ownable {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-=======
-//	try{
-//		connector.doUpdate("game","INSERT into property values(" + id + "," + rent + ", " + RENT2 + "," + RENT3+ ", " + RENT4+ ", " + RENT5+ ", " + Houseprice+ ", " + Houseprice+ ", " + Houses+ ", " + Hotel + " );");  
-//	} 
-//	catch (SQLException e) {
-//		e.printStackTrace();
-//	}
->>>>>>> Stashed changes
+
 	}
 	@Override
 
