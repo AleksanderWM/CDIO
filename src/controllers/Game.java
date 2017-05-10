@@ -31,6 +31,7 @@ public volatile int id = 1;
 
 	public void gameStart(){
 //		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
+<<<<<<< Updated upstream
 //		int answer = scan.nextInt();
 //		if(answer == 1){
 //			dbc.DeleteDBTemp("game", connector);
@@ -40,26 +41,47 @@ public volatile int id = 1;
 ////			}
 				dbc.DeleteDBTemp("game", connector);
 				dbc.DeleteDBTemp("Chance", connector);
+=======
+//		String answer = scan.nextLine();
+//		if(answer == "Yes"){
+			dbc.DeleteDBTemp("game", connector);
+			if(dbc.checkDB("game") == false){
+>>>>>>> Stashed changes
 				dbc.CreateGame();
 				dbc.tbCreatorGame();
 				dbc.CreateChance();
 				dbc.tbCreatorChance();
 				chance.createChance();
+<<<<<<< Updated upstream
 //				}
 //		}
 //		else {
 //			for(int i = 1; i <= 40 ; i++){
 //				if(board.getField(i) instanceof Ownable){
 //					Ownable Ownable = (Ownable)board.getField(i);
+=======
+				}
+//		}
+//		else {
+//			for(int i = 1; i <= 40 ; i++){
+//				if(board.getFieldList().get(i) instanceof Ownable){
+//					Ownable Ownable = (Ownable)board.getFieldList().get(i);
+>>>>>>> Stashed changes
 //					Ownable.loadfield();
 //				}
 //			}
 //			
 //		}
+<<<<<<< Updated upstream
 				Player player = new Player("Anden", 0);
 				playerList.add(player);
 				board.CreateBoardFromTextFile();
 				gui.CreateBoard();
+=======
+		board.CreateBoard();
+		playerList.add(null);
+		gui.CreateBoard();
+>>>>>>> Stashed changes
 
 		enterPlayers();
 	}
