@@ -43,6 +43,7 @@ public class Property extends Ownable {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 	@Override
 

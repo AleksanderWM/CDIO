@@ -45,6 +45,7 @@ public volatile int id = 1;
 				dbc.CreateChance();
 				dbc.tbCreatorChance();
 				chance.createChance();
+
 //				}
 //		}
 //		else {
@@ -56,6 +57,7 @@ public volatile int id = 1;
 //			}
 //			
 //		}
+
 				Player player = new Player("Anden", 0);
 				playerList.add(player);
 				board.CreateBoardFromTextFile();
