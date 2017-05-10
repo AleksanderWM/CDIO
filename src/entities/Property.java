@@ -167,16 +167,16 @@ public class Property extends Ownable {
 		}
 	}
 	
-	public int gethouseFDB(int FieldID){
-		try {
-			connector.doUpdate("game", "UPDATE Property ");
-		
-		connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return H;
-	}
+//	public int gethouseFDB(int FieldID){
+//		try {
+//			connector.doUpdate("game", "UPDATE Property ");
+//		
+//		connector.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return H;
+//	}
 	
 	public void saveHouseDB(int FieldID){
 		int HousesToSave = getHouses();
@@ -185,9 +185,8 @@ public class Property extends Ownable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return H;
 	}
-	}
+	
 	public int gethotelFDB(){
 		connector.Connect("chance");
 		int H = 0;
@@ -202,14 +201,20 @@ public class Property extends Ownable {
 		}
 		return H;
 	}
-	
+
 	@Override
 	public void loadfield() {
 		// TODO Auto-generated method stub
-		setHouses(gethouseFDB());
-		setOwner(getOwnerFDB());
-		setHotel(gethotelFDB());
+		
 	}
+	
+//	@Override
+//	public void loadfield() {
+//		// TODO Auto-generated method stub
+//		setHouses(gethouseFDB());
+//		setOwner(getOwnerFDB());
+//		setHotel(gethotelFDB());
+//	}
 	
 
 
