@@ -26,6 +26,7 @@ public abstract class Ownable implements Field {
 	protected String SubText;
 	protected String Picture;
 	protected Color bgColor;
+	protected Text file = new Text("BuyProperty.txt");
 	protected String[] TxtList = null;
 	protected int owned = 0;
 	protected int price;
@@ -83,22 +84,6 @@ public abstract class Ownable implements Field {
 		return O;
 	}
 	
-	public int getPriceFDB(){
-		connector.Connect("game");
-		int res = 0;
-		try {
-		ResultSet rs = connector.doQuery("game","SELECT price FROM ownable WHERE fieldID = "+ FieldID +";");
-		while(rs.next()){
-		res = rs.getInt("price");
-		}
-		connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return res;
-		
-	}
-	
 	public boolean getMortgageStateFDB(){
 		connector.Connect("game");
 		boolean O = false;
@@ -116,10 +101,30 @@ public abstract class Ownable implements Field {
 	//METHODS
 	
 	/**
+	 * Lets a player buy a field, deducting price and changing owner
+	 */
+	public void buyField() {
+	}
+	
+	/**
+	 * Lets a player unown a Field
+	 */
+	public void sellField(){
+		
+	}
+	
+	/**
+	 * The action when a player lands on a specific field
+	 */
+	public void actionField(){
+		
+	}
+	
+	/**
 	 * Sets the rent of a field
 	 */
-	public void setRent(int rent){
-		this.rent = rent;
+	public void setRent(){
+		
 	}
 	
 	/**
@@ -134,8 +139,8 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the price of the field
 	 */
-	public void setPrice(int cost){
-		price = cost;
+	public void setPrice(){
+		
 	}
 	
 	/**
@@ -158,10 +163,10 @@ public abstract class Ownable implements Field {
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
 	public int getOwner(){
+		
 		return owner;
 		
 	}
-
 	
 	/**
 	 * Handles the action if a player lands on a field that is owned by another player and need to pay rent
@@ -245,8 +250,8 @@ public abstract class Ownable implements Field {
 	 */
 	public	void buyProperty(Game game, GameBoard gameboard, mGUI mui, int playerID, int boardValue)
 	{
-		boolean buyProperty = mui.get2Buttons("Do you want to buy this property?", "Buy", "Do nothing");
-		if (buyProperty){
+		boolean buyPropperty = mui.get2Buttons("Do you want to buy this property?", "Buy", "Do nothing");
+		if (buyPropperty){
 	
 			game.playerList.get(playerID).getAccount().addBalance(-(((Ownable) gameboard.FieldList.get(boardValue)).getPrice()));
 			((Ownable) gameboard.FieldList.get(boardValue)).setOwner(playerID);
