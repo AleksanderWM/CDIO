@@ -252,12 +252,12 @@ public class PlayTurn implements Runnable{
 						caseMortgage(currentField);
 						}
 					}
-				}	
+				}
 				if (((Ownable) thisboard.FieldList.get(currentField)).getOwner() == 0){
 					mGui.showMessage("This Field has no actions yet");
 					mGui.displayMidDescription("This Field has no actions yet");
 				}
-				else if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
+				if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
 					if (mGui.get2Buttons("What would you like to do?","Make Offer","Abort") == true){
 						/**
 						 * The price you want to pay for the field
