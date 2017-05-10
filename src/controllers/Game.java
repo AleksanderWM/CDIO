@@ -47,7 +47,7 @@ public volatile int id = 1;
 				chance.createChance();
 //				}
 //		}
-//		else {
+//		else {g
 //			for(int i = 1; i <= 40 ; i++){
 //				if(board.getField(i) instanceof Ownable){
 //					Ownable Ownable = (Ownable)board.getField(i);
@@ -77,7 +77,7 @@ public volatile int id = 1;
 			item.savePlayerDB();
 		}
 	}
-
+ 
 	public void enterPlayers()
 	{
 		while (numberOfPlayers < 2 || numberOfPlayers > 6)
