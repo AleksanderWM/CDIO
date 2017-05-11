@@ -167,17 +167,6 @@ public class Property extends Ownable {
 		}
 	}
 	
-//	public int gethouseFDB(int FieldID){
-//		try {
-//			connector.doUpdate("game", "UPDATE Property ");
-//		
-//		connector.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return H;
-//	}
-	
 	public void saveHouseDB(){
 		int HousesToSave = getHouses();
 		try {

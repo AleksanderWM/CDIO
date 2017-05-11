@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Color;
+import java.sql.SQLException;
 
 import controllers.Game;
 import controllers.GameBoard;
@@ -53,7 +54,15 @@ public class Utility extends Ownable{
 			}		
 		}
 
-	
+	public void saveUtilityDB(int fieldNumber){
+		try{
+			connector.doUpdate("game","INSERT into utility values(" + fieldNumber + rent + " );");  
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override
 	public String getDescription() {
@@ -104,7 +113,6 @@ public class Utility extends Ownable{
 	}
 	
 	public void loadfield() {
-		// TODO Auto-generated method stub
 		setOwner(getOwnerFDB());
 
 	}

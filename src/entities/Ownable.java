@@ -68,6 +68,14 @@ public abstract class Ownable implements Field {
 			e.printStackTrace();
 		}
 	}
+	public void saveOwnerDB(){
+		int own = getOwner();
+		try {
+			connector.doUpdate("game", "UPDATE Ownable SET Owner = " + own + " WHERE FieldID = " + FieldID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public int getOwnerFDB(){
 		connector.Connect("game");
@@ -84,47 +92,69 @@ public abstract class Ownable implements Field {
 		return O;
 	}
 	
-	public boolean getMortgageStateFDB(){
-		connector.Connect("game");
-		boolean O = false;
+	public void savePriceDB(){
+		int price = getPrice();
 		try {
-		ResultSet rs = connector.doQuery("game","SELECT mortgage FROM ownable WHERE fieldID = "+ FieldID +";");
+			connector.doUpdate("game", "UPDATE Ownable SET price = " + price + " WHERE FieldID = " + FieldID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getPriceFDB(){
+		connector.Connect("game");
+		int end = 0;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT price FROM ownable WHERE fieldID = "+ FieldID +";");
 		while(rs.next()){
-		O = rs.getBoolean("mortgage");
+		end = rs.getInt("price");
 		}
 		connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return O;
-	}
-	//METHODS
-	
-	/**
-	 * Lets a player buy a field, deducting price and changing owner
-	 */
-	public void buyField() {
+		return end;
 	}
 	
-	/**
-	 * Lets a player unown a Field
-	 */
-	public void sellField(){
+	public void saveMortgageStateDB(){
+		boolean mort;
+		int end;
+		if(mort = getMortgageState()){
+			end = 1;
+		}else{
+			end = 2;
+		}
+		try {
+			connector.doUpdate("game", "UPDATE Ownable SET mortage = " + end + " WHERE FieldID = " + FieldID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean getMortgageStateFDB(){
+		connector.Connect("game");
+		boolean end = false;
+		int mort = 0;
+		try {
+		ResultSet rs = connector.doQuery("game","SELECT mortgage FROM ownable WHERE fieldID = "+ FieldID +";");
+		while(rs.next()){
+		mort = rs.getInt("mortgage");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		if(mort == 1){
+			end = true;
+		}else if(mort == 0){
+			end = false;
+		}
+		return end;
 	}
-	
-	/**
-	 * The action when a player lands on a specific field
-	 */
-	public void actionField(){
-		
-	}
-	
-	/**
-	 * Sets the rent of a field
-	 */
-	public void setRent(){
-		
+
+	public void setRent(int RENT){
+		rent = RENT;
 	}
 	
 	/**
@@ -139,8 +169,8 @@ public abstract class Ownable implements Field {
 	/**
 	 * Sets the price of the field
 	 */
-	public void setPrice(){
-		
+	public void setPrice(int cost){
+		price = cost;
 	}
 	
 	/**
@@ -163,7 +193,6 @@ public abstract class Ownable implements Field {
 	 * Returns the owner (integer?) of the field, corresponding to the player number (int) of the player owning the field
 	 */
 	public int getOwner(){
-		
 		return owner;
 		
 	}
