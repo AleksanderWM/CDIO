@@ -176,6 +176,15 @@ public class Property extends Ownable {
 		}
 	}
 	
+	public void saveHotelDB(){
+		int HotelToSave = getHotel();
+		try {
+			connector.doUpdate("game", "UPDATE Property SET House = " + HotelToSave + " WHERE FieldID = " + FieldID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int getHouseFDB(){
 		int HousesFDB = 0;
 		try {
@@ -190,18 +199,16 @@ public class Property extends Ownable {
 	}
 	
 	public int gethotelFDB(){
-		connector.Connect("chance");
-		int H = 0;
+		int HotelFDB = 0;
 		try {
-		ResultSet rs = connector.doQuery("game","SELECT hotel FROM property WHERE fieldid = "+ FieldID +";");
-		while(rs.next()){
-		H = rs.getInt("chancetype");
-		}
-		connector.close();
+			ResultSet rs = connector.doQuery("game", "Select Hotel FROM Property WHERE FieldID = " + FieldID + ";");
+			if(rs.next()){
+			HotelFDB = rs.getInt("Hotel");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return H;
+		return HotelFDB;
 	}
 
 	@Override
