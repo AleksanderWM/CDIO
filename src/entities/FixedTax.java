@@ -1,3 +1,4 @@
+
 package entities;
 
 import java.awt.Color;
@@ -5,25 +6,40 @@ import java.awt.Color;
 import controllers.*;
 import controllers.mGUI;
 
-public class Tax extends Fee {
+/**
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
+public class FixedTax extends Fee {
 	
-	public Tax() {
+	/**
+	 * Constructer for at FixedTax field
+	 * @param title
+	 * @param description
+	 * @param subtext
+	 */
+	public FixedTax(String title,String description, String subtext) {
 		super();
-		Title = "Indkomst skat";
-		Fee = -1000;
-		Description = "Betal " + Fee;
+		Title = title;
+		Fee = 4000;
+		Description = description;
 		Colour = Color.GRAY;
+		Subtext = subtext;
 		
 	}
 
+	/**
+	 * Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		game.playerList.get(p).getAccount().addBalance(Fee);
+		game.playerList.get(p).getAccount().addBalance(-Fee);
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescription();
+		return Description;
 	}
 
 	@Override
@@ -56,11 +72,13 @@ public class Tax extends Fee {
 		Colour = colour;
 		
 	}
-
 	@Override
 	public Color getColour() {
 		return Colour;
 	}
 	
+	public String getSubtext(){
+		return Subtext;
+	}
 }
 

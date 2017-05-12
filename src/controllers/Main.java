@@ -1,6 +1,9 @@
+/**
+ * @author Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package controllers;
-
-import language.Language;
 
 public class Main {
 	

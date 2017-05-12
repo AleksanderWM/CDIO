@@ -23,6 +23,7 @@ public class Player {
 	private Account Account;
 	private int getOutOfJail = 0;
 	private int ID;
+	private int JailTries;
 	private String name;
 	
 	private int maxfields = 40;
@@ -37,8 +38,13 @@ public class Player {
 			this.Account = new Account(ID);
 			this.ID = ID;
 			this.name = name;
+			getOutOfJail = 0;
+			JailTries = 0;
+	}
+	
+	public void savePlayerDB(){
 		try {
-			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name + "', " + position + ", " + getOutOfJail +");");
+			connector.doUpdate("game","INSERT into PLAYER values(" + ID + ",'" + name + "', " + position + ", " + getOutOfJail +" , " + JailTries + ");");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,13 +62,116 @@ public class Player {
 	 */
 	public void setName(String name){
 		this.name = name;
-		connector.Connect("game");
+	}
+	
+	public void saveNameDB(){
+		String nameToSave = getName();
 		try {
-			connector.doUpdate("Game","UPDATE Player SET name = " + name + " WHERE PlayerID = " + ID + ";");
-				connector.close();
+			connector.doUpdate("game", "UPDATE Player SET Name = " + nameToSave + " WHERE PlayerID = " + ID + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getNameFDB(){
+		String playerFDB = null;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select Name FROM Player WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			playerFDB = rs.getString("Name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return playerFDB;
+	}
+	
+	public void savePositionDB(){
+		int positionToSave = getPosition();
+		try {
+			connector.doUpdate("game", "UPDATE Player SET Position = " + positionToSave + " WHERE PlayerID = " + ID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getPositionFDB(){
+		int positionFDB = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select Position FROM Player WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			positionFDB = rs.getInt("Position");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return positionFDB;
+	}
+	
+	public void saveGOOJDB(){
+		int GOOJToSave = getOutOfJail();
+		try {
+			connector.doUpdate("game", "UPDATE Player SET GetOutOfJail = " + GOOJToSave + " WHERE PlayerID = " + ID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getGOOJFDB(){
+		int GOOJFDB = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select GetOutOfJail FROM Player WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			GOOJFDB = rs.getInt("GetOutOfJail");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return GOOJFDB;
+	}
+	
+	public void savePlayerIDDB(){
+		int playerIDToSave = getID();
+		try {
+			connector.doUpdate("game", "UPDATE Player SET GetOutOfJail = " + playerIDToSave + " WHERE PlayerID = " + ID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getPlayerIDFDB(){
+		int playerIDFDB = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select GetOutOfJail FROM Player WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			playerIDFDB = rs.getInt("PlayerID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return playerIDFDB;
+	}
+	
+	public void saveJailTriesDB(){
+		int jailTriesToSave = getID();
+		try {
+			connector.doUpdate("game", "UPDATE Player SET Jailtries = " + jailTriesToSave + " WHERE PlayerID = " + ID + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getJailTriesFDB(){
+		int jailTriesFDB = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select Jailtries FROM Player WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			jailTriesFDB = rs.getInt("Jailtries");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return jailTriesFDB;
 	}
 	
 	/**
@@ -178,12 +287,14 @@ public class Player {
 		connector.Connect("game");
 	
 		try {
-			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail FROM PLAYER WHERE PlayerID = "+ ID +";");
+			ResultSet rs = connector.doQuery("Game","SELECT position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
 				int pos = 0;
 				int gooj = 0;
+				int Jailtried = 0;
 				while(rs.next()){
 				pos = rs.getInt("position");
 				gooj = rs.getInt("getoutofjail");
+				Jailtried = rs.getInt("jailtries");
 				}
 				connector.close();
 				if(position != pos){
@@ -192,12 +303,68 @@ public class Player {
 				if(getOutOfJail != gooj){
 					setOutOfJail(getOutOfJail);
 				}
+				if(this.JailTries != Jailtried){
+					setJailTries(this.JailTries);
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		Account.updateAccount();
 		
+		}
+	
+	
+	public int getJailTries(){
+		return JailTries;
 	}
+	public void resetJailTries(){
+		JailTries = 0;
+	}
+	public void setJailTries(int trys){
+		JailTries = JailTries + trys;
+		connector.Connect("game");
+		try {
+			connector.doUpdate("Game","UPDATE Player SET jailtrys = " + JailTries + " WHERE PlayerID EQUALS " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int countplayerinDB(){
+		connector.Connect("chance");
+		int count = 0;
+		try {
+		ResultSet rs = connector.doQuery("game"," SELECT COUNT * FROM Player;");
+		while(rs.next()){
+		count = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+//	public void loadPlayer(){
+//		connector.Connect("game");
+//	
+//		try {
+//			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
+//
+//				while(rs.next()){
+//				name = rs.getString("name");
+//				position = rs.getInt("position");
+//				getOutOfJail = rs.getInt("getoutofjail");
+//				JailTries = rs.getInt("jailtries");
+//				}
+//				
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		Account.loadAccount();
+//		
+//		}
 }
 
 

@@ -62,6 +62,7 @@ public class DBconnector extends aDB {
 	    	Connect(DB);
 	        Statement stmt = connection.createStatement();
 	        stmt.executeUpdate(query);
+	        connection.close();
 	    }
 	    
 	    /**

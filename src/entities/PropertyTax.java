@@ -1,4 +1,12 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PropertyTax extends ChanceCard{
 	
@@ -9,64 +17,123 @@ public class PropertyTax extends ChanceCard{
 		super(ID, Type, Des);
 		HouseTax = House;
 		HotelTax = Hotel;
+		try {
+			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + House + "," + Hotel + ");");
+			connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
-	}
-
-
-	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public int getHouseTax(){
 		return HouseTax;
 	}
 	
-	public void setHouseTax(){
+	public void setHoteltax(int ChanceHoteltax){
+		HotelTax = ChanceHoteltax;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE PropertyTax SET hoteltax = " + ChanceHoteltax + " WHERE PropertytaxID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getHotelTax(){
 		return HotelTax;
 	}
 	
-	public void setHotelTax(){
+	public void setHouseTax(int ChanceHousetax){
+		HouseTax = ChanceHousetax;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE PropertyTax SET housetax = " + ChanceHousetax + " WHERE PropertytaxID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM propertytax WHERE " + card.getChanceID() +  "= propertytaxID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
+	public int getdbHouseTax(){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT housetax FROM propertytax WHERE propertytaxID = "+ ID +";");
+		while(rs.next()){
+		HT = rs.getInt("housetax");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getdbHotelTax(){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT hoteltax FROM propertytax WHERE propertytaxID = "+ ID +";");
+		while(rs.next()){
+		HT = rs.getInt("hoteltax");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getHouseTaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Housetax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	public int getHoteltaxFDB(int ChanceID){
+		connector.Connect("chance");
+		int HT = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT hoteltax FROM propertytax WHERE propertytaxid = "+ ChanceID +";");
+		while(rs.next()){
+		HT = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return HT;
+	}
+	
+	@Override
+	public void loadChance() {
+		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		HotelTax = getdbHotelTax();
+		HouseTax = getdbHouseTax();
+	}
 }

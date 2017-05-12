@@ -1,3 +1,8 @@
+/**
+ * @author Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package controllers;
 
 import java.sql.ResultSet;
@@ -5,8 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entities.Field;
+import entities.Ownable;
 import entities.Player;
-import language.Language;
+import entities.Property;
 
 public class Game {
 static mGUI gui = new mGUI();
@@ -16,29 +23,68 @@ Scanner scan = new Scanner(System.in);
 DBconnector connector = new DBconnector();
 public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
+Chance chance = new Chance();
+public Property prop;
 
 public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
-		board.CreateBoard();
-		playerList.add(null);
-		dbc.DeleteDBTemp("game", connector);
-		if(dbc.checkDB("game") == false){
-			dbc.CreateGame();
-			dbc.tbCreatorGame();
-		}
-		if(dbc.checkDB("chance") == false){
-			dbc.CreateChance();
-		}
-		System.out.println("Choose Language (Dansk/English)");
-		Language.chooseLanguage(scan.nextLine());
-		board.CreateBoard();
-		gui.CreateBoard();
+//		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
+//		int answer = scan.nextInt();
+//		if(answer == 1){
+//			dbc.DeleteDBTemp("game", connector);
+//			if(dbc.checkDB("game") == false){
+//				dbc.CreateGame();
+//				dbc.tbCreatorGame();
+////			}
+				dbc.DeleteDBTemp("game", connector);
+				dbc.DeleteDBTemp("Chance", connector);
+				dbc.CreateGame();
+				dbc.tbCreatorGame();
+				dbc.CreateChance();
+				dbc.tbCreatorChance();
+				chance.createChance();
+
+//				}
+//		}
+//		else {g
+//			for(int i = 1; i <= 40 ; i++){
+//				if(board.getField(i) instanceof Ownable){
+//					Ownable Ownable = (Ownable)board.getField(i);
+//					Ownable.loadfield();
+//				}
+//			}
+//			
+//		}
+
+				Player player = new Player("Anden", 0);
+				playerList.add(player);
+				board.CreateBoardFromTextFile();
+				gui.CreateBoard();
+				saveDB();
+				((Property)board.FieldList.get(2)).addHouses(3);
+				((Property)board.FieldList.get(2)).saveHouseDB();
+				System.out.println(((Property)board.FieldList.get(2)).getHouseFDB());
+				
 
 		enterPlayers();
 	}
-
+	
+	public void saveDB(){
+		for(Field item : board.FieldList){
+			if(item instanceof Ownable){
+				((Ownable) item).saveOwnableDB(((Ownable) item).getFieldID(), ((Ownable) item).getOwner(), ((Ownable) item).getRent(), ((Ownable) item).setMortgageDB(((Ownable) item).getMortgageState()));
+			}
+			if(item instanceof Property){
+				((Property) item).savePropertyDB(((Ownable)item).getFieldID());
+			}
+		}
+		for(Player item : playerList){
+			item.savePlayerDB();
+		}
+	}
+ 
 	public void enterPlayers()
 	{
 		while (numberOfPlayers < 2 || numberOfPlayers > 6)
@@ -56,6 +102,7 @@ public volatile int id = 1;
 			id++;
 
 		}
+		saveDB();
 				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
@@ -79,7 +126,11 @@ public volatile int id = 1;
 		}
 
 	
-	
+	public void gameWinner(){
+		for(Player item : playerList){
+			
+		}
+	}
 
 	
 	public int gameId(){

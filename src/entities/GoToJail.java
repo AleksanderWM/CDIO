@@ -6,21 +6,38 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * @author Emil Jørgensen, LandOnField by Aleksander
+ *
+ */
 public class GoToJail implements Field {
 
 	private String Title;
-	private String Description = "Move to Jail";
-	private String Picture = "";
+	private String Description ;
 	private Color TxColour = Color.BLACK;
 	private Color Colour = Color.GRAY;
-	private String Subtext = "Gaa i faengsel";
+	private String Subtext;
 	
-	public GoToJail(String name){
+	/**
+	 * Constructer for a GoToJail field
+	 * @param name
+	 * @param description
+	 * @param subtext
+	 */
+	public GoToJail(String name,String description,String subtext){
+		Description = description;
 		Title = name;
+		Subtext = subtext;
 	}
-	
+	/**
+	 * Defines what happens when a player lands on this field
+	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
+		game.playerList.get(p).setPosition(41);
+		mui.removeCar(game,p);
+		mui.setCarOnJail(game, p);
+		
 	}
 
 	@Override
@@ -75,8 +92,6 @@ public class GoToJail implements Field {
 
 	@Override
 	public void setNumber(int numb) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

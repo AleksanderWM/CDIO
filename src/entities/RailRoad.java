@@ -6,7 +6,11 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
-
+/**
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 public class RailRoad extends Ownable{
 
 	private Color TxColour = Color.BLACK;
@@ -16,22 +20,39 @@ public class RailRoad extends Ownable{
 	private int RENT_3 = 2000;
 	private int RENT_4 = 4000;
 	
-	public RailRoad(String title, String subText, Color color, int player, int cost, int rent) {
-		super(title, subText, color, player, cost, rent);
+	/**
+	 * The constructor for a Railroad field
+	 * @param title
+	 * @param description
+	 * @param subText
+	 * @param color
+	 * @param player
+	 * @param cost
+	 * @param rent
+	 */
+	public RailRoad(int id, String title, String description, String subText, Color color, int player, int cost, int rent, boolean mortgageState) {
+		super(id, title,description, subText, color, player, cost, rent, mortgageState);
 		super.Colour = Color.WHITE;
 	}
 
+	/**
+	 *Defines what happens when a player lands on this field
+	 */
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p){
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == 0){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+			mui.setBalance(game, playerID);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID){
 			for(Field item : gameboard.FieldList)
 			{
-				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				if((item instanceof RailRoad) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(boardValue)).getOwner()).getID()))
 				{
 				ownedRailRoads++;
 				}
 			}
-			payRent(game, p, gameboard, b, rent);
+			payRent(game, playerID, gameboard, boardValue, rent, mui);
 		}
 	}
 	
@@ -105,5 +126,10 @@ public class RailRoad extends Ownable{
 	
 	public void setTxColour(Color colour){
 		TxColour = colour;
+	}
+	
+	public void loadfield() {
+		// TODO Auto-generated method stub
+		setOwner(getOwnerFDB());
 	}
 }

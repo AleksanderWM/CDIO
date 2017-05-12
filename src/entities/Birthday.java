@@ -1,4 +1,12 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Birthday extends ChanceCard{
 	
@@ -7,58 +15,79 @@ public class Birthday extends ChanceCard{
 	public Birthday(int ID, int Type, String Des, int fee) {
 		super(ID, Type, Des);
 		this.Fee = fee;
+		try {
+			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + fee + ");");
+			connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		// TODO Auto-generated constructor stub
 	}
-
-
-	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceID() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	public int getFee(){
 		return Fee;
 	}
 	
-	public void setFee(){
-		
+	public void setFee(int ChanceFee){
+		Fee = ChanceFee;
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("chance","UPDATE birthday SET Fee = " + ChanceFee + " WHERE BirthdayID = " + ID + ";");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-
 	@Override
-	public void Chance() {
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+			connector.doUpdate("Chance","DELETE FROM birthday WHERE " + card.getChanceID() +  "= birthdayID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getdbFee(){
+		connector.Connect("chance");
+		int fee = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT fee FROM birthday WHERE birthdayID = "+ ID +";");
+		while(rs.next()){
+		fee = rs.getInt("fee");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fee;
+	}
+	
+	public int getFeeFDB(int ChanceID){
+		connector.Connect("chance");
+		int Fee = 0;
+		try {
+		ResultSet rs = connector.doQuery("chance","SELECT Fee FROM Chance Fee FeeID = "+ ChanceID +";");
+		while(rs.next()){
+		Fee = rs.getInt("chancetype");
+		}
+		connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Fee;
+	}
+	
+	@Override
+	public void loadChance() {
 		// TODO Auto-generated method stub
+		ID = getdbID();
+		Type = getdbType();
+		Fee = getdbFee();
 		
 	}
 }

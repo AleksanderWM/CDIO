@@ -6,16 +6,28 @@ import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * 
+ * @author Emil Jørgensen
+ *
+ */
 public class Parking implements Field {
 
-	private String Title = "Free Parking";
-	private String Description = "Take a break for free";
-	private String Picture = "";
+	private String Title;
+	private String Description;
 	private Color TxColour = Color.BLACK;
-	private String Subtext = "Parking";
+	private String Subtext;
 	private Color Colour = Color.WHITE;
 	
-	public Parking(String sub){
+	/**
+	 * The constructor for a Parking field
+	 * @param title
+	 * @param description
+	 * @param sub
+	 */
+	public Parking(String title, String description,String sub){
+		Title = title;
+		Description = description;
 		Subtext = sub;
 	}
 	
@@ -61,13 +73,6 @@ public class Parking implements Field {
 	@Override
 	public Color getColour() {
 		return Colour;
-	}
-	public String getPicture() {
-		return Picture;
-	}
-
-	public void setPicture(String url){
-		Picture = url;
 	}
 	
 	public Color getTxColour(){

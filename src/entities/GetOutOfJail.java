@@ -1,4 +1,11 @@
+/**
+ * @author Simon
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 package entities;
+
+import java.sql.SQLException;
 
 public class GetOutOfJail extends ChanceCard{
 
@@ -8,45 +15,21 @@ public class GetOutOfJail extends ChanceCard{
 	}
 
 	@Override
-	public int getChanceID() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void removeChance(ChanceCard card) {
+		connector.Connect("chance");
+		try {
+			connector.doUpdate("Chance","DELETE FROM chance WHERE " + card.getChanceID() +  "= ChanceID;");
+				connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void setChanceID() {
+	public void loadChance() {
+		ID = getdbID();
+		Type = getdbID();
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public int getChanceType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setChanceType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDescription() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Chance() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

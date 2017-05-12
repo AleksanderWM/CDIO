@@ -1,22 +1,43 @@
 package entities;
 
 import java.awt.Color;
+import java.sql.SQLException;
 
 import controllers.Game;
 import controllers.GameBoard;
 import controllers.mGUI;
 
+/**
+ * @author Emil LandOnField created by Aleksander
+ * Gruppe 
+ * 02362 Projekt i software-udvikling 
+ */
 public class Utility extends Ownable{
 	
 	private Color TxColour = Color.WHITE;
 	
-	public Utility(String title, String subText, int player, int cost, int rent) {
-		super(title, subText, new Color(6,76,30), player, cost, rent);
+	/**
+	 * The constructor for a Utility field
+	 * @param title
+	 * @param description
+	 * @param subText
+	 * @param player
+	 * @param cost
+	 * @param rent
+	 */
+	public Utility(int id, String title,String description, String subText, int player, int cost, int rent, boolean mortgageState) {
+		super(id, title,description, subText, new Color(6,76,30), player, cost, rent, mortgageState);
 	}
 
+	/**
+	 *Defines what happens when a player lands on this field
+	 */
 	@Override
-	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		if(((Ownable)gameboard.FieldList.get(b)).getOwner() != owned && ((Ownable)gameboard.FieldList.get(b)).getOwner() != p)
+	public void landOnField(Game game, GameBoard gameboard, int boardValue, int playerID, mGUI mui, Shaker shake) {
+		if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() == 0){
+			buyProperty(game, gameboard, mui, playerID, boardValue);
+		}
+		else if(((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != 0 && ((Ownable)gameboard.FieldList.get(boardValue)).getOwner() != playerID)
 		{
 			mui.getButton("Press to shake the dice", "Shake");
 			shake.setShake();
@@ -24,16 +45,24 @@ public class Utility extends Ownable{
 			int ownedUtility = 0;
 			for(Field item : gameboard.FieldList)
 			{
-				if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(b)).getOwner()).getID()))
+				if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)gameboard.FieldList.get(boardValue)).getOwner()).getID()))
 				{
 				ownedUtility++;
 				}
 			}
-			payRent(game, p, gameboard, b, rent*shake.getShake()*ownedUtility);
+			payRent(game, playerID, gameboard, boardValue, rent*shake.getShake()*ownedUtility, mui);
 			}		
 		}
 
-	
+	public void saveUtilityDB(int fieldNumber){
+		try{
+			connector.doUpdate("game","INSERT into utility values(" + fieldNumber + rent + " );");  
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override
 	public String getDescription() {
@@ -73,13 +102,7 @@ public class Utility extends Ownable{
 	public Color getColour() {
 		return super.Colour;
 	}
-	public String getPicture() {
-		return Picture;
-	}
 
-	public void setPicture(String url){
-		Picture = url;
-	}
 	
 	public Color getTxColour(){
 		return TxColour;
@@ -87,6 +110,11 @@ public class Utility extends Ownable{
 	
 	public void setTxColour(Color colour){
 		TxColour = colour;
+	}
+	
+	public void loadfield() {
+		setOwner(getOwnerFDB());
+
 	}
 
 }
