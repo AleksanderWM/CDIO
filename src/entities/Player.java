@@ -346,25 +346,29 @@ public class Player {
 		return count;
 	}
 	
-//	public void loadPlayer(){
-//		connector.Connect("game");
-//	
-//		try {
-//			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
-//
-//				while(rs.next()){
-//				name = rs.getString("name");
-//				position = rs.getInt("position");
-//				getOutOfJail = rs.getInt("getoutofjail");
-//				JailTries = rs.getInt("jailtries");
-//				}
-//				
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		Account.loadAccount();
-//		
-//		}
+	
+	/**
+	 * Loads the Player and Account tables from DB into java
+	 */
+	public void loadPlayer(){
+		connector.Connect("game");
+	
+		try {
+			ResultSet rs = connector.doQuery("Game","SELECT name, position, getoutofjail, Jailtries FROM PLAYER WHERE PlayerID = "+ ID +";");
+
+				while(rs.next()){
+				name = rs.getString("name");
+				position = rs.getInt("position");
+				getOutOfJail = rs.getInt("getoutofjail");
+				JailTries = rs.getInt("jailtries");
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Account.loadAccount();
+		
+		}
 }
 
 
