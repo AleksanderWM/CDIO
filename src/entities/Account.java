@@ -30,12 +30,15 @@ public class Account {
 		this.ID = ID;
 		this.money = 30000;
 		this.networth = 30000;
+	}
+	
+	public void saveAccountDB(){
 		try{
-		connector.doUpdate("game","INSERT into ACCOUNT values(" + ID + "," + 30000 + "," + 30000 + ");");
+		connector.doUpdate("game","INSERT into ACCOUNT values(" + ID + "," + money + "," + networth + ");");
 		}
 		 catch (SQLException e) {
 				e.printStackTrace();
-			}
+		 }
 	}
 	
 
@@ -69,7 +72,7 @@ public class Account {
 	 * sets the balance to a specific amount
 	 * adds the difference to net worth
 	 */
-	public void setBalance(int balance){
+	public void setBalanceDB(int balance){
 		int dif = balance - money;
 		networth = networth + dif;
 		money = balance;
@@ -106,7 +109,7 @@ public class Account {
 			}
 				connector.close();
 				if(money != Balance){
-					setBalance(money);
+					setBalanceDB(money);
 				}
 				if(networth != NW){
 					setNetworth(networth);
@@ -126,15 +129,20 @@ public class Account {
 
 	}
 	
-	public void loadPlayer(){
+	
+	/**
+	 * Load variables from the DB
+	 * Being called in loadPlayer
+	 */
+	public void loadAccount(){
 		connector.Connect("game");
 	
 		try {
 			ResultSet rs = connector.doQuery("Game","SELECT money,networth FROM Account WHERE PlayerID = "+ ID +";");
 
 				while(rs.next()){
-				money = rs.getInt("position");
-				networth = rs.getInt("getoutofjail");
+				money = rs.getInt("money");
+				networth = rs.getInt("networth");
 				}
 				
 		} catch (SQLException e) {
@@ -142,5 +150,5 @@ public class Account {
 		}
 		
 	
-}
+	}
 }
