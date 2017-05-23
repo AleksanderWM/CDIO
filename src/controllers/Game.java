@@ -86,6 +86,7 @@ public int numberOfPlayers = 20;
 		}
 		for(Player item : playerList){
 			item.savePlayerDB();
+			item.getAccount().saveAccountDB();
 		}
 	}
 	public void updateBoardFDB(){
@@ -120,6 +121,7 @@ public int numberOfPlayers = 20;
 			int jtry = player.getJailTriesFDB(id);
 			Player playerFDB = new Player(name, id, posi, gooj, jtry);
 			playerList.add(playerFDB);
+			playerList.get(id).getAccount().setBalance(playerList.get(id).getAccount().getBalanceFDB(id));
 			gui.addPlayer(this, id);
 			gui.setCar(this, id);
 			id++;

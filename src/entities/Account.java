@@ -82,10 +82,10 @@ public class Account {
 		}
 	}
 	
-	public int getBalanceFDB(){
+	public int getBalanceFDB(int playerNumber){
 		int balance = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select Money FROM Account WHERE PlayerID = " + ID + ";");
+			ResultSet rs = connector.doQuery("game", "Select Money FROM Account WHERE PlayerID = " + playerNumber + ";");
 			if(rs.next()){
 			balance = rs.getInt("Money");
 			}
