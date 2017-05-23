@@ -259,7 +259,7 @@ public class PlayTurn implements Runnable{
 					mGui.showMessage("This Field has no actions yet");
 					mGui.displayMidDescription("This Field has no actions yet");
 				}
-				if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
+				else if(((Ownable) thisboard.FieldList.get(currentField)).getOwner() != thisplayer.getID()){
 					if (mGui.get2Buttons("What would you like to do?","Make Offer","Abort") == true){
 						/**
 						 * The price you want to pay for the field
@@ -324,7 +324,7 @@ public class PlayTurn implements Runnable{
 							}
 							if((item instanceof Property) && 
 									(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor()) && 
-									(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
+									(((Property)item).getOwner()) == ((Ownable)thisboard.FieldList.get(currentField)).getOwner()){
 										ownedPropertyInSeries++;
 							}
 							
