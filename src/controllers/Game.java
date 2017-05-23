@@ -55,9 +55,9 @@ public int numberOfPlayers = 20;
 				Player player = new Player(null, 0);
 				playerList.add(player);
 				try{
-					ResultSet rs = connector.doQuery("game", "Select COUNT(*) FROM player;");
+					ResultSet rs = connector.doQuery("game", "Select COUNT(*) AS rowcount FROM player;");
 						if(rs.next()){
-							numberOfPlayers = rs.last() ? rs.getRow() :0;
+							numberOfPlayers = rs.getInt("rowcount");
 						} 
 				}
 				catch (SQLException e) {
