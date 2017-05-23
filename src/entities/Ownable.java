@@ -77,11 +77,16 @@ public abstract class Ownable implements Field {
 		}
 	}
 	
-	public int getOwnerFDB(){
+	public void updateOwnableDB(){
+		saveOwnerDB();
+		saveMortgageStateDB();
+	}
+	
+	public int getOwnerFDB(int fieldNumber){
 		connector.Connect("game");
 		int O = 0;
 		try {
-		ResultSet rs = connector.doQuery("game","SELECT owner FROM ownable WHERE fieldID = "+ FieldID +";");
+		ResultSet rs = connector.doQuery("game","SELECT owner FROM ownable WHERE fieldID = "+ fieldNumber +";");
 		while(rs.next()){
 		O = rs.getInt("owner");
 		}
@@ -125,18 +130,18 @@ public abstract class Ownable implements Field {
 			end = 2;
 		}
 		try {
-			connector.doUpdate("game", "UPDATE Ownable SET mortage = " + end + " WHERE FieldID = " + FieldID + ";");
+			connector.doUpdate("game", "UPDATE Ownable SET mortgage = " + end + " WHERE FieldID = " + FieldID + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public boolean getMortgageStateFDB(){
+	public boolean getMortgageStateFDB(int fieldNumber){
 		connector.Connect("game");
 		boolean end = false;
 		int mort = 0;
 		try {
-		ResultSet rs = connector.doQuery("game","SELECT mortgage FROM ownable WHERE fieldID = "+ FieldID +";");
+		ResultSet rs = connector.doQuery("game","SELECT mortgage FROM ownable WHERE fieldID = "+ fieldNumber +";");
 		while(rs.next()){
 		mort = rs.getInt("mortgage");
 		}

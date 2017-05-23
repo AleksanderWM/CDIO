@@ -54,28 +54,24 @@ public class Account {
 	 * add a given amount of money to the balance and net worth
 	 */
 	public void addBalance(int addmoney){
-		connector.Connect("game");
 		int newBalance = this.money + addmoney;
 		int newNetworth = networth + addmoney;
 		money = newBalance;
 		networth = newNetworth;
-		try {
-			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + newBalance + " WHERE PlayerID = " + ID + ";");
-			connector.doUpdate("Game","UPDATE ACCOUNT SET networth = " + newNetworth + " WHERE PlayerID = " + ID + ";");
-				connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
 	 * sets the balance to a specific amount
 	 * adds the difference to net worth
 	 */
-	public void setBalanceDB(int balance){
+	public void setBalance(int balance){
 		int dif = balance - money;
 		networth = networth + dif;
 		money = balance;
+	}
+	
+	public void setBalanceDB(){
+		int balance = money;
 		connector.Connect("game");
 		try {
 			connector.doUpdate("Game","UPDATE ACCOUNT SET Money = " + balance + " WHERE PlayerID = " + ID + ";");
@@ -84,6 +80,19 @@ public class Account {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getBalanceFDB(){
+		int balance = 0;
+		try {
+			ResultSet rs = connector.doQuery("game", "Select Money FROM Account WHERE PlayerID = " + ID + ";");
+			if(rs.next()){
+			balance = rs.getInt("Money");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return balance;
 	}
 	
 	
@@ -109,7 +118,7 @@ public class Account {
 			}
 				connector.close();
 				if(money != Balance){
-					setBalanceDB(money);
+					setBalanceDB();
 				}
 				if(networth != NW){
 					setNetworth(networth);

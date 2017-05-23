@@ -161,7 +161,7 @@ public class Chance {
 				case 3 : 
 					FixedMove Fixed = (FixedMove)Card;
 					Player.setPosition(Fixed.getMove());
-					gui.setCar(game, Fixed.getMove());
+					gui.setCar(game, Player.getID());
 					break;
 //			DynamicMove
 				case 4 : 

@@ -25,50 +25,51 @@ public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
 Chance chance = new Chance();
 public Property prop;
+Player playerfdb;
 
 public int numberOfPlayers = 20;
 public volatile int id = 1;
 
 	public void gameStart(){
-//		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
-//		int answer = scan.nextInt();
-//		if(answer == 1){
-//			dbc.DeleteDBTemp("game", connector);
-//			if(dbc.checkDB("game") == false){
-//				dbc.CreateGame();
-//				dbc.tbCreatorGame();
-////			}
-				dbc.DeleteDBTemp("game", connector);
-				dbc.DeleteDBTemp("Chance", connector);
+		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
+		int answer = scan.nextInt();
+		if(answer == 1){
+			dbc.DeleteDBTemp("game", connector);
+			dbc.DeleteDBTemp("Chance", connector);
+			if(dbc.checkDB("game") == false){
 				dbc.CreateGame();
 				dbc.tbCreatorGame();
 				dbc.CreateChance();
 				dbc.tbCreatorChance();
 				chance.createChance();
-
-//				}
-//		}
-//		else {g
-//			for(int i = 1; i <= 40 ; i++){
-//				if(board.getField(i) instanceof Ownable){
-//					Ownable Ownable = (Ownable)board.getField(i);
-//					Ownable.loadfield();
-//				}
-//			}
-//			
-//		}
-
-				Player player = new Player("Anden", 0);
-				playerList.add(player);
 				board.CreateBoardFromTextFile();
+				Player player = new Player(null, 0);
+				playerList.add(player);
+				gui.CreateBoard();
+				enterPlayers();
+				saveDB();
+				createPlayerThreads(numberOfPlayers);
+			}
+		}
+			else if(answer == 2){
+				board.CreateBoardFromDB();
+				Player player = new Player(null, 0);
+				playerList.add(player);
+				try{
+					ResultSet rs = connector.doQuery("game", "Select COUNT(*) FROM player;");
+						if(rs.next()){
+							numberOfPlayers = rs.last() ? rs.getRow() :0;
+						} 
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				enterPlayersFDB();
 				gui.CreateBoard();
 				saveDB();
-				((Property)board.FieldList.get(2)).addHouses(3);
-				((Property)board.FieldList.get(2)).saveHouseDB();
-				System.out.println(((Property)board.FieldList.get(2)).getHouseFDB());
-				
+			}
 
-		enterPlayers();
+		createPlayerThreads(numberOfPlayers);
 	}
 	
 	public void saveDB(){
@@ -84,7 +85,35 @@ public volatile int id = 1;
 			item.savePlayerDB();
 		}
 	}
+	
+	public void updateDB(){
+		for(Field item : board.FieldList){
+			if(item instanceof Ownable){
+				((Ownable) item).updateOwnableDB();
+			}
+			if(item instanceof Property){
+				((Property) item).updatePropertyDB();
+			}
+		}
+		for(Player item : playerList){
+			if(item instanceof Player){
+				item.updatePlayer();
+			}
+		}
+		
+	}
  
+	public void enterPlayersFDB(){
+		for(int x = 0; x < numberOfPlayers; x++){
+			String name = playerfdb.getName();
+			int idFDB = playerfdb.getID();
+			Player playerFDB = new Player(name, idFDB);
+			playerList.add(playerFDB);
+			gui.addPlayer(this, idFDB);
+			gui.setCarOnStart(this, idFDB);
+		}
+	}
+	
 	public void enterPlayers()
 	{
 		while (numberOfPlayers < 2 || numberOfPlayers > 6)
@@ -102,8 +131,6 @@ public volatile int id = 1;
 			id++;
 
 		}
-		saveDB();
-				this.createPlayerThreads(numberOfPlayers);
 	}
 	/**
 	 * Creates the different threads for the game.

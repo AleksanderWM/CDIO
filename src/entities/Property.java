@@ -96,6 +96,11 @@ public class Property extends Ownable {
 		}
 
 	}
+	
+	public void updatePropertyDB(){
+		saveHouseDB();
+		saveHotelDB();
+	}
 
 	@Override
 	public String getDescription() {
@@ -185,10 +190,10 @@ public class Property extends Ownable {
 		}
 	}
 	
-	public int getHouseFDB(){
+	public int getHouseFDB(int fieldNumber){
 		int HousesFDB = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select House FROM Property WHERE FieldID = " + FieldID + ";");
+			ResultSet rs = connector.doQuery("game", "Select House FROM Property WHERE FieldID = " + fieldNumber + ";");
 			if(rs.next()){
 			HousesFDB = rs.getInt("House");
 			}
@@ -198,10 +203,10 @@ public class Property extends Ownable {
 		return HousesFDB;
 	}
 	
-	public int gethotelFDB(){
+	public int gethotelFDB(int fieldNumber){
 		int HotelFDB = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select Hotel FROM Property WHERE FieldID = " + FieldID + ";");
+			ResultSet rs = connector.doQuery("game", "Select Hotel FROM Property WHERE FieldID = " + fieldNumber + ";");
 			if(rs.next()){
 			HotelFDB = rs.getInt("Hotel");
 			}
