@@ -167,7 +167,7 @@ public class Chance {
 				case 4 : 
 					DynamicMove Dyn = (DynamicMove)Card;
 					Player.movePosition(Dyn.getMoves());
-					gui.setCar(game, Player.getPosition());
+					gui.setCar(game, Player.getID());
 					break;
 //			Matador
 				case 5 : 
