@@ -322,11 +322,13 @@ public class PlayTurn implements Runnable{
 									(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor())){
 										propertyInSeries++;
 							}
+							System.out.println(propertyInSeries);
 							if((item instanceof Property) && 
 									(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor()) && 
 									(((Property)item).getOwner()) == ((Ownable)thisboard.FieldList.get(currentField)).getOwner()){
 										ownedPropertyInSeries++;
 							}
+							System.out.println(ownedPropertyInSeries);
 							
 				}
 					if(propertyInSeries == ownedPropertyInSeries){
