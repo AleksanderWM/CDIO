@@ -126,8 +126,17 @@ public class PlayTurn implements Runnable{
 		}
 		else {
 			thisgame.playerList.get(playerID).setOutOfJail(-1);
-			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).setPosition(11);
+			mGui.getButton("Press the Button to shake the dies", "Shake");
+			shake.shakeShaker();
+			int shakeValue = shake.getShake();
+			mGui.setDice(shake);
+			thisgame.playerList.get(playerID).movePosition(shakeValue);
+			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
+			wasIJustReleasedFromJail = true;
+			thisgame.playerList.get(playerID).resetJailTries();
+			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
+
 			System.out.println("Fængsel KongeKort");
 		}
 	}
@@ -200,6 +209,8 @@ public class PlayTurn implements Runnable{
 			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
+			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
+
 			System.out.println("Fængsel rullet ud");
 		}
 	}
