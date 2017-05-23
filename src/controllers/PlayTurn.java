@@ -362,7 +362,7 @@ public class PlayTurn implements Runnable{
 								if((item instanceof Property) && 
 										(((Property)item).getColor()) == ((Ownable)thisboard.FieldList.get(currentField)).getColor() && 
 										((((Property)item).getHouses()) == 4 ||
-										(((Property)item).getHotel()) == 0)){
+										(((Property)item).getHotel()) == 1)){
 											propertyWithHotel++;
 								}
 						}
