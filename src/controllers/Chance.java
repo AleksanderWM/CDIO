@@ -122,26 +122,12 @@ public class Chance {
 					}
 					Utility Utility = (Utility)game.board.getField(pos);
 					UtillityMove UtillityMove = (UtillityMove)Card;
-					if(Utility.getOwner() != Player.getID()){
-						{
-							gui.getButton("Press to shake the dice", "Shake");
-							shake.setShake();
-							gui.setDice(shake);
-							int ownedUtility = 0;
-							for(Field item : game.board.FieldList)
-							{
-								if((item instanceof Utility) && (((Ownable)item).getOwner() == game.playerList.get(((Ownable)game.board.FieldList.get(pos)).getOwner()).getID()))
-								{
-								ownedUtility++;
-								}
-							}
-							Utility.payRent(game, Player.getID(), game.board, pos, Utility.getRent()*shake.getShake()*ownedUtility*UtillityMove.getdbMulti(), gui);
-							}	
+					for(int i = 0; i < 2; i++){
+					Utility.landOnField(game, game.board, Utility.getFieldID(), Player.getID(), gui, shake);
 					}
-					else{
 						Player.setPosition(pos);
 						gui.setCar(game, Player.getID());
-					}
+					
 					break;
 					
 //			PropertyTax
@@ -168,12 +154,14 @@ public class Chance {
 					FixedMove Fixed = (FixedMove)Card;
 					Player.setPosition(Fixed.getMove());
 					gui.setCar(game, Player.getID());
+					game.board.getField(Fixed.getMove()).landOnField(game, game.board, Fixed.getMove(), Player.getID(), gui, shake);
 					break;
 //			DynamicMove
 				case 4 : 
 					DynamicMove Dyn = (DynamicMove)Card;
 					Player.movePosition(Dyn.getMoves());
 					gui.setCar(game, Player.getID());
+					game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 					break;
 //			Matador
 				case 5 : 
@@ -211,6 +199,7 @@ public class Chance {
 						if(game.board.getField(i) instanceof RailRoad){
 							Player.setPosition(i);
 							gui.setCar(game, Player.getID());
+							game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 							return;
 						}
 						else{
@@ -218,6 +207,7 @@ public class Chance {
 								if(game.board.getField(i) instanceof RailRoad){
 									Player.setPosition(i);
 									gui.setCar(game, Player.getID());
+									game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 									return;
 								}
 							}
