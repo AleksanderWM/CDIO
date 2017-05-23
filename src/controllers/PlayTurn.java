@@ -208,7 +208,7 @@ public class PlayTurn implements Runnable{
 		shake.shakeShaker();
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
-		int turnsTried = 3;
+		int turnsTried = 2;
 		while(shake.getDice1Value()!= shake.getDice2Value()){
 			if(turnsTried != 0){
 			mGui.getButton("Press the Button to shake the dies", "Shake");
