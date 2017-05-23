@@ -208,7 +208,7 @@ public class Chance {
 						}
 						
 					}
-					if(moved){
+					if(moved == false){
 						Player.setPosition(6);
 						gui.setCar(game, PlayerID);
 						game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
