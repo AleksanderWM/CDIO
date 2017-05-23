@@ -140,7 +140,7 @@ public class Chance {
 					}
 					else{
 						Player.setPosition(pos);
-						gui.setCar(game, pos);
+						gui.setCar(game, Player.getID());
 					}
 					break;
 					
@@ -210,14 +210,14 @@ public class Chance {
 					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
 						if(game.board.getField(i) instanceof RailRoad){
 							Player.setPosition(i);
-							gui.setCar(game, Player.getPosition());
+							gui.setCar(game, Player.getID());
 							return;
 						}
 						else{
 							for(int z = 0 ; z <= game.board.getFieldList().size() ; z++){
 								if(game.board.getField(i) instanceof RailRoad){
 									Player.setPosition(i);
-									gui.setCar(game, Player.getPosition());
+									gui.setCar(game, Player.getID());
 									return;
 								}
 							}
