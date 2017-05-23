@@ -96,6 +96,7 @@ public class PlayTurn implements Runnable{
 			//Changes the gameID with + 1, to make it the next players turn. 
 			//Sends a notify to stop the wait() on all threads.
 			thisgame.updateDB();
+			thisgame.gameWinner();
 			synchronized(thisgame.lock) {
 				thisgame.gameId();
 				thisgame.lock.notifyAll();
