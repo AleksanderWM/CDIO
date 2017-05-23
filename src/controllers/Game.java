@@ -42,6 +42,7 @@ public int numberOfPlayers = 20;
 				dbc.CreateChance();
 				dbc.tbCreatorChance();
 				chance.createChance();
+				chance.addToDB();
 				board.CreateBoardFromTextFile();
 				playerList.add(player);
 				gui.CreateBoard();
