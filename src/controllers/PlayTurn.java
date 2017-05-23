@@ -315,7 +315,7 @@ public class PlayTurn implements Runnable{
 	private void caseHousing(int currentField){
 		int propertyInSeries = 0;
 		int ownedPropertyInSeries = 0;	
-		while(mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
+		if(mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
 				for(Field item : thisboard.FieldList)
 				{
 							if((item instanceof Property) && 
@@ -381,6 +381,7 @@ public class PlayTurn implements Runnable{
 				mGui.displayMidDescription("You do not own all properties in this range");
 				
 			}
+					interact(thisgame.playerList.get(playerID));
 			}
 			else {
 				if (mGui.get2Buttons("Do you want to sell a House or Hotel?","House","Hotel") == true){
@@ -424,6 +425,7 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
+		interact(thisgame.playerList.get(playerID));
 	}
 			
 	//Method for selling a property to another player.
