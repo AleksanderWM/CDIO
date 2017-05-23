@@ -121,12 +121,6 @@ public class PlayTurn implements Runnable{
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
-				else{
-					rollOutOfJail();
-				}
-				if(!wasIJustReleasedFromJail){
-					payOutOfJail();
-				}
 			}
 		}
 		else {
@@ -209,19 +203,19 @@ public class PlayTurn implements Runnable{
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
 		int turnsTried = 2;
-		while(shake.getDice1Value()!= shake.getDice2Value()){
-			if(turnsTried != 0){
+		while(shake.getDice1Value() != shake.getDice2Value() && turnsTried == 0){
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			shake.shakeShaker();
 			mGui.setDice(shake);
 			turnsTried--;
-			}
+			
 		}
-		if(shake.getDice1Value()==shake.getDice2Value()){
+		if(shake.getDice1Value() == shake.getDice2Value()){
 			thisgame.playerList.get(playerID).setPosition(11);
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 			wasIJustReleasedFromJail = true;
+			thisgame.playerList.get(playerID).resetJailTries();
 		}
 	}
 	//Method to pay out of jail.
