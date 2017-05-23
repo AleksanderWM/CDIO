@@ -17,13 +17,17 @@ public class Matador extends ChanceCard{
 		super(ID, Type, Des);
 		this.Bonus = Bonus;
 		this.MaxNetworth = Max;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void addToDB(){
 		try {
-			connector.doUpdate("chance","INSERT into matador values(" + ID + "," + Max + "," + Bonus + ");");
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+			connector.doUpdate("chance","INSERT into matador values(" + ID + "," + MaxNetworth + "," + Bonus + ");");
 			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 

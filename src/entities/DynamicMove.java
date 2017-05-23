@@ -15,18 +15,17 @@ public class DynamicMove extends ChanceCard{
 	public DynamicMove(int ID, int Type, String Des, int Moves) {
 		super(ID, Type, Des);
 		this.Moves = Moves;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void addToDB(){
 		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
 			connector.doUpdate("chance","INSERT into Dynamicmove values(" + ID + "," + Moves + ");");
 			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getMoves(){

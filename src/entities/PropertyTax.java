@@ -17,13 +17,17 @@ public class PropertyTax extends ChanceCard{
 		super(ID, Type, Des);
 		HouseTax = House;
 		HotelTax = Hotel;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void addToDB(){
 		try {
-			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + House + "," + Hotel + ");");
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+			connector.doUpdate("chance","INSERT into Propertytax values(" + ID + "," + HouseTax + "," + HotelTax + ");");
 			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int getHouseTax(){

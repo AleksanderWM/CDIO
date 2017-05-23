@@ -25,6 +25,16 @@ public class Birthday extends ChanceCard{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void addToDB(){
+		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + Fee + ");");
+			connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int getFee(){
 		return Fee;
 	}

@@ -15,7 +15,11 @@ public class FixedMove extends ChanceCard{
 	public FixedMove(int ID, int Type, String Des, int Move) {
 		super(ID, Type, Des);
 		this.Move = Move;
+	}
+	
+	public void addToDB(){
 		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
 			connector.doUpdate("chance","INSERT into FixedMove values(" + ID + "," + Move + ");");
 			connector.close();
 		} catch (SQLException e) {

@@ -54,7 +54,7 @@ public int numberOfPlayers = 20;
 				board.CreateBoardFromDB();
 				playerList.add(player);
 				try{
-					ResultSet rs = connector.doQuery("game", "Select COUNT(*) AS rowcount FROM player;");
+					ResultSet rs = connector.doQuery("game", "Select COUNT(*) AS rowcount FROM player");
 						if(rs.next()){
 							numberOfPlayers = rs.getInt("rowcount");
 						} 

@@ -15,13 +15,17 @@ public class UtillityMove extends ChanceCard {
 	public UtillityMove(int ID, int Type, String Des, int Multi) {
 		super(ID, Type, Des);
 		Multiplier = Multi;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void addToDB(){
 		try {
-			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Multi + ");");
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+			connector.doUpdate("chance","INSERT into UtillityMove values(" + ID + "," + Multiplier + ");");
 			connector.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getMultiplier(){

@@ -13,6 +13,15 @@ public class GetOutOfJail extends ChanceCard{
 		super(ID, Type, Des);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void addToDB(){
+		try {
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+			connector.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void removeChance(ChanceCard card) {

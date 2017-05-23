@@ -15,15 +15,16 @@ public class ChanceFee extends ChanceCard{
 	public ChanceFee(int ID, int Type, String Des, int Fee) {
 		super(ID, Type, Des);
 		this.Fee = Fee;
+	}
+	
+	public void addToDB(){
 		try {
-
+			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
 			connector.doUpdate("chance","INSERT into Fee values(" + ID + "," + Fee + ");");
 			connector.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getFee(){

@@ -22,14 +22,10 @@ public abstract class ChanceCard {
 		this.ID = ID;
 		this.Type = Type;
 		Description = Des;
-		try {
-			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Des + "');");
-			connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
+	public abstract void addToDB();
+	
 	public int getChanceID(){
 	return ID;
 	}

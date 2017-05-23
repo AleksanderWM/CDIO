@@ -85,6 +85,12 @@ public class Chance {
 			ShuffleCards();
 		}
 		
+		public void addToDB(){
+			for(int i = 0; i < ChanceList.size(); i++){
+				ChanceList.get(i).addToDB();
+			}
+		}
+		
 		public void ShuffleCards(){			
 			Collections.shuffle(ChanceList);				
 		}
