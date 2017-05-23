@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import desktop_resources.GUI;
 import entities.*;
 
 
@@ -81,7 +82,7 @@ public class PlayTurn implements Runnable{
 				equalsCount++;
 			}
 			if(equalsCount == 3){
-				thisgame.board.FieldList.get(11).landOnField(thisgame, thisboard, 0, playerID, mGui, shake);
+				thisgame.board.FieldList.get(31).landOnField(thisgame, thisboard, 0, playerID, mGui, shake);
 			}
 			
 			
@@ -524,8 +525,6 @@ public class PlayTurn implements Runnable{
 		int shakeValue = shake.getShake();
 		mGui.setDice(shake);
 		thisgame.playerList.get(playerID).movePosition(shakeValue);
-		System.out.println(thisgame.playerList.get(playerID).getID());
-		System.out.println(thisgame.playerList.get(playerID).getPosition());
 		mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 		
 	}

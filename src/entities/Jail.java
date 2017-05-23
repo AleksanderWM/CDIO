@@ -32,7 +32,6 @@ public class Jail implements Field {
 	}
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-	
 		
 	}
 
