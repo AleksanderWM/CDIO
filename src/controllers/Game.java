@@ -25,7 +25,7 @@ public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
 Chance chance = new Chance();
 public Property prop;
-Player player = new Player(null, 0);
+Player player = new Player(null, 0, 0);
 public volatile int id = 1;
 public int numberOfPlayers = 20;
 
@@ -52,7 +52,6 @@ public int numberOfPlayers = 20;
 		}
 			else if(answer == 2){
 				board.CreateBoardFromDB();
-				Player player = new Player(null, 0);
 				playerList.add(player);
 				try{
 					ResultSet rs = connector.doQuery("game", "Select COUNT(*) AS rowcount FROM player;");
@@ -63,12 +62,14 @@ public int numberOfPlayers = 20;
 				catch (SQLException e) {
 					e.printStackTrace();
 				}
+				numberOfPlayers = numberOfPlayers - 1;
 				System.out.println(numberOfPlayers);
+				gui.CreateBoard();			
 				enterPlayersFDB();
-				gui.CreateBoard();
+				createPlayerThreads(numberOfPlayers);
 			}
 
-		createPlayerThreads(numberOfPlayers);
+		
 	}
 	
 	public void saveDB(){
@@ -104,14 +105,14 @@ public int numberOfPlayers = 20;
  
 	public void enterPlayersFDB(){
 		for(int x = 1; x <= numberOfPlayers; x++){
-			String name = player.getNameFDB(x);
-			int idFDB = player.getPlayerIDFDB(x);
-			Player playerFDB = new Player(name, idFDB);
+			String name = player.getNameFDB(id);
+			int posi = player.getPositionFDB(id);
+			Player playerFDB = new Player(name, id, posi);
 			playerList.add(playerFDB);
-			System.out.println(playerList.get(1).getName());
-			gui.addPlayer(this, idFDB);
-			gui.setCarOnStart(this, id);
-			gui.setCar(this, idFDB);
+			System.out.println(playerList.get(id).getPosition());
+			gui.addPlayer(this, id);
+			gui.setCar(this, id);
+			id++;
 		}
 		
 	}
@@ -126,7 +127,7 @@ public int numberOfPlayers = 20;
 		
 		for(int x = 0; x < numberOfPlayers; x++){
 			String name = gui.getUserString("Enter a name");
-			Player player = new Player(name, id);
+			Player player = new Player(name, id, 1);
 			playerList.add(player);
 			gui.addPlayer(this, id);
 			gui.setCarOnStart(this, id);

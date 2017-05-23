@@ -543,6 +543,7 @@ public class mGUI {
 	 */
 	public void removeCar(Game game, int v)
 	{
+		System.out.println(game.playerList.get(v).getName());
 		GUI.removeAllCars(game.playerList.get(v).getName());
 	}
 	
