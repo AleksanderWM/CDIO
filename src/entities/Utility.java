@@ -113,7 +113,6 @@ public class Utility extends Ownable{
 	}
 	
 	public void loadfield() {
-		setOwner(getOwnerFDB());
 
 	}
 

@@ -130,6 +130,5 @@ public class RailRoad extends Ownable{
 	
 	public void loadfield() {
 		// TODO Auto-generated method stub
-		setOwner(getOwnerFDB());
 	}
 }
