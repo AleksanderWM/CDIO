@@ -180,7 +180,7 @@ public class Chance {
 				case 7 : 
 					Birthday Birthday = (Birthday)Card;
 					int Count = 0;
-					for(int i = 0 ; i <= game.playerList.size() ; i++){
+					for(int i = 0 ; i <= game.playerList.size()-1 ; i++){
 						if (game.playerList.get(i) != Player || game.playerList.get(i) != null){
 							i++;
 							game.playerList.get(i).getAccount().addBalance(-Birthday.getFee());
