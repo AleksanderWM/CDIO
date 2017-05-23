@@ -25,10 +25,10 @@ public final Object lock = new Object();
 public ArrayList<Player> playerList = new ArrayList<Player>();
 Chance chance = new Chance();
 public Property prop;
-Player playerfdb;
-
-public int numberOfPlayers = 20;
+Player player = new Player(null, 0);
 public volatile int id = 1;
+public int numberOfPlayers = 20;
+
 
 	public void gameStart(){
 		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
@@ -43,7 +43,6 @@ public volatile int id = 1;
 				dbc.tbCreatorChance();
 				chance.createChance();
 				board.CreateBoardFromTextFile();
-				Player player = new Player(null, 0);
 				playerList.add(player);
 				gui.CreateBoard();
 				enterPlayers();
@@ -64,9 +63,9 @@ public volatile int id = 1;
 				catch (SQLException e) {
 					e.printStackTrace();
 				}
+				System.out.println(numberOfPlayers);
 				enterPlayersFDB();
 				gui.CreateBoard();
-				saveDB();
 			}
 
 		createPlayerThreads(numberOfPlayers);
@@ -104,14 +103,17 @@ public volatile int id = 1;
 	}
  
 	public void enterPlayersFDB(){
-		for(int x = 0; x < numberOfPlayers; x++){
-			String name = playerfdb.getName();
-			int idFDB = playerfdb.getID();
+		for(int x = 1; x <= numberOfPlayers; x++){
+			String name = player.getNameFDB(x);
+			int idFDB = player.getPlayerIDFDB(x);
 			Player playerFDB = new Player(name, idFDB);
 			playerList.add(playerFDB);
+			System.out.println(playerList.get(1).getName());
 			gui.addPlayer(this, idFDB);
-			gui.setCarOnStart(this, idFDB);
+			gui.setCarOnStart(this, id);
+			gui.setCar(this, idFDB);
 		}
+		
 	}
 	
 	public void enterPlayers()

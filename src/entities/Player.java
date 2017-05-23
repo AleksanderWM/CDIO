@@ -73,10 +73,10 @@ public class Player {
 		}
 	}
 	
-	public String getNameFDB(){
+	public String getNameFDB(int playerNumber){
 		String playerFDB = null;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select Name FROM Player WHERE PlayerID = " + ID + ";");
+			ResultSet rs = connector.doQuery("game", "Select Name FROM Player WHERE PlayerID = " + playerNumber + ";");
 			if(rs.next()){
 			playerFDB = rs.getString("Name");
 			}
@@ -133,16 +133,16 @@ public class Player {
 	public void savePlayerIDDB(){
 		int playerIDToSave = getID();
 		try {
-			connector.doUpdate("game", "UPDATE Player SET GetOutOfJail = " + playerIDToSave + " WHERE PlayerID = " + ID + ";");
+			connector.doUpdate("game", "UPDATE Player SET PlayerID = " + playerIDToSave + " WHERE PlayerID = " + ID + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public int getPlayerIDFDB(){
+	public int getPlayerIDFDB(int playerNumber){
 		int playerIDFDB = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select GetOutOfJail FROM Player WHERE PlayerID = " + ID + ";");
+			ResultSet rs = connector.doQuery("game", "Select PlayerID FROM Player WHERE PlayerID = " + playerNumber + ";");
 			if(rs.next()){
 			playerIDFDB = rs.getInt("PlayerID");
 			}
