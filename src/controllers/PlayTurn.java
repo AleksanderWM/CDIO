@@ -376,7 +376,7 @@ public class PlayTurn implements Runnable{
 				mGui.displayMidDescription("You do not own all properties in this range");
 				
 			}
-					interact(thisgame.playerList.get(playerID));
+					caseHousing(currentField);
 			}
 			else {
 				if (mGui.get2Buttons("Do you want to sell a House or Hotel?","House","Hotel") == true){
@@ -420,7 +420,7 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
-		interact(thisgame.playerList.get(playerID));
+		caseHousing(currentField);
 	}
 			
 	//Method for selling a property to another player.
