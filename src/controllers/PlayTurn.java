@@ -54,14 +54,13 @@ public class PlayTurn implements Runnable{
 			
 			//checks if player is in jail, and if not, if he was just released from it. 
 			//Was the player just released he sets the boolean wasIJustReleasedFromJail to false
-			amIInJail();
-			if(!wasIJustReleasedFromJail){
+			if(jailed == thisgame.playerList.get(playerID).getPosition())
+				amIInJail();
+			else {
 			shakeAndMove();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 			}
-			else{
-				wasIJustReleasedFromJail = false;
-			}
+
 			//Initiates the Interaction that gives the player choices over what he wants to do.
 			interact(thisgame.playerList.get(playerID));
 			//Sets the balance
