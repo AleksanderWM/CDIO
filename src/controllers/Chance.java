@@ -51,7 +51,7 @@ public class Chance {
 				e.printStackTrace();
 			}
 			ChanceList.add(new ChanceFee(1, 6, ChanceDes[2], -1000));
-			ChanceList.add(new FixedMove(2, 3, ChanceDes[5], 0));
+			ChanceList.add(new FixedMove(2, 3, ChanceDes[5], 1));
 			ChanceList.add(new FixedMove(3, 3, ChanceDes[3], 31));
 			ChanceList.add(new FixedMove(4, 3, ChanceDes[3], 31));
 			ChanceList.add(new ChanceFee(5, 6, ChanceDes[4], -200));
@@ -126,7 +126,7 @@ public class Chance {
 					Utility.landOnField(game, game.board, Utility.getFieldID(), Player.getID(), gui, shake);
 					}
 						Player.setPosition(pos);
-						gui.setCar(game, Player.getID());
+						gui.setCar(game, PlayerID);
 					
 					break;
 					
@@ -153,14 +153,14 @@ public class Chance {
 				case 3 : 
 					FixedMove Fixed = (FixedMove)Card;
 					Player.setPosition(Fixed.getMove());
-					gui.setCar(game, Player.getID());
+					gui.setCar(game, PlayerID);
 					game.board.getField(Fixed.getMove()).landOnField(game, game.board, Fixed.getMove(), Player.getID(), gui, shake);
 					break;
 //			DynamicMove
 				case 4 : 
 					DynamicMove Dyn = (DynamicMove)Card;
 					Player.movePosition(Dyn.getMoves());
-					gui.setCar(game, Player.getID());
+					gui.setCar(game, PlayerID);
 					game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 					break;
 //			Matador
@@ -179,15 +179,17 @@ public class Chance {
 //			Birthday
 				case 7 : 
 					Birthday Birthday = (Birthday)Card;
-					int Count = 0;
-					for(int i = 0 ; i <= game.playerList.size()-1 ; i++){
-						if (game.playerList.get(i) != Player || game.playerList.get(i) != null){
-							i++;
+					int Count = game.playerList.size()-1;
+					for(int i = 0; i <= Count ; i++){
+						if(Player == game.playerList.get(i)){
+							Player.getAccount().addBalance((Count-1)*Birthday.getFee());
+						}
+						else{
 							game.playerList.get(i).getAccount().addBalance(-Birthday.getFee());
 						}
-					int present = Birthday.getFee() * Count;
-					Player.getAccount().addBalance(present);
 					}
+					
+					
 					break;
 //			GetOutOfJail
 				case 8 : 
@@ -198,19 +200,14 @@ public class Chance {
 					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
 						if(game.board.getField(i) instanceof RailRoad){
 							Player.setPosition(i);
-							gui.setCar(game, Player.getID());
+							gui.setCar(game, PlayerID);
 							game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 							return;
 						}
 						else{
-							for(int z = 0 ; z <= game.board.getFieldList().size() ; z++){
-								if(game.board.getField(i) instanceof RailRoad){
-									Player.setPosition(i);
-									gui.setCar(game, Player.getID());
+									Player.setPosition(6);
+									gui.setCar(game, PlayerID);
 									game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
-									return;
-								}
-							}
 						}
 					}
 					break;
