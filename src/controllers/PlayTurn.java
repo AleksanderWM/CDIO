@@ -51,11 +51,13 @@ public class PlayTurn implements Runnable{
 							}
 					}
 			}
-			
+			System.out.println(thisgame.playerList.get(playerID).getName());
 			//checks if player is in jail, and if not, if he was just released from it. 
 			//Was the player just released he sets the boolean wasIJustReleasedFromJail to false
-			if(jailed == thisgame.playerList.get(playerID).getPosition())
+			if(jailed == thisgame.playerList.get(playerID).getPosition()){
+				System.out.println("Fængsel");
 				amIInJail();
+			}
 			else {
 			shakeAndMove();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
@@ -75,7 +77,9 @@ public class PlayTurn implements Runnable{
 				thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 				}
 				interact(thisgame.playerList.get(playerID));
-				equalsCount++;
+				if(shake.getDice1Value()==shake.getDice2Value()){
+					equalsCount++;
+				}
 			}
 			if(equalsCount == 3){
 				thisgame.board.FieldList.get(31).landOnField(thisgame, thisboard, 0, playerID, mGui, shake);
@@ -116,6 +120,7 @@ public class PlayTurn implements Runnable{
 			else if(thisgame.playerList.get(playerID).getJailTries() == 2) {
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
+					System.out.println("Fængsel Forced ud");
 				}
 			}
 		}
@@ -123,6 +128,7 @@ public class PlayTurn implements Runnable{
 			thisgame.playerList.get(playerID).setOutOfJail(-1);
 			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).setPosition(11);
+			System.out.println("Fængsel KongeKort");
 		}
 	}
 	}
@@ -194,15 +200,17 @@ public class PlayTurn implements Runnable{
 			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
 			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
+			System.out.println("Fængsel rullet ud");
 		}
 	}
 	//Method to pay out of jail.
 	private void payOutOfJail(){
-		thisgame.playerList.get(playerID).getAccount().setBalance(-1000);
+		thisgame.playerList.get(playerID).getAccount().addBalance(-1000);
 		wasIJustReleasedFromJail = true;
 		thisgame.playerList.get(playerID).setPosition(11);
 		shakeAndMove();
 		thisgame.playerList.get(playerID).resetJailTries();
+		System.out.println("Fængsel købt ud");
 	}
 	//Method for the different options a player can do after he rolls the dices.
 	public void interact(Player thisplayer){
