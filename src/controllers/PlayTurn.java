@@ -315,7 +315,7 @@ public class PlayTurn implements Runnable{
 	private void caseHousing(int currentField){
 		int propertyInSeries = 0;
 		int ownedPropertyInSeries = 0;	
-		if (mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
+		while(mGui.get2Buttons("Do you want to buy or sell?","Buy","Sell") == true){
 				for(Field item : thisboard.FieldList)
 				{
 							if((item instanceof Property) && 
