@@ -63,9 +63,9 @@ public class Chance {
 			ChanceList.add(new ChanceFee(11, 6, ChanceDes[11], -1000));
 			ChanceList.add(new PropertyTax(12, 2, ChanceDes[12], 800, 2300));
 			ChanceList.add(new FixedMove(13, 3, ChanceDes[13], 25));
-			ChanceList.add(new UtillityMove(14, 1, ChanceDes[14], 2));
-			ChanceList.add(new UtillityMove(15, 1, ChanceDes[14], 2));
-			ChanceList.add(new RailroadMove(16, 9, ChanceDes[15]));
+			ChanceList.add(new UtillityMove(14, 1, ChanceDes[15], 2));
+			ChanceList.add(new UtillityMove(15, 1, ChanceDes[15], 2));
+			ChanceList.add(new RailroadMove(16, 9, ChanceDes[14]));
 			ChanceList.add(new GetOutOfJail(17, 8, ChanceDes[16]));
 			ChanceList.add(new GetOutOfJail(18, 8, ChanceDes[16]));
 			ChanceList.add(new ChanceFee(19, 6, ChanceDes[17], 1000));
@@ -114,7 +114,7 @@ public class Chance {
 //			UtillityMove
 				case 1 : 
 					int pos;
-					if(Player.getPosition() < 13 && Player.getPosition() > 29){
+					if(Player.getPosition() > 13 && Player.getPosition() < 29){
 						pos = 29;
 					}
 					else{
