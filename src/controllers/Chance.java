@@ -105,7 +105,6 @@ public class Chance {
 		}
 		mGUI gui =GUI;
 		ChanceCard Card = ChanceList.get(ChanceList.size()-1);
-		System.out.println("" + Card.getDescription());
 		Player Player = game.playerList.get(PlayerID);
 		gui.displayMidDescription(Card.getDescription());
 		gui.getButton(Card.getDescription(), "Move on");
