@@ -15,23 +15,19 @@ public class Birthday extends ChanceCard{
 	public Birthday(int ID, int Type, String Des, int fee) {
 		super(ID, Type, Des);
 		this.Fee = fee;
-		try {
-			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + fee + ");");
-			connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 		// TODO Auto-generated constructor stub
 	}
 	
 	public void addToDB(){
-		try {
-			connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
-			connector.doUpdate("chance","INSERT into birthday values(" + ID + "," + Fee + ");");
-			connector.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+			try {
+				connector.doUpdate("chance","INSERT into Chance values(" + ID + "," + Type + ", '" + Description + "');");
+				connector.doUpdate("chance","INSERT into Birthday values(" + ID + "," + Fee + ");");
+				connector.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			
 		}
 	}
 	

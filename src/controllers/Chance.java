@@ -86,7 +86,7 @@ public class Chance {
 		}
 		
 		public void addToDB(){
-			for(int i = 0; i < ChanceList.size(); i++){
+			for(int i = 0; i < ChanceList.size()-1; i++){
 				ChanceList.get(i).addToDB();
 			}
 		}
