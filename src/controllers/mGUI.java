@@ -511,8 +511,15 @@ public class mGUI {
 	 */
 	public void setCar(Game game, int v)
 	{
+		if(game.playerList.get(v).getPosition() == 41)
+		{
+			removeCar(game,v);
+			GUI.setCar(11, game.playerList.get(v).getName());
+		}
+		else {
 		removeCar(game,v);
 		GUI.setCar(game.playerList.get(v).getPosition(), game.playerList.get(v).getName());
+		}
 	}
 	
 	/**

@@ -14,6 +14,8 @@ import entities.Field;
 import entities.Ownable;
 import entities.Player;
 import entities.Property;
+import entities.RailRoad;
+import entities.Utility;
 
 public class Game {
 static mGUI gui = new mGUI();
@@ -64,9 +66,9 @@ public int numberOfPlayers = 20;
 					e.printStackTrace();
 				}
 				numberOfPlayers = numberOfPlayers - 1;
-				System.out.println(numberOfPlayers);
 				gui.CreateBoard();			
 				enterPlayersFDB();
+				updateBoardFDB();
 				createPlayerThreads(numberOfPlayers);
 			}
 
@@ -86,7 +88,13 @@ public int numberOfPlayers = 20;
 			item.savePlayerDB();
 		}
 	}
-	
+	public void updateBoardFDB(){
+		for(Field item : board.FieldList){
+			if(item instanceof Ownable && ((Ownable)item).getFieldID() > 0 && item != null && ((Ownable)item).getOwner() != 0){
+				gui.setOwner(((Ownable)item).getFieldID(), playerList.get(((Ownable)item).getOwner()).getName());
+			}
+		}
+	}
 	public void updateDB(){
 		for(Field item : board.FieldList){
 			if(item instanceof Ownable){
@@ -112,7 +120,6 @@ public int numberOfPlayers = 20;
 			int jtry = player.getJailTriesFDB(id);
 			Player playerFDB = new Player(name, id, posi, gooj, jtry);
 			playerList.add(playerFDB);
-			System.out.println(playerList.get(id).getPosition());
 			gui.addPlayer(this, id);
 			gui.setCar(this, id);
 			id++;
