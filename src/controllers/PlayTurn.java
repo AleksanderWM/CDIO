@@ -68,14 +68,12 @@ public class PlayTurn implements Runnable{
 			//Check to make sure if the player rolls equals 3 times in a row, that he is put in jail
 			int equalsCount = 1;
 			while(shake.getDice1Value()==shake.getDice2Value() && equalsCount != 3){
-				amIInJail();
-				if(!wasIJustReleasedFromJail){
+				if(jailed == thisgame.playerList.get(playerID).getPosition())
+					amIInJail();
+				else {
 				shakeAndMove();
-				}
-				else{
-					wasIJustReleasedFromJail = false;
-				}
 				thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
+				}
 				interact(thisgame.playerList.get(playerID));
 				equalsCount++;
 			}
