@@ -34,12 +34,12 @@ public class Player {
 	 * Player constructor
 	 * @param Inserts player into the game database
 	 */
-	public Player(String name, int ID, int pos){
+	public Player(String name, int ID, int pos, int gooj, int jtries){
 			this.Account = new Account(ID);
 			this.ID = ID;
 			this.name = name;
-			getOutOfJail = 0;
-			JailTries = 0;
+			getOutOfJail = gooj;
+			JailTries = jtries;
 			position = pos;
 	}
 	
@@ -118,10 +118,10 @@ public class Player {
 		}
 	}
 	
-	public int getGOOJFDB(){
+	public int getGOOJFDB(int playerNumber){
 		int GOOJFDB = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select GetOutOfJail FROM Player WHERE PlayerID = " + ID + ";");
+			ResultSet rs = connector.doQuery("game", "Select GetOutOfJail FROM Player WHERE PlayerID = " + playerNumber + ";");
 			if(rs.next()){
 			GOOJFDB = rs.getInt("GetOutOfJail");
 			}
@@ -162,10 +162,10 @@ public class Player {
 		}
 	}
 	
-	public int getJailTriesFDB(){
+	public int getJailTriesFDB(int playerNumber){
 		int jailTriesFDB = 0;
 		try {
-			ResultSet rs = connector.doQuery("game", "Select Jailtries FROM Player WHERE PlayerID = " + ID + ";");
+			ResultSet rs = connector.doQuery("game", "Select Jailtries FROM Player WHERE PlayerID = " + playerNumber + ";");
 			if(rs.next()){
 			jailTriesFDB = rs.getInt("Jailtries");
 			}
