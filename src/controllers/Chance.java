@@ -197,18 +197,21 @@ public class Chance {
 					break;
 //			RailRoad
 				case 9 : 
+					boolean moved = false;
 					for(int i = Player.getPosition() ; i <= game.board.getFieldList().size() ; i++){
 						if(game.board.getField(i) instanceof RailRoad){
+							moved = true;
 							Player.setPosition(i);
 							gui.setCar(game, PlayerID);
 							game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 							return;
 						}
-						else{
-									Player.setPosition(6);
-									gui.setCar(game, PlayerID);
-									game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
-						}
+						
+					}
+					if(moved){
+						Player.setPosition(6);
+						gui.setCar(game, PlayerID);
+						game.board.getField(Player.getPosition()).landOnField(game, game.board, Player.getPosition(), Player.getID(), gui, shake);
 					}
 					break;
 					
