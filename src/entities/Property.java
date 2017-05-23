@@ -201,6 +201,7 @@ public class Property extends Ownable {
 			e.printStackTrace();
 		}
 		return HousesFDB;
+		
 	}
 	
 	public int gethotelFDB(int fieldNumber){

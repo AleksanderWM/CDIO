@@ -93,6 +93,13 @@ public int numberOfPlayers = 20;
 		for(Field item : board.FieldList){
 			if(item instanceof Ownable && ((Ownable)item).getFieldID() > 0 && item != null && ((Ownable)item).getOwner() != 0){
 				gui.setOwner(((Ownable)item).getFieldID(), playerList.get(((Ownable)item).getOwner()).getName());
+
+			}
+			if(item instanceof Property && ((Ownable)item).getFieldID() > 0 && item != null && ((Ownable)item).getOwner() != 0 && ((Property)item).getHotel() > 0 ){
+				gui.setHotel(((Ownable)item).getFieldID(), ((Property)item).getHotel());
+			}
+			if(item instanceof Property && ((Ownable)item).getFieldID() > 0 && item != null && ((Ownable)item).getOwner() != 0 && ((Property)item).getHouses() > 0 ){
+				gui.setHouse(((Ownable)item).getFieldID(), ((Property)item).getHouses());
 			}
 		}
 	}

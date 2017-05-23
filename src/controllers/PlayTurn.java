@@ -51,11 +51,9 @@ public class PlayTurn implements Runnable{
 							}
 					}
 			}
-			System.out.println(thisgame.playerList.get(playerID).getName());
 			//checks if player is in jail, and if not, if he was just released from it. 
 			//Was the player just released he sets the boolean wasIJustReleasedFromJail to false
 			if(jailed == thisgame.playerList.get(playerID).getPosition()){
-				System.out.println("Fængsel");
 				amIInJail();
 			}
 			else {
@@ -118,12 +116,14 @@ public class PlayTurn implements Runnable{
 			}
 			
 		}
+		if(playersLeft == 1){
 		for(Player item : thisgame.playerList)
 			if(item.getAccount().getBalance() > 0 && item.getID() > 0){
 				GUI.getUserButtonPressed(item.getName() + " Won the game", "Exit Game");
 				System.exit(0);
 			}
 		}
+	}
 	
 	
 	//Checks if the player is in jail, and if he is gives him choices wether to roll or pay to get out.
@@ -142,7 +142,6 @@ public class PlayTurn implements Runnable{
 			else if(thisgame.playerList.get(playerID).getJailTries() == 2) {
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
-					System.out.println("Fængsel Forced ud");
 				}
 			}
 		}
@@ -158,8 +157,6 @@ public class PlayTurn implements Runnable{
 			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
-
-			System.out.println("Fængsel KongeKort");
 		}
 	}
 	}
@@ -232,8 +229,6 @@ public class PlayTurn implements Runnable{
 			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
-
-			System.out.println("Fængsel rullet ud");
 		}
 	}
 	//Method to pay out of jail.
@@ -243,7 +238,6 @@ public class PlayTurn implements Runnable{
 		thisgame.playerList.get(playerID).setPosition(11);
 		shakeAndMove();
 		thisgame.playerList.get(playerID).resetJailTries();
-		System.out.println("Fængsel købt ud");
 	}
 	//Method for the different options a player can do after he rolls the dices.
 	public void interact(Player thisplayer){
@@ -289,11 +283,11 @@ public class PlayTurn implements Runnable{
 							for(Field item : thisboard.FieldList)
 								{
 							if((item instanceof Property) && 
-											(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+											(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor())){
 												propertyInSeries++;
 									}
 							if((item instanceof Property) && 
-									(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+									(((Property)item).getColor()) == ((Ownable)thisboard.FieldList.get(currentField)).getColor() && 
 									(((((Property)item).getHouses()) == 0) ||
 									((((Property)item).getHotel()) == 0))){
 										propertyWithoutHouses++;
@@ -305,9 +299,9 @@ public class PlayTurn implements Runnable{
 								{
 									
 								//Transferral
+										thisgame.playerList.get(playerID).getAccount().addBalance(-buyPrice);
+										thisgame.playerList.get(owner).getAccount().addBalance(buyPrice);
 										((Ownable) thisboard.FieldList.get(currentField)).setOwner(playerID);
-										thisgame.playerList.get(playerID).getAccount().addBalance(buyPrice);
-										thisgame.playerList.get(owner).getAccount().addBalance(-buyPrice);
 										mGui.setOwner(currentField, thisgame.playerList.get(playerID).getName());
 								}
 								else{
