@@ -99,11 +99,11 @@ public class Chance {
 			return ChanceList.size();
 		}
 		
-		public void DrawChance(int PlayerID,Game game, mGUI gui,Shaker shake){
+		public void DrawChance(int PlayerID,Game game, mGUI GUI,Shaker shake){
 		if(ChanceList.size() == 0){
 			createChance();
 		}
-		
+		mGUI gui =GUI;
 		ChanceCard Card = ChanceList.get(ChanceList.size()-1);
 		System.out.println("" + Card.getDescription());
 		Player Player = game.playerList.get(PlayerID);

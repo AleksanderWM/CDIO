@@ -33,7 +33,7 @@ public int numberOfPlayers = 20;
 
 
 	public void gameStart(){
-		System.out.println("Start a new game, or load from memory? Yes = New game, No = Load");
+		System.out.println("Start a new game, or load from memory? 1 = New game, 2 = Load");
 		int answer = scan.nextInt();
 		if(answer == 1){
 			dbc.DeleteDBTemp("game", connector);
