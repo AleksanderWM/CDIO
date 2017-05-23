@@ -35,7 +35,7 @@ public class PlayTurn implements Runnable{
 	//The run method, is the method that is running, when the thread is active and alive.
 	@Override
 	public void run() {
-		
+		gameWinner();
 		//Checks that the player has money left, otherwise he is out of the game.
 		while(thisgame.playerList.get(playerID).getAccount().getBalance()!=0){
 			//This is the code that has the thread either go to wait, if the thisgame.id is not matching theirs.
@@ -96,14 +96,36 @@ public class PlayTurn implements Runnable{
 			//Changes the gameID with + 1, to make it the next players turn. 
 			//Sends a notify to stop the wait() on all threads.
 			thisgame.updateDB();
-			thisgame.gameWinner();
+			gameWinner();
 			synchronized(thisgame.lock) {
 				thisgame.gameId();
 				thisgame.lock.notifyAll();
 			}
 			}
+		gameWinner();
+		synchronized(thisgame.lock) {
+				thisgame.gameId();
+				thisgame.lock.notifyAll();
+			}
 			
 		}
+	
+	public void gameWinner(){
+		int playersLeft = 0;
+		for(Player item : thisgame.playerList){
+			if(item.getAccount().getBalance() <= 0){
+				playersLeft++;
+			}
+			
+		}
+		for(Player item : thisgame.playerList)
+			if(item.getAccount().getBalance() > 0 && item.getID() > 0){
+				GUI.getUserButtonPressed(item.getName() + " Won the game", "Exit Game");
+				System.exit(0);
+			}
+		}
+	
+	
 	//Checks if the player is in jail, and if he is gives him choices wether to roll or pay to get out.
 	//If he has a get out of jail free card, that will be used instantly and he will be placed out of jail.
 	public void amIInJail(){
@@ -155,7 +177,7 @@ public class PlayTurn implements Runnable{
 	//If the player, after his turn is still below 0, this will sell off his stuff automaticly, untill the value is again higher than 0.
 	public void sellOfStuff(){
 		
-		while(thisgame.playerList.get(playerID).getAccount().getBalance() < 0){
+		if(thisgame.playerList.get(playerID).getAccount().getBalance() <= 0){
 			
 			for(Field item : thisboard.FieldList)
 			{
@@ -376,7 +398,7 @@ public class PlayTurn implements Runnable{
 				mGui.displayMidDescription("You do not own all properties in this range");
 				
 			}
-					caseHousing(currentField);
+					interact(thisgame.playerList.get(playerID));
 			}
 			else {
 				if (mGui.get2Buttons("Do you want to sell a House or Hotel?","House","Hotel") == true){
@@ -420,7 +442,7 @@ public class PlayTurn implements Runnable{
 					}
 				}
 			}
-		caseHousing(currentField);
+		interact(thisgame.playerList.get(playerID));
 	}
 			
 	//Method for selling a property to another player.

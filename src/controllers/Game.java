@@ -168,18 +168,6 @@ public int numberOfPlayers = 20;
 		}
 
 	
-	public void gameWinner(){
-		int playersLeft = 0;
-		for(Player item : playerList){
-			if(item.getAccount().getBalance() <= 0){
-				playersLeft++;
-			}
-			if(playersLeft == numberOfPlayers){
-				gui.getButton(item.getName() + " Has won the game", "Exit Game");
-				System.exit(0);
-			}
-		}
-	}
 
 	
 	public int gameId(){
