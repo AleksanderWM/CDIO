@@ -219,7 +219,7 @@ public class Chance {
 					
 			}
 			Card.removeChance(Card);
-			ChanceList.remove(ChanceList.size()-1);
+			ChanceList.remove(ChanceList.size()-2);
 		}
 			
 		@SuppressWarnings("null")
