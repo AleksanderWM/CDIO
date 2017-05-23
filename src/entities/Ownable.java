@@ -304,5 +304,7 @@ public abstract class Ownable implements Field {
 		return FieldID;
 		
 	}
-	
+	public Color getColor(){
+		return Colour;
+	}
 }

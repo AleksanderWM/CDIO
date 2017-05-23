@@ -44,12 +44,13 @@ public class PlayTurn implements Runnable{
 					try {
 						mGui.setBalance(thisgame, playerID);
 						thisgame.lock.wait();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					}
-				}
 			}
+			
 			//checks if player is in jail, and if not, if he was just released from it. 
 			//Was the player just released he sets the boolean wasIJustReleasedFromJail to false
 			amIInJail();
@@ -316,11 +317,11 @@ public class PlayTurn implements Runnable{
 				for(Field item : thisboard.FieldList)
 				{
 							if((item instanceof Property) && 
-									(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour())){
+									(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor())){
 										propertyInSeries++;
 							}
 							if((item instanceof Property) && 
-									(((Property)item).getColour() == thisboard.FieldList.get(currentField).getColour()) && 
+									(((Property)item).getColor() == ((Ownable)thisboard.FieldList.get(currentField)).getColor()) && 
 									(((Property)item).getOwner()) == thisboard.FieldList.get(currentField).getNumber()){
 										ownedPropertyInSeries++;
 							}
@@ -332,7 +333,7 @@ public class PlayTurn implements Runnable{
 							for(Field item : thisboard.FieldList){
 								
 								if((item instanceof Property) && 
-										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										(((Property)item).getColor()) == ((Ownable)thisboard.FieldList.get(currentField)).getColor() && 
 										((Property)item).getHouses() < 5 &&
 										((((Property)item).getHouses()) == (((Property)thisboard.FieldList.get(currentField)).getHouses()) ||
 										((((Property)item).getHouses())+1) > (((Property)thisboard.FieldList.get(currentField)).getHouses()))){
@@ -355,7 +356,7 @@ public class PlayTurn implements Runnable{
 							int propertyWithHotel = 0;
 							for(Field item : thisboard.FieldList){
 								if((item instanceof Property) && 
-										(((Property)item).getColour()) == thisboard.FieldList.get(currentField).getColour() && 
+										(((Property)item).getColor()) == ((Ownable)thisboard.FieldList.get(currentField)).getColor() && 
 										((((Property)item).getHouses()) == 4 ||
 										(((Property)item).getHotel()) <= 1)){
 											propertyWithHotel++;
