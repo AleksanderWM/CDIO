@@ -52,8 +52,8 @@ public class Chance {
 			}
 			ChanceList.add(new ChanceFee(1, 6, ChanceDes[2], -1000));
 			ChanceList.add(new FixedMove(2, 3, ChanceDes[5], 0));
-			ChanceList.add(new FixedMove(3, 3, ChanceDes[3], 11));
-			ChanceList.add(new FixedMove(4, 3, ChanceDes[3], 11));
+			ChanceList.add(new FixedMove(3, 3, ChanceDes[3], 31));
+			ChanceList.add(new FixedMove(4, 3, ChanceDes[3], 31));
 			ChanceList.add(new ChanceFee(5, 6, ChanceDes[4], -200));
 			ChanceList.add(new ChanceFee(6, 6, ChanceDes[6], -2000));
 			ChanceList.add(new ChanceFee(7, 6, ChanceDes[7], 1000));
