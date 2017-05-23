@@ -57,12 +57,11 @@ public class PlayTurn implements Runnable{
 			amIInJail();
 			if(!wasIJustReleasedFromJail){
 			shakeAndMove();
+			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 			}
 			else{
 				wasIJustReleasedFromJail = false;
 			}
-			//executes the method landOnField method
-			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 			//Initiates the Interaction that gives the player choices over what he wants to do.
 			interact(thisgame.playerList.get(playerID));
 			//Sets the balance
@@ -117,7 +116,7 @@ public class PlayTurn implements Runnable{
 					rollOutOfJail();
 				}
 			}
-			else if(thisgame.playerList.get(playerID).getJailTries() == 3) {
+			else if(thisgame.playerList.get(playerID).getJailTries() == 2) {
 				if (mGui.get2Buttons("What would you like to do?","Pay fine","Try Luck") == true){
 					payOutOfJail();
 				}
@@ -126,6 +125,7 @@ public class PlayTurn implements Runnable{
 		else {
 			thisgame.playerList.get(playerID).setOutOfJail(-1);
 			wasIJustReleasedFromJail = true;
+			thisgame.playerList.get(playerID).setPosition(11);
 		}
 	}
 	}
@@ -139,26 +139,6 @@ public class PlayTurn implements Runnable{
 		}
 	}
 	
-	public void haveIWon(){
-		int remainingPlayers = 0;
-			for(Player item : thisgame.playerList){
-				while(item.getAccount().getBalance() <= 0){
-					remainingPlayers++;
-				}
-			}
-			if(remainingPlayers == 1){
-				for(Player item : thisgame.playerList){
-					if(item.getAccount().getBalance() > 0){
-						
-						mGui.displayMidDescription("Player" + item.getName() + "Won the game!!");
-						mGui.getButton("Player" + item.getName() + "Won", "Exit");
-						System.exit(0);
-					}
-				}
-			}
-		
-			
-	}
 	
 	//If the player, after his turn is still below 0, this will sell off his stuff automaticly, untill the value is again higher than 0.
 	public void sellOfStuff(){
@@ -207,6 +187,7 @@ public class PlayTurn implements Runnable{
 			mGui.getButton("Press the Button to shake the dies", "Shake");
 			shake.shakeShaker();
 			mGui.setDice(shake);
+			shakeValue = shake.getShake();
 			turnsTried--;
 			
 		}
@@ -367,6 +348,10 @@ public class PlayTurn implements Runnable{
 								mGui.setBalance(thisgame, playerID);
 								mGui.setHouse(currentField, ((Property)thisboard.FieldList.get(currentField)).getHouses());
 								mGui.setHotel(currentField, ((Property)thisboard.FieldList.get(currentField)).getHotel());
+							}
+							else {
+								mGui.showMessage("You do not have enough houses yet");
+								mGui.displayMidDescription("You do not have enough houses yet");
 							}
 					}
 				}
