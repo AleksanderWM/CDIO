@@ -21,7 +21,6 @@ public class PlayTurn implements Runnable{
 	private Thread t;
 	private String thread;
 	private int jailed = 41;
-	private boolean wasIJustReleasedFromJail = false;
 	
 	//Creates a constructor for the PlayTurn, giving instances of the current game and board, from game.
 	public PlayTurn(String name, int playid, Game game, GameBoard board){
@@ -154,7 +153,6 @@ public class PlayTurn implements Runnable{
 			mGui.setDice(shake);
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
-			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 		}
@@ -226,7 +224,6 @@ public class PlayTurn implements Runnable{
 			thisgame.playerList.get(playerID).setPosition(11);
 			thisgame.playerList.get(playerID).movePosition(shakeValue);
 			mGui.setCar(thisgame, thisgame.playerList.get(playerID).getID());
-			wasIJustReleasedFromJail = true;
 			thisgame.playerList.get(playerID).resetJailTries();
 			thisgame.board.FieldList.get(thisgame.playerList.get(playerID).getPosition()).landOnField(thisgame, thisboard, thisgame.playerList.get(playerID).getPosition(), playerID, mGui, shake);
 		}
@@ -234,7 +231,6 @@ public class PlayTurn implements Runnable{
 	//Method to pay out of jail.
 	private void payOutOfJail(){
 		thisgame.playerList.get(playerID).getAccount().addBalance(-1000);
-		wasIJustReleasedFromJail = true;
 		thisgame.playerList.get(playerID).setPosition(11);
 		shakeAndMove();
 		thisgame.playerList.get(playerID).resetJailTries();
