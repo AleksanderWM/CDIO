@@ -22,7 +22,7 @@ public class FixedTax extends Fee {
 	public FixedTax(String title,String description, String subtext) {
 		super();
 		Title = title;
-		Fee = 4000;
+		Fee = 2000;
 		Description = description;
 		Colour = Color.GRAY;
 		Subtext = subtext;

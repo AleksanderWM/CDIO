@@ -37,7 +37,7 @@ public class PercentageTax extends Fee{
 	 */
 	@Override
 	public void landOnField(Game game, GameBoard gameboard, int b, int p, mGUI mui, Shaker shake) {
-		boolean taxChoice = mui.get2Buttons(Description, "1000", "10%");
+		boolean taxChoice = mui.get2Buttons(Description, "4000", "10%");
 		if (!taxChoice)
 		{
 			game.playerList.get(p).getAccount().addBalance((int) -(game.playerList.get(p).getAccount().getBalance()*Percentage));
